@@ -49,14 +49,8 @@
   <ItemGroup>
     <Compile Include="DatabaseInitializer.cs" />
     <Compile Include="Entries\BaseEntry.cs" />
-    <Compile Include="Entries\Entry301.cs" />
-    <Compile Include="Entries\Entry302.cs" />
-    <Compile Include="Entries\Entry501.cs" />
-    <Compile Include="Entries\Entry502.cs" />
-    <Compile Include="Entries\Entry503.cs" />
-    <Compile Include="Entries\Entry504.cs" />
-    <Compile Include="Entries\Entry601.cs" />
-    <Compile Include="Entries\Entry602.cs" />
+    <Compile Include="Entries\EntryCreate.cs" />
+    <Compile Include="Entries\EntryReceive.cs" />
     <Compile Include="Entries\MessageTrack.cs" />
     <Compile Include="EntryContext.cs" />
     <Compile Include="SqlServer.cs" />

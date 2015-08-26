@@ -8,6 +8,7 @@ namespace FS.Database.Entries
         [Key]
         public int Id { get; set; }
         public Guid ItemGuid { get; set; }
+        public string FilePath { get; set; }
         public string Commnet1 { get; set; }
         public string Commnet2 { get; set; }
         public string Commnet3 { get; set; }

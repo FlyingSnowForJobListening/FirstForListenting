@@ -11,7 +11,8 @@ namespace FS.Database
     public class EntryContext : DbContext
     {
         public EntryContext() : base("EntrySqlConnection") { }
-        public DbSet<Entry302> Entry302s { get; set; }
+        public DbSet<EntryCreate> CreatedEntries { get; set; }
+        public DbSet<EntryReceive> ReceivedEntries { get; set; }
         public DbSet<MessageTrack> MessageTracks { get; set; }
     }
 }

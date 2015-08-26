@@ -18,7 +18,7 @@ namespace FS.Platform.Application
                 System.Data.Entity.Database.SetInitializer(new Database.DatabaseInitializer());
                 using (var db = new EntryContext())
                 {
-                    var entry = new Entry302();
+                    var entry = new EntryReceive();
                     db.Entry302s.Add(entry);
                     db.SaveChanges();
                     var s = db.Entry302s;

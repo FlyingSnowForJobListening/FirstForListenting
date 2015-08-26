@@ -7,13 +7,12 @@ using System.Threading.Tasks;
 
 namespace FS.Database.Entries
 {
-    public class Entry302 : BaseEntry
+    public class EntryCreate : BaseEntry
     {
-        public int Status { get; set; }
-        public DateTime ReturnTime { get; set; }
-        public string ReturnInfo { get; set; }
-        public string FilePath { get; set; }
-        public string OrderNoFake { get; set; }
+        public bool IsCreated { get; set; }
+        public DateTime CreateTime { get; set; }
+        public bool IsReceived { get; set; }
+        public DateTime ReceiveTime { get; set; }
         public int MessageId { get; set; }
         [ForeignKey("MessageId")]
         public virtual MessageTrack MessageTrack { get; set; }
