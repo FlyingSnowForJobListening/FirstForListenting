@@ -27,6 +27,8 @@ namespace FS.Message.Receiption
         }
         private static void OnCreated(object source, FileSystemEventArgs e)
         {
+            WaitCallback waitCallBack = new WaitCallback(ReceiptThread.OnProgressReceipt);
+            ThreadPool.QueueUserWorkItem(waitCallBack, e.FullPath);
         }
         private static void OnChanged(object source, FileSystemEventArgs e)
         {

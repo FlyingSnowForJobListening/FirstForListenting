@@ -58,6 +58,10 @@
       <Project>{40615913-c809-42ac-9efb-d989676040e9}</Project>
       <Name>FS.Log</Name>
     </ProjectReference>
+    <ProjectReference Include="..\FS.Message.Controller\FS.Message.Controller.csproj">
+      <Project>{97431f09-10d2-4a1c-b75f-656366827d17}</Project>
+      <Name>FS.Message.Controller</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FS.Utility\FS.Utility.csproj">
       <Project>{2e9994cb-704c-4019-8173-3510ab6d20a7}</Project>
       <Name>FS.Utility</Name>

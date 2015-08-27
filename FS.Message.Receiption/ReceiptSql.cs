@@ -81,11 +81,13 @@ namespace FS.Message.Receiption
                 paras[5] = a_sqlServer.SetParameter("CopNo", SqlDbType.NVarChar, 20, copNo);
                 paras[6] = a_sqlServer.SetParameter("PreNo", SqlDbType.NVarChar, 20, preNo);
                 paras[7] = a_sqlServer.SetParameter("BillNo", SqlDbType.NVarChar, 50, billNo);
-                paras[8] = a_sqlServer.SetParameter("Comment1", SqlDbType.NVarChar, 300, string.IsNullOrEmpty(args[0]) ? null : args[0]);
-                paras[9] = a_sqlServer.SetParameter("Comment2", SqlDbType.NVarChar, 300, string.IsNullOrEmpty(args[1]) ? null : args[1]);
-                paras[10] = a_sqlServer.SetParameter("Comment3", SqlDbType.NVarChar, 300, string.IsNullOrEmpty(args[2]) ? null : args[2]);
-                paras[11] = a_sqlServer.SetParameter("Comment4", SqlDbType.NVarChar, 300, string.IsNullOrEmpty(args[3]) ? null : args[3]);
-                paras[12] = a_sqlServer.SetParameter("Comment5", SqlDbType.NVarChar, 300, string.IsNullOrEmpty(args[4]) ? null : args[4]);
+                for (int i = 0; i < 5; i++)
+                {
+                    if (i < args.Length)
+                        paras[8 + i] = a_sqlServer.SetParameter("Comment" + ((int)(i + 1)), SqlDbType.NVarChar, 300, args[i]);
+                    else
+                        paras[8 + i] = a_sqlServer.SetParameter("Comment" + ((int)(i + 1)), SqlDbType.NVarChar, 300, null);
+                }
             }
             catch (Exception ex)
             {

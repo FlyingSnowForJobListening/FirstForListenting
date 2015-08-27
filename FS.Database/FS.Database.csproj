@@ -53,6 +53,7 @@
     <Compile Include="Entries\EntryReceive.cs" />
     <Compile Include="Entries\MessageTrack.cs" />
     <Compile Include="EntryContext.cs" />
+    <Compile Include="MessageFilter.cs" />
     <Compile Include="SqlServer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

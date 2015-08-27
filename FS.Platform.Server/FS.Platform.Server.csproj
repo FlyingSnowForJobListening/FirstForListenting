@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{2E9994CB-704C-4019-8173-3510AB6D20A7}</ProjectGuid>
+    <ProjectGuid>{1E6217F1-E551-4CC8-9B5C-0464407101BD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FS.Utility</RootNamespace>
-    <AssemblyName>FS.Utility</AssemblyName>
+    <RootNamespace>FS.Platform.Server</RootNamespace>
+    <AssemblyName>FS.Platform.Server</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -32,6 +32,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -40,9 +42,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FileUtilities.cs" />
+    <Compile Include="Implement\MessageService.cs" />
+    <Compile Include="Interface\IMessageService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utilities.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FS.Database\FS.Database.csproj">
+      <Project>{25ba2f1e-fe0e-48e4-b04d-c013de1d52f8}</Project>
+      <Name>FS.Database</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FS.Message.Controller\FS.Message.Controller.csproj">
+      <Project>{97431f09-10d2-4a1c-b75f-656366827d17}</Project>
+      <Name>FS.Message.Controller</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

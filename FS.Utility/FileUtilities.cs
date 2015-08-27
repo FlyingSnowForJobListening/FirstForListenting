@@ -45,6 +45,38 @@ namespace FS.Utility
             }
             return result;
         }
+        public static string GetNewFolderName(bool needTimeFolder, params string[] args)
+        {
+            string result = null;
+            try
+            {
+                result = string.Join("\\", args);
+                if (needTimeFolder)
+                {
+                    result += "\\" + DateTime.Now.ToString("yyyy-MM-dd");
+                }
+                CreateFolder(result);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("GetNewFolderName Exception : " + ex.ToString());
+            }
+            return result;
+        }
+
+        public static bool FileMove(string sourcePath, string destPath)
+        {
+            bool success = true;
+            try
+            {
+                File.Move(sourcePath, destPath);
+            }
+            catch (Exception)
+            {
+                success = false;
+            }
+            return success;
+        }
         public static bool FileMove(string sourcePath, string fileName, bool needTimeFolder = true, params string[] args)
         {
             bool success = true;

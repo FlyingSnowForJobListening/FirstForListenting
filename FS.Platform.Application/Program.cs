@@ -1,9 +1,13 @@
-﻿using FS.Database;
+﻿using FS.Configuration;
+using FS.Database;
 using FS.Database.Entries;
+using FS.Message.Receiption;
+using FS.Platform.Server;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,14 +19,11 @@ namespace FS.Platform.Application
         {
             try
             {
-                System.Data.Entity.Database.SetInitializer(new Database.DatabaseInitializer());
-                using (var db = new EntryContext())
-                {
-                    var entry = new EntryReceive();
-                    db.Entry302s.Add(entry);
-                    db.SaveChanges();
-                    var s = db.Entry302s;
-                }
+                FileWatcher.WatcherStart(ConfigurationInfo.PathReceipt, 1, "*.xml");
+
+                ServiceHost message = new ServiceHost(typeof(MessageService));
+                message.Open();
+                Console.ReadKey();
             }
             catch (Exception ex)
             {

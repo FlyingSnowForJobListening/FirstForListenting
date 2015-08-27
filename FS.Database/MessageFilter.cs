@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FS.Message.Controller
+namespace FS.Database.Entries
 {
-    public class Class1
+    public class MessageFilter
     {
     }
 }
