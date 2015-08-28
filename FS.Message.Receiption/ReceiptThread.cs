@@ -1,4 +1,5 @@
-﻿using FS.Configuration;
+﻿using FS.Cache;
+using FS.Configuration;
 using FS.Database;
 using FS.Log;
 using FS.Message.Controller;
@@ -125,9 +126,10 @@ namespace FS.Message.Receiption
                     msService = new MessageService();
                     msService.DealMessage501(true, false, guid, orderNoFake, logisticsNo, destPath);
 
-                    // Add Cache
+                    MessageCache.AddCache(CacheInfo.SetCacheInfo(logisticsNo, null));
 
                     FileUtilities.FileMove(path, destPath);
+                    var i = MessageCache.GetCacheLength();
                 }
             }
             catch (Exception ex)
@@ -176,12 +178,12 @@ namespace FS.Message.Receiption
             {
                 IEnumerable<XElement> eles = xElement.Elements().First().Elements();
                 string guid = eles.Where(e => e.Name.LocalName == "guid").First().Value;
-                string copNo = eles.Where(e => e.Name.LocalName == "copNo").First().Value;
+                string orderNoFake = eles.Where(e => e.Name.LocalName == "orderNo").First().Value;
 
-                string destPath = FileUtilities.GetNewFolderName(true, ConfigurationInfo.PathBackUp, "601") + "\\" + FileUtilities.GetNewFileName(copNo) + ".xml";
+                string destPath = FileUtilities.GetNewFolderName(true, ConfigurationInfo.PathBackUp, "601") + "\\" + FileUtilities.GetNewFileName(orderNoFake) + ".xml";
 
                 msService = new MessageService();
-                msService.DealMessage601(true, false, guid, copNo, destPath);
+                msService.DealMessage601(true, false, guid, orderNoFake, destPath);
 
                 FileUtilities.FileMove(path, destPath);
             }

@@ -86,7 +86,7 @@ namespace FS.Message.Receiption
                     if (i < args.Length)
                         paras[8 + i] = a_sqlServer.SetParameter("Comment" + ((int)(i + 1)), SqlDbType.NVarChar, 300, args[i]);
                     else
-                        paras[8 + i] = a_sqlServer.SetParameter("Comment" + ((int)(i + 1)), SqlDbType.NVarChar, 300, null);
+                        paras[8 + i] = a_sqlServer.SetParameter("Comment" + ((int)(i + 1)), SqlDbType.NVarChar, 300, string.Empty);
                 }
             }
             catch (Exception ex)

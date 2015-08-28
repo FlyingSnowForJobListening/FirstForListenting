@@ -32,6 +32,13 @@ namespace FS.Message.Controller
                 msTrack.OrderNoFake = orderNoFake;
                 msTrack.LogisticsNo = logisticsNo;
                 msTrack.Entry301s = new List<EntryCreate>();
+                //msTrack.Entry302s = new List<EntryReceive>();
+                //msTrack.Entry501s = new List<EntryCreate>();
+                //msTrack.Entry502s = new List<EntryReceive>();
+                //msTrack.Entry503s = new List<EntryCreate>();
+                //msTrack.Entry504s = new List<EntryReceive>();
+                //msTrack.Entry601s = new List<EntryCreate>();
+                //msTrack.Entry602s = new List<EntryReceive>();
                 msTrack.Entry301s.Add(entry);
                 using (var db = new EntryContext())
                 {
@@ -51,7 +58,7 @@ namespace FS.Message.Controller
                 EntryReceive entry = new EntryReceive();
                 entry.ItemGuid = new Guid(guid);
                 entry.Status = Convert.ToInt32(status);
-                entry.ReturnTime = Utilities.ConvertToDatetime(returnTime, "yyyyMMddhhmmss");
+                entry.ReturnTime = Utilities.ConvertToDatetime(returnTime, "yyyyMMddHHmmss");
                 entry.ReturnInfo = returnInfo;
                 entry.FilePath = destPath;
                 using (var db = new EntryContext())
@@ -101,7 +108,7 @@ namespace FS.Message.Controller
                 EntryReceive entry = new EntryReceive();
                 entry.ItemGuid = new Guid(guid);
                 entry.Status = Convert.ToInt32(status);
-                entry.ReturnTime = Utilities.ConvertToDatetime(returnTime, "yyyyMMddhhmmss");
+                entry.ReturnTime = Utilities.ConvertToDatetime(returnTime, "yyyyMMddHHmmss");
                 entry.ReturnInfo = returnInfo;
                 entry.FilePath = destPath;
                 using (var db = new EntryContext())
@@ -151,7 +158,7 @@ namespace FS.Message.Controller
                 EntryReceive entry = new EntryReceive();
                 entry.ItemGuid = new Guid(guid);
                 entry.Status = Convert.ToInt32(status);
-                entry.ReturnTime = Utilities.ConvertToDatetime(returnTime, "yyyyMMddhhmmss");
+                entry.ReturnTime = Utilities.ConvertToDatetime(returnTime, "yyyyMMddHHmmss");
                 entry.ReturnInfo = returnInfo;
                 entry.FilePath = destPath;
                 using (var db = new EntryContext())
@@ -169,7 +176,5 @@ namespace FS.Message.Controller
                 Logs.Error("DealMessage602 Exception : " + ex.ToString());
             }
         }
-
-
     }
 }
