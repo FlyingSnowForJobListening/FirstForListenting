@@ -4,6 +4,7 @@ using FS.Log;
 using FS.Message.Structure;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -13,12 +14,15 @@ namespace FS.Message.Controller
 {
     public class MessageSql
     {
+        #region Init
         public SqlServer a_sqlServer { get; set; }
         public MessageSql()
         {
             a_sqlServer = new SqlServer(ConfigurationInfo.DBConnectionString);
         }
+        #endregion
 
+        #region Public Method
         public void QueryData301(string orderNo, ref OrderHead orderHead, ref List<OrderList> orderLists, ref string logisticsNo)
         {
             OrderList orderList = null;
@@ -57,6 +61,63 @@ namespace FS.Message.Controller
             finally
             {
                 dr.Close();
+            }
+        }
+        public void QueryData501(string orderNoFake, ref LogisticsHead logisticsHead)
+        {
+            try
+            {
+                SqlDataReader dr = a_sqlServer.ExePROC("MessageCenterQuery", ConvertToSqlParameters(501, orderNoFake, ""));
+                if (dr.HasRows)
+                {
+                    while (dr.Read())
+                    {
+                        logisticsHead = GetLogisticsHead(dr);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logs.Error("Query501DataByOrderNo Exception : " + ex.ToString());
+            }
+        }
+        public void QueryDate503ByOrderNo(string orderNo, ref LogisticsStatus logisticsStatus)
+        {
+            try
+            {
+                SqlDataReader dr = a_sqlServer.ExePROC("MessageCenterQuery", ConvertToSqlParameters(5032, orderNo, ""));
+                if (dr.HasRows)
+                {
+                    while (dr.Read())
+                    {
+                        logisticsStatus = GetLogisticsStatus(dr);
+                        logisticsStatus.logisticsStatus = "L";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logs.Error("Query503DataByOrderNo Exception : " + ex.ToString());
+            }
+        }
+        public void QueryData503ByLogisticsNo(string logisticsNo, ref LogisticsStatus logisticsStatus)
+        {
+            try
+            {
+                SqlDataReader dr = a_sqlServer.ExePROC("MessageCenterQuery", ConvertToSqlParameters(5031, "", logisticsNo));
+                if (dr.HasRows)
+                {
+                    while (dr.Read())
+                    {
+                        logisticsStatus = GetLogisticsStatus(dr);
+                        logisticsStatus.logisticsStatus = "R";
+                    }
+                }
+                dr.Close();
+            }
+            catch (Exception ex)
+            {
+                Logs.Error("Query503DataByLogisticsNo Exception : " + ex.ToString());
             }
         }
         public void QueryDate601(string logisticsNo, ref InventoryHead inventoryHead, ref List<InventoryList> inventoryLists, ref BaseSubscribe baseSubscribe)
@@ -102,6 +163,37 @@ namespace FS.Message.Controller
                 dr.Close();
             }
         }
+        public void UpdateSchedule501(string orderNo, string billNo)
+        {
+            try
+            {
+                a_sqlServer.ExePROCNonQuery("MessageReceipt", ConvertToSqlParameters("501", orderNo, "", "0", "", "", "", billNo));
+            }
+            catch (Exception ex)
+            {
+                Logs.Error("Update501Schedule Exception : " + ex.ToString());
+            }
+        }
+        public void UpdateSchedule503(string orderNo, string logisticNo)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(orderNo))
+                {
+                    a_sqlServer.ExePROCNonQuery("MessageReceipt", ConvertToSqlParameters("5031", "", logisticNo, "0", "", "", "", ""));
+                }
+                else
+                {
+                    a_sqlServer.ExePROCNonQuery("MessageReceipt", ConvertToSqlParameters("5032", orderNo, "", "0", "", "", "", ""));
+                }
+            }
+            catch (Exception ex)
+            {
+                Logs.Error("Update503Schedule Exception : " + ex.ToString());
+            }
+        }
+        #endregion
+
         #region Private Method
         private OrderHead GetOrderHead(SqlDataReader dr)
         {
@@ -353,9 +445,37 @@ namespace FS.Message.Controller
         {
             SqlParameter[] paras = null;
             paras = new SqlParameter[3];
-            paras[0] = a_sqlServer.SetParameter("OperateFlag", System.Data.SqlDbType.Int, 0, flag);
-            paras[1] = a_sqlServer.SetParameter("OrderNo", System.Data.SqlDbType.NVarChar, 50, orderNo);
-            paras[2] = a_sqlServer.SetParameter("LogisticsNo", System.Data.SqlDbType.NVarChar, 50, logisticsNo);
+            paras[0] = a_sqlServer.SetParameter("OperateFlag", SqlDbType.Int, 0, flag);
+            paras[1] = a_sqlServer.SetParameter("OrderNo", SqlDbType.NVarChar, 50, orderNo);
+            paras[2] = a_sqlServer.SetParameter("LogisticsNo", SqlDbType.NVarChar, 50, logisticsNo);
+            return paras;
+        }
+        private SqlParameter[] ConvertToSqlParameters(string operateFlag, string orderNo, string logisticsNo, string status, string reInfo, string copNo, string preNo, string billNo, params string[] args)
+        {
+            SqlParameter[] paras = null;
+            try
+            {
+                paras = new SqlParameter[13];
+                paras[0] = a_sqlServer.SetParameter("OperateFlag", SqlDbType.Int, 0, operateFlag);
+                paras[1] = a_sqlServer.SetParameter("OrderNo", SqlDbType.NVarChar, 20, orderNo);
+                paras[2] = a_sqlServer.SetParameter("Logistics", SqlDbType.NVarChar, 20, logisticsNo);
+                paras[3] = a_sqlServer.SetParameter("Status", SqlDbType.Int, 0, status);
+                paras[4] = a_sqlServer.SetParameter("ReturnInfo", SqlDbType.NVarChar, 200, reInfo);
+                paras[5] = a_sqlServer.SetParameter("CopNo", SqlDbType.NVarChar, 20, copNo);
+                paras[6] = a_sqlServer.SetParameter("PreNo", SqlDbType.NVarChar, 20, preNo);
+                paras[7] = a_sqlServer.SetParameter("BillNo", SqlDbType.NVarChar, 50, billNo);
+                for (int i = 0; i < 5; i++)
+                {
+                    if (i < args.Length)
+                        paras[8 + i] = a_sqlServer.SetParameter("Comment" + ((int)(i + 1)), SqlDbType.NVarChar, 300, args[i]);
+                    else
+                        paras[8 + i] = a_sqlServer.SetParameter("Comment" + ((int)(i + 1)), SqlDbType.NVarChar, 300, string.Empty);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("ConvertToSqlParameters Exception: " + ex.ToString());
+            }
             return paras;
         }
         #endregion

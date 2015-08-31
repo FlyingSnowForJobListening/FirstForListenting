@@ -1,6 +1,7 @@
 ﻿using FS.Configuration;
 using FS.Log;
 using FS.Message.Structure;
+using FS.Rest;
 using FS.Utility;
 using System;
 using System.Collections.Generic;
@@ -54,6 +55,77 @@ namespace FS.Message.Controller
             }
             return success;
         }
+        public bool CreateMessage501(string orderNoFake)
+        {
+            bool success = true;
+            LogisticsHead logisticsHead = null;
+            MessageSql mssql = null;
+            try
+            {
+                mssql = new MessageSql();
+                logisticsHead = new LogisticsHead();
+                mssql.QueryData501(orderNoFake, ref logisticsHead);
+                RestRequest restRequest = new RestRequest(string.Format("{0}:{1}/Logistics/Create501", ConfigurationInfo.RestHost, ConfigurationInfo.RestPort), Utilities.JsonSerialize(logisticsHead));
+                success = Convert.ToBoolean(restRequest.Execute());
+                if (success)
+                {
+                    mssql.UpdateSchedule501(orderNoFake, logisticsHead.billNo);
+                }
+                else
+                {
+                    Logs.Info("Create501Message Response Error! Date:" + Utilities.JsonSerialize(logisticsHead));
+                }
+
+            }
+            catch (Exception ex)
+            {
+                success = false;
+                Logs.Error("Create501Message Exception : " + ex.ToString());
+            }
+            return success;
+        }
+        public bool CreateMessage503(string logisticsNo, string orderNoFake)
+        {
+            bool success = true;
+            LogisticsStatus logisticsStatus = null;
+            MessageSql mssql = null;
+            MessageService msService = null;
+            try
+            {
+                logisticsStatus = new LogisticsStatus();
+                mssql = new MessageSql();
+                if (string.IsNullOrEmpty(orderNoFake))
+                {
+                    mssql.QueryData503ByLogisticsNo(logisticsNo, ref logisticsStatus);
+                }
+                else
+                {
+                    mssql.QueryDate503ByOrderNo(orderNoFake, ref logisticsStatus);
+                }
+                RestRequest restRequest = new RestRequest(string.Format("{0}:{1}/Logistics/Create503", ConfigurationInfo.RestHost, ConfigurationInfo.RestPort), Utilities.JsonSerialize(logisticsStatus));
+                success = Convert.ToBoolean(restRequest.Execute());
+                if (success)
+                {
+                    mssql.UpdateSchedule503(logisticsNo, orderNoFake);
+
+                    //string destPath = FileUtilities.GetNewFolderName(true, ConfigurationInfo.PathBackUp, "503") + "\\" + FileUtilities.GetNewFileName(logisticsStatus.logisticsNo) + ".xml";
+
+                    //msService = new MessageService();
+                    //msService.DealMessage503(false, true, logisticsStatus.guid.ToString(), logisticsStatus.logisticsNo, "");
+                }
+                else
+                {
+                    Logs.Info("Create503Message Response Error! Date:" + Utilities.JsonSerialize(logisticsStatus));
+                }
+            }
+            catch (Exception ex)
+            {
+                success = false;
+                Logs.Error("CreateMessage503 Exception : " + ex.ToString());
+            }
+            return success;
+        }
+
         public static void CreateMessage601(object param)
         {
             InventoryHead inventoryHead = null;

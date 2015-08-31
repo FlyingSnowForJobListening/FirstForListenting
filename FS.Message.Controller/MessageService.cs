@@ -126,6 +126,57 @@ namespace FS.Message.Controller
                 Logs.Error("DealMessage502 Exception : " + ex.ToString());
             }
         }
+        public void DealMessage503(bool isReceived, bool isCreated, string guid, string logisticNo, string destPath)
+        {
+            try
+            {
+                EntryCreate entry = new EntryCreate();
+                entry.ItemGuid = new Guid(guid);
+                entry.IsReceived = isReceived;
+                entry.IsCreated = isCreated;
+                entry.ReceiveTime = entry.CreateTime = DateTime.Now;
+                entry.FilePath = destPath;
+                using (var db = new EntryContext())
+                {
+                    var query = from m in db.MessageTracks.Include("Entry503s")
+                                where m.LogisticsNo == logisticNo
+                                select m;
+                    var msTrack = query.FirstOrDefault();
+                    msTrack.Entry503s.Add(entry);
+                    db.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                Logs.Error("DealMessage503 Exception : " + ex.ToString());
+            }
+        }
+        public void DealMessage504(string logisticsNo, string guid, string status, string logisticsStatus, string returnTime, string returnInfo, string destPath)
+        {
+            try
+            {
+                EntryReceive entry = new EntryReceive();
+                entry.ItemGuid = new Guid(guid);
+                entry.Status = Convert.ToInt32(status);
+                entry.ReturnTime = Utilities.ConvertToDatetime(returnTime, "yyyyMMddHHmmss");
+                entry.ReturnInfo = returnInfo;
+                entry.FilePath = destPath;
+                entry.Commnet1 = logisticsStatus;
+                using (var db = new EntryContext())
+                {
+                    var query = from m in db.MessageTracks.Include("Entry504s")
+                                where m.LogisticsNo == logisticsNo
+                                select m;
+                    var msTrack = query.FirstOrDefault();
+                    msTrack.Entry504s.Add(entry);
+                    db.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                Logs.Error("DealMessage504 Exception: " + ex.ToString());
+            }
+        }
         public void DealMessage601(bool isReceived, bool isCreated, string guid, string copNo, string destPath)
         {
             try

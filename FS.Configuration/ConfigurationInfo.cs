@@ -68,5 +68,19 @@ namespace FS.Configuration
                 }
             }
         }
+        public static string RestHost
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["RestHost"];
+            }
+        }
+        public static string RestPort
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["RestPort"];
+            }
+        }
     }
 }

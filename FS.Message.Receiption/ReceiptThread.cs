@@ -35,7 +35,7 @@ namespace FS.Message.Receiption
                         DealWith501(xele, path);
                         break;
                     case "ceb502message":
-                        //DealWith502(xele, path);
+                        DealWith502(xele, path);
                         break;
                     case "ceb504message":
                         //DealWith504(xele, path);
@@ -44,7 +44,7 @@ namespace FS.Message.Receiption
                         DealWith601(xele, path);
                         break;
                     case "ceb602message":
-                        //DealWith602(xele, path);
+                        DealWith602(xele, path);
                         break;
                     default:
                         break;
@@ -90,11 +90,11 @@ namespace FS.Message.Receiption
                 msService.DealMessage302(orderNoFake, guid, status, returnTime, returnInfo, destPath);
 
                 FileUtilities.FileMove(path, destPath);
-                //if (ConfigurationInfo.Need501 && status.Equals("120"))
-                //{
-                //    MSControl control = new MSControl();
-                //    control.Create501Message(orderNoFake);
-                //}
+                if (ConfigurationInfo.Need501 && status.Equals("120"))
+                {
+                    MessageControl msControl = new MessageControl();
+                    msControl.CreateMessage501(orderNoFake);
+                }
             }
             catch (Exception ex)
             {
@@ -160,8 +160,14 @@ namespace FS.Message.Receiption
                 msService.DealMessage502(logisticsNo, guid, status, returnTime, returnInfo, destPath);
 
                 FileUtilities.FileMove(path, destPath);
-                if (ConfigurationInfo.Need501)
+                if (ConfigurationInfo.Need501 && status.Equals("120"))
                 {
+                    MessageControl mscontrol = new MessageControl();
+                    if (mscontrol.CreateMessage503(logisticsNo, null))
+                    {
+                        MessageCache.AddCache(CacheInfo.SetCacheInfo(logisticsNo, null));
+                    }
+                    //deal for webservice
                 }
             }
             catch (Exception ex)
@@ -169,8 +175,60 @@ namespace FS.Message.Receiption
                 Logs.Error("DealWith502 Exception: " + ex.ToString());
             }
         }
-        //503
-        //504
+        private static void DealWith503(XElement xElement, string path)
+        {
+            MessageService msService = null;
+            try
+            {
+                IEnumerable<XElement> eles = xElement.Elements().First().Elements();
+                string guid = eles.Where(e => e.Name.LocalName == "guid").First().Value;
+                string logisticsNo = eles.Where(e => e.Name.LocalName == "logisticsNo").First().Value;
+
+                string destPath = FileUtilities.GetNewFolderName(true, ConfigurationInfo.PathBackUp, "503") + "\\" + FileUtilities.GetNewFileName(logisticsNo) + ".xml";
+
+                msService = new MessageService();
+                msService.DealMessage503(true, false, guid, logisticsNo, destPath);
+
+                FileUtilities.FileMove(path, destPath);
+            }
+            catch (Exception ex)
+            {
+                Logs.Error("DealWith503 Exception: " + ex.ToString());
+            }
+        }
+        private static void DealWith504(XElement xElement, string path)
+        {
+            MessageService msService = null;
+            try
+            {
+                IEnumerable<XElement> eles = xElement.Elements().First().Elements();
+                string guid = eles.Where(e => e.Name.LocalName == "guid").First().Value;
+                string logisticsNo = eles.Where(e => e.Name.LocalName == "logisticsNo").First().Value;
+                string status = eles.Where(e => e.Name.LocalName == "returnStatus").First().Value;
+                string returnTime = eles.Where(e => e.Name.LocalName == "returnTime").First().Value;
+                string returnInfo = eles.Where(e => e.Name.LocalName == "returnInfo").First().Value;
+                string logisticsStatus = eles.Where(e => e.Name.LocalName == "logisticsStatus").First().Value;
+                if (logisticsStatus.Equals("R", StringComparison.CurrentCultureIgnoreCase))
+                {
+                    if (status.Equals("120"))
+                    {
+                        MessageCache.RemoveCache(logisticsNo);
+                        MessageControl.CreateMessage601(logisticsNo);
+                    }
+                }
+
+                string destPath = FileUtilities.GetNewFolderName(true, ConfigurationInfo.PathBackUp, "504") + "\\" + FileUtilities.GetNewFileName(logisticsNo, status, logisticsStatus) + ".xml";
+
+                msService = new MessageService();
+                msService.DealMessage504(logisticsNo, guid, status, logisticsStatus, returnTime, returnInfo, destPath);
+
+                FileUtilities.FileMove(path, destPath);
+            }
+            catch (Exception ex)
+            {
+                Logs.Error("DealWith503 Exception: " + ex.ToString());
+            }
+        }
         private static void DealWith601(XElement xElement, string path)
         {
             MessageService msService = null;
@@ -213,6 +271,8 @@ namespace FS.Message.Receiption
                         break;
                     case "800":
                         preNo = eles.Where(e => e.Name.LocalName == "preNo").First().Value;
+                        MessageControl msControl = new MessageControl();
+                        msControl.CreateMessage503(null, copNo);
                         break;
                     default:
                         preNo = eles.Where(e => e.Name.LocalName == "preNo").First().Value;
