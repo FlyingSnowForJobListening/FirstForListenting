@@ -30,6 +30,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\dll\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\dll\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.ServiceModel" />
@@ -50,6 +57,10 @@
     <ProjectReference Include="..\FS.Database\FS.Database.csproj">
       <Project>{25ba2f1e-fe0e-48e4-b04d-c013de1d52f8}</Project>
       <Name>FS.Database</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FS.Log\FS.Log.csproj">
+      <Project>{40615913-c809-42ac-9efb-d989676040e9}</Project>
+      <Name>FS.Log</Name>
     </ProjectReference>
     <ProjectReference Include="..\FS.Message.Controller\FS.Message.Controller.csproj">
       <Project>{97431f09-10d2-4a1c-b75f-656366827d17}</Project>

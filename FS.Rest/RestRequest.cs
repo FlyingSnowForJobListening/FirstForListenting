@@ -9,7 +9,7 @@ namespace FS.Rest
         public string paramStr = null;
         public string method = null;
 
-        public RestRequest(string Url, string jsonStr, string method = "POST")
+        public RestRequest(string Url, string jsonStr = "", string method = "POST")
         {
             this.requestUrl = Url;
             this.paramStr = jsonStr;

@@ -18,7 +18,10 @@ namespace FS.Platform.Server
         [WebInvoke(BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "Create601", Method = "POST", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
         bool CreateMessage601(string orderNo);
 
-        [WebInvoke(BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "Create503", Method = "POST", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        [WebInvoke(BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "GetByFilter", Method = "POST", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
         List<MessageTrack> GetMessageTracks(MessageFilter filter);
+
+        [WebInvoke(BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "Get", Method = "POST", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        List<MessageTrack> GetAllMessageTracks();
     }
 }

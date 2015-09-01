@@ -368,7 +368,7 @@ namespace FS.Message.Controller
                 result.agentCode = Convert.ToString(dr["agentCode"]);// "2114980005";
                 result.agentName = Convert.ToString(dr["agentName"]);// "葫芦岛誉悦国际货运代理有限责任公司";
                 result.tradeMode = Convert.ToString(dr["tradeMode"]);// "9610";
-                result.trafMode = Convert.ToString(dr["trafMode"]);// "6";
+                result.trafMode = "9";// "6";
                 result.trafName = Convert.ToString(dr["trafName"]);// "邮政车";
                 result.voyageNo = Convert.ToString(dr["voyageNo"]);// "辽P0028B";
                 result.billNo = Convert.ToString(dr["billNo"]);//????????????????????
