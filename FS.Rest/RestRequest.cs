@@ -26,7 +26,14 @@ namespace FS.Rest
             if (!client.IsBusy)
             {
                 uri = new Uri(requestUrl, UriKind.Absolute);
-                result = client.UploadString(uri, method, paramStr);
+                if (this.method.Equals("POST", StringComparison.CurrentCultureIgnoreCase))
+                {
+                    result = client.UploadString(uri, method, paramStr);
+                }
+                else
+                {
+                    result = client.DownloadString(uri);
+                }
             }
             return result;
         }

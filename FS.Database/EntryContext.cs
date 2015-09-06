@@ -9,6 +9,7 @@ namespace FS.Database
         public EntryContext() :
             base("EntrySqlConnection")
         {
+            Configuration.ProxyCreationEnabled = false;
             System.Data.Entity.Database.SetInitializer<EntryContext>(new DropCreateDatabaseIfModelChanges<EntryContext>());
         }
         public DbSet<EntryCreate> CreatedEntries { get; set; }

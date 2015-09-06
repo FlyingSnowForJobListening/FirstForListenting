@@ -10,11 +10,12 @@ using Microsoft.AspNet.Identity;
 
 namespace FS.Message.Web
 {
-    public partial class SiteMaster : MasterPage
+    public partial class SiteMaster : MasterPage, ICallbackEventHandler
     {
         private const string AntiXsrfTokenKey = "__AntiXsrfToken";
         private const string AntiXsrfUserNameKey = "__AntiXsrfUserName";
         private string _antiXsrfTokenValue;
+        public string a_result;
 
         protected void Page_Init(object sender, EventArgs e)
         {
@@ -69,12 +70,34 @@ namespace FS.Message.Web
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!Page.IsPostBack)
+            {
+                LoadMessageTableAjax();
+            }
         }
 
         protected void Unnamed_LoggingOut(object sender, LoginCancelEventArgs e)
         {
             Context.GetOwinContext().Authentication.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+        }
+
+        public void RaiseCallbackEvent(string eventArgument)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string GetCallbackResult()
+        {
+            return a_result;
+        }
+
+        private void LoadMessageTableAjax()
+        {
+            ClientScriptManager csm = Page.ClientScript;
+            string reference = csm.GetCallbackEventReference(this, "args", "LoadMessageTableAjaxSuccess", "", "LoadMessageTableAjaxError", false);
+            string callbackScript = "function CallLoadMessageTableAjax(args, context) {\n" +
+               reference + ";\n }";
+            csm.RegisterClientScriptBlock(this.GetType(), "CallLoadMessageTableAjax", callbackScript, true);
         }
     }
 

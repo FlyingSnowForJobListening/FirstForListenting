@@ -21,7 +21,8 @@ namespace FS.Platform.Server
         [WebInvoke(BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "GetByFilter", Method = "POST", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
         List<MessageTrack> GetMessageTracks(MessageFilter filter);
 
-        [WebInvoke(BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "Get", Method = "POST", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        [OperationContract]
+        [WebGet(BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "Get", ResponseFormat = WebMessageFormat.Json)]
         List<MessageTrack> GetAllMessageTracks();
     }
 }

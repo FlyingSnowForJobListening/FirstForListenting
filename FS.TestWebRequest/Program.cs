@@ -14,9 +14,9 @@ namespace FS.TestWebRequest
             try
             {
                 //RestRequest restRequest = new RestRequest("http://127.0.0.1:21111/Messages/Create301", "68544065718738");
-                RestRequest restRequest = new RestRequest("http://127.0.0.1:21111/Messages/Get");
+                RestRequest restRequest = new RestRequest("http://127.0.0.1:21111/Messages/Get", "", "GET");
 
-                restRequest.Execute();
+                var a = restRequest.Execute();
             }
             catch (Exception ex)
             {

@@ -23,7 +23,7 @@ namespace FS.Message.Controller
                 entry.ItemGuid = new Guid(guid);
                 entry.IsReceived = isReceived;
                 entry.IsCreated = isCreated;
-                entry.CreateTime = entry.ReceiveTime = DateTime.Now;
+                entry.CreateTime = entry.ReceiveTime = DateTime.Now.ToString("yyyyMMddHHmmss");
                 entry.FilePath = destPath;
 
                 MessageTrack msTrack = new MessageTrack();
@@ -32,13 +32,13 @@ namespace FS.Message.Controller
                 msTrack.OrderNoFake = orderNoFake;
                 msTrack.LogisticsNo = logisticsNo;
                 msTrack.Entry301s = new List<EntryCreate>();
-                //msTrack.Entry302s = new List<EntryReceive>();
-                //msTrack.Entry501s = new List<EntryCreate>();
-                //msTrack.Entry502s = new List<EntryReceive>();
-                //msTrack.Entry503s = new List<EntryCreate>();
-                //msTrack.Entry504s = new List<EntryReceive>();
-                //msTrack.Entry601s = new List<EntryCreate>();
-                //msTrack.Entry602s = new List<EntryReceive>();
+                msTrack.Entry302s = new List<EntryReceive>();
+                msTrack.Entry501s = new List<EntryCreate>();
+                msTrack.Entry502s = new List<EntryReceive>();
+                msTrack.Entry503s = new List<EntryCreate>();
+                msTrack.Entry504s = new List<EntryReceive>();
+                msTrack.Entry601s = new List<EntryCreate>();
+                msTrack.Entry602s = new List<EntryReceive>();
                 msTrack.Entry301s.Add(entry);
                 using (var db = new EntryContext())
                 {
@@ -58,7 +58,7 @@ namespace FS.Message.Controller
                 EntryReceive entry = new EntryReceive();
                 entry.ItemGuid = new Guid(guid);
                 entry.Status = Convert.ToInt32(status);
-                entry.ReturnTime = Utilities.ConvertToDatetime(returnTime, "yyyyMMddHHmmss");
+                entry.ReturnTime = returnTime;
                 entry.ReturnInfo = returnInfo;
                 entry.FilePath = destPath;
                 using (var db = new EntryContext())
@@ -84,7 +84,7 @@ namespace FS.Message.Controller
                 entry.ItemGuid = new Guid(guid);
                 entry.IsReceived = isReceived;
                 entry.IsCreated = isCreated;
-                entry.ReceiveTime = entry.CreateTime = DateTime.Now;
+                entry.ReceiveTime = entry.CreateTime = DateTime.Now.ToString("yyyyMMddHHmmss");
                 entry.FilePath = destPath;
                 using (var db = new EntryContext())
                 {
@@ -108,7 +108,7 @@ namespace FS.Message.Controller
                 EntryReceive entry = new EntryReceive();
                 entry.ItemGuid = new Guid(guid);
                 entry.Status = Convert.ToInt32(status);
-                entry.ReturnTime = Utilities.ConvertToDatetime(returnTime, "yyyyMMddHHmmss");
+                entry.ReturnTime = returnTime;
                 entry.ReturnInfo = returnInfo;
                 entry.FilePath = destPath;
                 using (var db = new EntryContext())
@@ -134,7 +134,7 @@ namespace FS.Message.Controller
                 entry.ItemGuid = new Guid(guid);
                 entry.IsReceived = isReceived;
                 entry.IsCreated = isCreated;
-                entry.ReceiveTime = entry.CreateTime = DateTime.Now;
+                entry.ReceiveTime = entry.CreateTime = DateTime.Now.ToString("yyyyMMddHHmmss");
                 entry.FilePath = destPath;
                 using (var db = new EntryContext())
                 {
@@ -158,7 +158,7 @@ namespace FS.Message.Controller
                 EntryReceive entry = new EntryReceive();
                 entry.ItemGuid = new Guid(guid);
                 entry.Status = Convert.ToInt32(status);
-                entry.ReturnTime = Utilities.ConvertToDatetime(returnTime, "yyyyMMddHHmmss");
+                entry.ReturnTime = returnTime;
                 entry.ReturnInfo = returnInfo;
                 entry.FilePath = destPath;
                 entry.Commnet1 = logisticsStatus;
@@ -185,7 +185,7 @@ namespace FS.Message.Controller
                 entry.ItemGuid = new Guid(guid);
                 entry.IsReceived = isReceived;
                 entry.IsCreated = isCreated;
-                entry.ReceiveTime = entry.CreateTime = DateTime.Now;
+                entry.ReceiveTime = entry.CreateTime = DateTime.Now.ToString("yyyyMMddHHmmss");
                 entry.FilePath = destPath;
                 using (var db = new EntryContext())
                 {
@@ -209,7 +209,7 @@ namespace FS.Message.Controller
                 EntryReceive entry = new EntryReceive();
                 entry.ItemGuid = new Guid(guid);
                 entry.Status = Convert.ToInt32(status);
-                entry.ReturnTime = Utilities.ConvertToDatetime(returnTime, "yyyyMMddHHmmss");
+                entry.ReturnTime = returnTime;
                 entry.ReturnInfo = returnInfo;
                 entry.FilePath = destPath;
                 using (var db = new EntryContext())

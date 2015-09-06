@@ -714,6 +714,7 @@
     </Content>
     <Content Include="Bundle.config" />
     <Content Include="packages.config" />
+    <Content Include="js\Pages\Page.MessageTable.js" />
     <None Include="Project_Readme.html" />
     <Content Include="Site.Mobile.Master" />
     <None Include="Web.Debug.config">
@@ -897,7 +898,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="js\Pages\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FS.Database\FS.Database.csproj">

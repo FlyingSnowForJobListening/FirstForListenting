@@ -2,6 +2,7 @@
 using FS.Database.Entries;
 using FS.Log;
 using FS.Rest;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +26,8 @@ namespace FS.Message.Client
             List<MessageTrack> result = null;
             try
             {
-                string a = Execute(ExecuteAction.Get);
+                string resultStr = Execute(ExecuteAction.Get);
+                result = JsonConvert.DeserializeObject<List<MessageTrack>>(resultStr);
             }
             catch (Exception ex)
             {
@@ -36,7 +38,7 @@ namespace FS.Message.Client
 
         public string Execute(ExecuteAction action)
         {
-            RestRequest restRequest = new RestRequest(this.a_restUrl + action.ToString(), "");
+            RestRequest restRequest = new RestRequest(this.a_restUrl + action.ToString(), "", "GET");
             return restRequest.Execute();
         }
     }
