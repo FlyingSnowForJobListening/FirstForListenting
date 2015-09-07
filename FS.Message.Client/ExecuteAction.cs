@@ -8,6 +8,7 @@ namespace FS.Message.Client
 {
     public enum ExecuteAction
     {
-        Get
+        Get,
+        GetByGuid
     }
 }

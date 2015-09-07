@@ -129,7 +129,6 @@ namespace FS.Message.Receiption
                     MessageCache.AddCache(CacheInfo.SetCacheInfo(logisticsNo, null));
 
                     FileUtilities.FileMove(path, destPath);
-                    var i = MessageCache.GetCacheLength();
                 }
             }
             catch (Exception ex)

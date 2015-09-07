@@ -366,6 +366,8 @@
     <Content Include="js\jquery-ui-1.10.3.min.js" />
     <Content Include="js\knockout-3.3.0.js" />
     <Content Include="js\knockout.simpleGrid.3.0.js" />
+    <Content Include="js\Pages\Page.CacheInfo.js" />
+    <Content Include="js\Pages\Page.Timeline.js" />
     <Content Include="js\plugins\bootstrap-slider\bootstrap-slider.js" />
     <Content Include="js\plugins\bootstrap-wysihtml5\bootstrap3-wysihtml5.all.min.js" />
     <Content Include="js\plugins\bootstrap-wysihtml5\bootstrap3-wysihtml5.js" />
@@ -659,7 +661,6 @@
     <Content Include="js\plugins\sparkline\jquery.sparkline.min.js" />
     <Content Include="js\plugins\timepicker\bootstrap-timepicker.js" />
     <Content Include="js\plugins\timepicker\bootstrap-timepicker.min.js" />
-    <Content Include="MessageTable.aspx" />
     <Content Include="Account\AddPhoneNumber.aspx" />
     <Content Include="Account\Confirm.aspx" />
     <Content Include="Account\Forgot.aspx" />
@@ -707,6 +708,7 @@
     <Content Include="Global.asax" />
     <Content Include="Pages\Elements\Timeline.aspx" />
     <Content Include="Pages\Tables\MessageTable.aspx" />
+    <Content Include="Pages\Widgets\Page.CacheInfo.aspx" />
     <Content Include="Site.Master" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config">
@@ -830,13 +832,6 @@
     <Compile Include="Account\VerifyPhoneNumber.aspx.designer.cs">
       <DependentUpon>VerifyPhoneNumber.aspx</DependentUpon>
     </Compile>
-    <Compile Include="MessageTable.aspx.cs">
-      <DependentUpon>MessageTable.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="MessageTable.aspx.designer.cs">
-      <DependentUpon>MessageTable.aspx</DependentUpon>
-    </Compile>
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
@@ -871,6 +866,13 @@
     </Compile>
     <Compile Include="Pages\Tables\MessageTable.aspx.designer.cs">
       <DependentUpon>MessageTable.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Widgets\Page.CacheInfo.aspx.cs">
+      <DependentUpon>Page.CacheInfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Widgets\Page.CacheInfo.aspx.designer.cs">
+      <DependentUpon>Page.CacheInfo.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Site.Master.cs">

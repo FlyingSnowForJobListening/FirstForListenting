@@ -24,5 +24,13 @@ namespace FS.Platform.Server
         [OperationContract]
         [WebGet(BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "Get", ResponseFormat = WebMessageFormat.Json)]
         List<MessageTrack> GetAllMessageTracks();
+
+        [OperationContract]
+        [WebInvoke(BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "GetByGuid", ResponseFormat = WebMessageFormat.Json)]
+        MessageTrack GetMessageTrackByGuid(Guid guid);
+
+        [OperationContract]
+        [WebInvoke(BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "GetCache", ResponseFormat = WebMessageFormat.Json)]
+        object GetCacheCount();
     }
 }

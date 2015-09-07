@@ -7,11 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace FS.Message.Web
+namespace FS.Message.Web.Pages.Widgets
 {
 
 
-    public partial class About
+    public partial class Page_CacheInfo
     {
     }
 }

@@ -21,6 +21,22 @@ namespace FS.Message.Client
             this.a_restService = "Messages";
             this.a_restUrl = string.Format("{0}:{1}/{2}/", ConfigurationInfo.RestHost, ConfigurationInfo.RestPort, this.a_restService);
         }
+
+        public MessageTrack GetMessageTrackByGuid(string itemGuid)
+        {
+            MessageTrack result = null;
+            try
+            {
+                string resultStr = Execute(ExecuteAction.GetByGuid, itemGuid);
+                result = JsonConvert.DeserializeObject<MessageTrack>(resultStr);
+            }
+            catch (Exception ex)
+            {
+                Logs.Error("GetMessageTrackByGuid Exception: " + ex.ToString());
+            }
+            return result;
+        }
+
         public List<MessageTrack> GetAllMessageTrack()
         {
             List<MessageTrack> result = null;
@@ -36,9 +52,17 @@ namespace FS.Message.Client
             return result;
         }
 
-        public string Execute(ExecuteAction action)
+        public string Execute(ExecuteAction action, string param = "")
         {
-            RestRequest restRequest = new RestRequest(this.a_restUrl + action.ToString(), "", "GET");
+            RestRequest restRequest;
+            if (action == ExecuteAction.Get)
+            {
+                restRequest = new RestRequest(this.a_restUrl + action.ToString(), param, "GET");
+            }
+            else
+            {
+                restRequest = new RestRequest(this.a_restUrl + action.ToString(), param, "POST");
+            }
             return restRequest.Execute();
         }
     }

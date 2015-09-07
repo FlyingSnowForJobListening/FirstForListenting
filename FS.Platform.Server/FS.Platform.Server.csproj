@@ -66,6 +66,10 @@
       <Project>{97431f09-10d2-4a1c-b75f-656366827d17}</Project>
       <Name>FS.Message.Controller</Name>
     </ProjectReference>
+    <ProjectReference Include="..\FS.Message.Receiption\FS.Message.Receiption.csproj">
+      <Project>{e8acef0a-2a2d-426d-a595-29dcbb03d38d}</Project>
+      <Name>FS.Message.Receiption</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -73,6 +73,10 @@ namespace FS.Message.Receiption
                 a_queueCache.Enqueue(value);
             }
         }
+        public static int GetCacheLength()
+        {
+            return a_queueCache.Count;
+        }
         #endregion
     }
 }
