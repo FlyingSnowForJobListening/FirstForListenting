@@ -708,7 +708,7 @@
     <Content Include="Global.asax" />
     <Content Include="Pages\Elements\Timeline.aspx" />
     <Content Include="Pages\Tables\MessageTable.aspx" />
-    <Content Include="Pages\Widgets\Page.CacheInfo.aspx" />
+    <Content Include="Pages\Widgets\CacheInfo.aspx" />
     <Content Include="Site.Master" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config">
@@ -867,12 +867,12 @@
     <Compile Include="Pages\Tables\MessageTable.aspx.designer.cs">
       <DependentUpon>MessageTable.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Widgets\Page.CacheInfo.aspx.cs">
-      <DependentUpon>Page.CacheInfo.aspx</DependentUpon>
+    <Compile Include="Pages\Widgets\CacheInfo.aspx.cs">
+      <DependentUpon>CacheInfo.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\Widgets\Page.CacheInfo.aspx.designer.cs">
-      <DependentUpon>Page.CacheInfo.aspx</DependentUpon>
+    <Compile Include="Pages\Widgets\CacheInfo.aspx.designer.cs">
+      <DependentUpon>CacheInfo.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Site.Master.cs">

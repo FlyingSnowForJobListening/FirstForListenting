@@ -30,7 +30,7 @@ namespace FS.Platform.Server
         MessageTrack GetMessageTrackByGuid(Guid guid);
 
         [OperationContract]
-        [WebInvoke(BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "GetCache", ResponseFormat = WebMessageFormat.Json)]
-        object GetCacheCount();
+        [WebGet(BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "GetCache", ResponseFormat = WebMessageFormat.Json)]
+        string GetCacheCount();
     }
 }

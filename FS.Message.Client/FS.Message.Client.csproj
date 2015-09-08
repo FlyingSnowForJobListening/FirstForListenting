@@ -64,6 +64,10 @@
       <Project>{77ba8cd3-cf45-4108-bddf-a689823fd6b0}</Project>
       <Name>FS.Rest</Name>
     </ProjectReference>
+    <ProjectReference Include="..\FS.Utility\FS.Utility.csproj">
+      <Project>{2e9994cb-704c-4019-8173-3510ab6d20a7}</Project>
+      <Name>FS.Utility</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

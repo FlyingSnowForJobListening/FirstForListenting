@@ -8,6 +8,7 @@ using FS.Message.Controller;
 using FS.Log;
 using FS.Database;
 using FS.Message.Receiption;
+using Newtonsoft.Json;
 
 namespace FS.Platform.Server
 {
@@ -51,12 +52,12 @@ namespace FS.Platform.Server
             return result;
         }
 
-        public object GetCacheCount()
+        public string GetCacheCount()
         {
             int cache601 = MessageCache.GetCacheLength();
             int cacheQueue = QueueCache.GetCacheLength();
             //int cacheFile = Fil
-            return new { cache601 = cache601 };
+            return JsonConvert.SerializeObject(new { cache601 = cache601, cacheQueue = cacheQueue });
         }
 
         public MessageTrack GetMessageTrackByGuid(Guid guid)
@@ -89,7 +90,32 @@ namespace FS.Platform.Server
 
         public List<MessageTrack> GetMessageTracks(MessageFilter filter)
         {
-            return null;
+            List<MessageTrack> result = null;
+            try
+            {
+                using (var db = new EntryContext())
+                {
+                    var query = from m in db.MessageTracks
+                                .Include("Entry301s")
+                                .Include("Entry302s")
+                                .Include("Entry501s")
+                                .Include("Entry502s")
+                                .Include("Entry503s")
+                                .Include("Entry504s")
+                                .Include("Entry601s")
+                                .Include("Entry602s")
+                                where (string.IsNullOrEmpty(filter.OrderNo) ? true : m.OrderNo.IndexOf(filter.OrderNo) >= 0)
+                                && (string.IsNullOrEmpty(filter.LogisticsNo) ? true : m.LogisticsNo.IndexOf(filter.LogisticsNo) >= 0)
+                                && (filter.Status.Equals("All") ? true : filter.Status.Equals("True") ? m.IsFinished : !m.IsFinished)
+                                select m;
+                    result = query.ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                Logs.Error("GetAllMessageTracks Exception: " + ex.ToString());
+            }
+            return result;
         }
     }
 }

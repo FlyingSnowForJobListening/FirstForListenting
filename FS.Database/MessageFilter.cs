@@ -8,5 +8,10 @@ namespace FS.Database.Entries
 {
     public class MessageFilter
     {
+        public string OrderNo { get; set; }
+        public string LogisticsNo { get; set; }
+        public DateTime Start { get; set; }
+        public DateTime End { get; set; }
+        public string Status { get; set; }
     }
 }

@@ -11,7 +11,7 @@ namespace FS.Message.Web.Pages.Widgets
 {
 
 
-    public partial class Page_CacheInfo
+    public partial class CacheInfo
     {
     }
 }

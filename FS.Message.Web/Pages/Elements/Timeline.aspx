@@ -25,10 +25,14 @@
                             <i class="fa fa-dashboard"></i><span>Dashboard</span>
                         </a>
                     </li>
-                    <li>
-                        <a href="../widgets.html">
-                            <i class="fa fa-th"></i><span>Widgets</span> <small class="badge pull-right bg-green">new</small>
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-th"></i><span>Widgets</span>
+                            <i class="fa fa-angle-left pull-right"></i>
                         </a>
+                        <ul class="treeview-menu">
+                            <li><a href="../Widgets/CacheInfo.aspx"><i class="fa fa-angle-double-right"></i>Cache</a></li>
+                        </ul>
                     </li>
                     <li class="treeview">
                         <a href="#">

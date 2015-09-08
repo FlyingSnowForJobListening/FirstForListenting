@@ -1,0 +1,5 @@
+D:\GitHub\FirstForListenting\FS.Utility\bin\Debug\FS.Utility.dll
+D:\GitHub\FirstForListenting\FS.Utility\bin\Debug\FS.Utility.pdb
+D:\GitHub\FirstForListenting\FS.Utility\obj\Debug\FS.Utility.dll
+D:\GitHub\FirstForListenting\FS.Utility\obj\Debug\FS.Utility.pdb
+D:\GitHub\FirstForListenting\FS.Utility\obj\Debug\FS.Utility.csprojResolveAssemblyReference.cache

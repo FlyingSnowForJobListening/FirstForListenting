@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Page.CacheInfo.aspx.cs" Inherits="FS.Message.Web.Pages.Widgets.Page_CacheInfo" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="CacheInfo.aspx.cs" Inherits="FS.Message.Web.Pages.Widgets.CacheInfo" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <div class="wrapper row-offcanvas row-offcanvas-left">
@@ -25,10 +25,14 @@
                             <i class="fa fa-dashboard"></i><span>Dashboard</span>
                         </a>
                     </li>
-                    <li>
-                        <a href="../widgets.html">
-                            <i class="fa fa-th"></i><span>Widgets</span> <small class="badge pull-right bg-green">new</small>
+                    <li class="treeview active">
+                        <a href="#">
+                            <i class="fa fa-th"></i><span>Widgets</span>
+                            <i class="fa fa-angle-left pull-right"></i>
                         </a>
+                        <ul class="treeview-menu">
+                            <li class="active"><a href="CacheInfo.aspx"><i class="fa fa-angle-double-right"></i>Cache</a></li>
+                        </ul>
                     </li>
                     <li class="treeview">
                         <a href="#">
@@ -76,20 +80,12 @@
                                         <th>Count</th>
                                     </tr>
                                     <tr>
-                                        <td>183</td>
-                                        <td>John Doe</td>
+                                        <td>601 Message</td>
+                                        <td><span data-bind="text: cache601"></span></td>
                                     </tr>
                                     <tr>
-                                        <td>219</td>
-                                        <td>Alexander Pierce</td>
-                                    </tr>
-                                    <tr>
-                                        <td>657</td>
-                                        <td>Bob Doe</td>
-                                    </tr>
-                                    <tr>
-                                        <td>175</td>
-                                        <td>Mike Doe</td>
+                                        <td>file cache</td>
+                                        <td><span data-bind="text: cacheQueue"></span></td>
                                     </tr>
                                 </table>
                             </div>
@@ -99,10 +95,13 @@
             </section>
         </aside>
     </div>
+    <script type="text/javascript">
+        var PageInfo = <% =a_result %>;
+    </script>
     <script src="/js/jquery-1.10.2.min.js" type="text/javascript"></script>
     <script src="/js/bootstrap.min.js" type="text/javascript"></script>
     <script src="/js/AdminLTE/app.js" type="text/javascript"></script>
     <script src="/js/knockout-3.3.0.js" type="text/javascript"></script>
     <script src="/js/knockout.simpleGrid.3.0.js" type="text/javascript"></script>
-    <script src="/js/Pages/Page.MessageTable.js" type="text/javascript"></script>
+    <script src="/js/Pages/Page.CacheInfo.js" type="text/javascript"></script>
 </asp:Content>

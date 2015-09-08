@@ -48,6 +48,9 @@ namespace FS.Message.Web.Pages.Tables
                 case "CC6D7081-6756-4465-AEE8-18D374DBF73F":
                     GetAllMessages();
                     break;
+                case "E097BB93-B095-46C9-97FA-56D6DD61108C":
+                    GetMessagesByFilter(para);
+                    break;
                 default:
                     break;
             }
@@ -67,6 +70,21 @@ namespace FS.Message.Web.Pages.Tables
             GetMessageControl();
             a_messages = a_control.GetAllMessageTrack();
             a_result = JsonConvert.SerializeObject(new { Messages = a_messages });
+        }
+
+        public void GetMessagesByFilter(string para)
+        {
+            MessageFilter filter = null;
+            try
+            {
+                GetMessageControl();
+                filter = JsonConvert.DeserializeObject<MessageFilter>(para);
+                a_messages = a_control.GetMessageTrackByFilter(filter);
+                a_result = JsonConvert.SerializeObject(new { Messages = a_messages });
+            }
+            catch (Exception ex)
+            {
+            }
         }
     }
 }

@@ -2,6 +2,7 @@
 using FS.Database.Entries;
 using FS.Log;
 using FS.Rest;
+using FS.Utility;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -52,16 +53,51 @@ namespace FS.Message.Client
             return result;
         }
 
+        public List<MessageTrack> GetMessageTrackByFilter(MessageFilter filter)
+        {
+            List<MessageTrack> result = null;
+            try
+            {
+                string resultStr = Execute(ExecuteAction.GetByFilter, Utilities.JsonSerialize(filter));
+                result = JsonConvert.DeserializeObject<List<MessageTrack>>(resultStr);
+            }
+            catch (Exception ex)
+            {
+                Logs.Error("GetMessageTrackByFilter Exception: " + ex.ToString());
+            }
+            return result;
+        }
+
+        public string GetCacheCount()
+        {
+            string result = null;
+            try
+            {
+                string resultStr = Execute(ExecuteAction.GetCache);
+                result = JsonConvert.DeserializeObject(resultStr).ToString();
+            }
+            catch (Exception ex)
+            {
+                Logs.Error("GetCacheCount Exception: " + ex.ToString());
+            }
+            return result;
+        }
+
         public string Execute(ExecuteAction action, string param = "")
         {
-            RestRequest restRequest;
-            if (action == ExecuteAction.Get)
+            RestRequest restRequest = null;
+            switch (action)
             {
-                restRequest = new RestRequest(this.a_restUrl + action.ToString(), param, "GET");
-            }
-            else
-            {
-                restRequest = new RestRequest(this.a_restUrl + action.ToString(), param, "POST");
+                case ExecuteAction.Get:
+                case ExecuteAction.GetCache:
+                    restRequest = new RestRequest(this.a_restUrl + action.ToString(), param, "GET");
+                    break;
+                case ExecuteAction.GetByGuid:
+                case ExecuteAction.GetByFilter:
+                    restRequest = new RestRequest(this.a_restUrl + action.ToString(), param, "POST");
+                    break;
+                default:
+                    break;
             }
             return restRequest.Execute();
         }

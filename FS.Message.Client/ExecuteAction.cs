@@ -9,6 +9,8 @@ namespace FS.Message.Client
     public enum ExecuteAction
     {
         Get,
-        GetByGuid
+        GetByGuid,
+        GetByFilter,
+        GetCache
     }
 }
