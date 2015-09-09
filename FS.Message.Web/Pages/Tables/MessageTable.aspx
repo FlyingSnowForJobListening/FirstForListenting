@@ -23,7 +23,7 @@
                     </div>
                     <ul class="sidebar-menu">
                         <li>
-                            <a href="../../index.html">
+                            <a href="/default.aspx">
                                 <i class="fa fa-dashboard"></i><span>仪表盘</span>
                             </a>
                         </li>
