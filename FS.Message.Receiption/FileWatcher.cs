@@ -27,7 +27,7 @@ namespace FS.Message.Receiption
         }
         private static void OnCreated(object source, FileSystemEventArgs e)
         {
-            WaitCallback waitCallBack = new WaitCallback(ReceiptThread.OnProgressReceipt);
+            WaitCallback waitCallBack = new WaitCallback(ReceiptHelper.OnProgressReceipt);
             ThreadPool.QueueUserWorkItem(waitCallBack, e.FullPath);
         }
         private static void OnChanged(object source, FileSystemEventArgs e)
@@ -38,7 +38,7 @@ namespace FS.Message.Receiption
         }
         private static void OnRenamed(object source, RenamedEventArgs e)
         {
-            WaitCallback waitCallBack = new WaitCallback(ReceiptThread.OnProgressReceipt);
+            WaitCallback waitCallBack = new WaitCallback(ReceiptHelper.OnProgressReceipt);
             ThreadPool.QueueUserWorkItem(waitCallBack, e.FullPath);
         }
     }

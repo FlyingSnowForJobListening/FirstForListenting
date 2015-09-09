@@ -19,14 +19,9 @@ namespace FS.Message.Web.Pages.Tables
         {
             if (!IsPostBack)
             {
-                //GetMessageControl();
-                //a_messages = a_control.GetAllMessageTrack();
-                //a_result = JsonConvert.SerializeObject(new { Messages = a_messages });
-
                 LoadMessageTableAjax();
             }
         }
-
         public string GetCallbackResult()
         {
             return a_result;
@@ -38,7 +33,6 @@ namespace FS.Message.Web.Pages.Tables
                 a_control = new MessageControl();
             }
         }
-
         public void RaiseCallbackEvent(string eventArgument)
         {
             string flag = eventArgument.Substring(0, 36);
@@ -55,7 +49,6 @@ namespace FS.Message.Web.Pages.Tables
                     break;
             }
         }
-
         private void LoadMessageTableAjax()
         {
             ClientScriptManager csm = Page.ClientScript;
@@ -64,14 +57,12 @@ namespace FS.Message.Web.Pages.Tables
                reference + ";\n }";
             csm.RegisterClientScriptBlock(this.GetType(), "CallLoadMessageTableAjax", callbackScript, true);
         }
-
         public void GetAllMessages()
         {
             GetMessageControl();
             a_messages = a_control.GetAllMessageTrack();
-            a_result = JsonConvert.SerializeObject(new { Messages = a_messages });
+            a_result = "CC6D7081-6756-4465-AEE8-18D374DBF73F" + JsonConvert.SerializeObject(new { Messages = a_messages });
         }
-
         public void GetMessagesByFilter(string para)
         {
             MessageFilter filter = null;
@@ -80,7 +71,7 @@ namespace FS.Message.Web.Pages.Tables
                 GetMessageControl();
                 filter = JsonConvert.DeserializeObject<MessageFilter>(para);
                 a_messages = a_control.GetMessageTrackByFilter(filter);
-                a_result = JsonConvert.SerializeObject(new { Messages = a_messages });
+                a_result = "E097BB93-B095-46C9-97FA-56D6DD61108C" + JsonConvert.SerializeObject(new { Messages = a_messages });
             }
             catch (Exception ex)
             {

@@ -1,4 +1,5 @@
-﻿using FS.Message.Client;
+﻿using FS.Database.Entries;
+using FS.Message.Client;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -16,10 +17,19 @@ namespace FS.Message.Web.Pages.Elements
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            string itemGuid = Request.QueryString["ItemGuid"];
-            GetMessageControl();
-            var resultObj = a_control.GetMessageTrackByGuid(itemGuid);
-            a_result = JsonConvert.SerializeObject(resultObj);
+            MessageFilter filter = null;
+            try
+            {
+                string itemGuid = Request.QueryString["ItemGuid"];
+                GetMessageControl();
+                filter = new MessageFilter();
+                filter.Guid = new Guid(itemGuid);
+                var resultObj = a_control.GetMessageTrackByGuid(filter);
+                a_result = JsonConvert.SerializeObject(resultObj);
+            }
+            catch (Exception)
+            {
+            }
         }
 
         private void GetMessageControl()

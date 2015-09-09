@@ -32,6 +32,7 @@ namespace FS.Message.Controller
                 msTrack.OrderNoFake = orderNoFake;
                 msTrack.LogisticsNo = logisticsNo;
                 msTrack.Schedule = 301;
+                msTrack.LastUpdateTicks = DateTime.Now.Ticks;
                 msTrack.Entry301s = new List<EntryCreate>();
                 msTrack.Entry302s = new List<EntryReceive>();
                 msTrack.Entry501s = new List<EntryCreate>();
@@ -69,6 +70,7 @@ namespace FS.Message.Controller
                                 select m;
                     var msTrack = query.FirstOrDefault();
                     msTrack.Entry302s.Add(entry);
+                    msTrack.LastUpdateTicks = DateTime.Now.Ticks;
                     if (msTrack.Schedule < 302)
                     {
                         msTrack.Schedule = 302;
@@ -98,6 +100,7 @@ namespace FS.Message.Controller
                                 select m;
                     var msTrack = query.FirstOrDefault();
                     msTrack.Entry501s.Add(entry);
+                    msTrack.LastUpdateTicks = DateTime.Now.Ticks;
                     msTrack.Schedule = 501;
                     db.SaveChanges();
                 }
@@ -124,6 +127,7 @@ namespace FS.Message.Controller
                                 select m;
                     var msTrack = query.FirstOrDefault();
                     msTrack.Entry502s.Add(entry);
+                    msTrack.LastUpdateTicks = DateTime.Now.Ticks;
                     msTrack.Schedule = 502;
                     db.SaveChanges();
                 }
@@ -150,6 +154,7 @@ namespace FS.Message.Controller
                                 select m;
                     var msTrack = query.FirstOrDefault();
                     msTrack.Entry503s.Add(entry);
+                    msTrack.LastUpdateTicks = DateTime.Now.Ticks;
                     msTrack.Schedule = 503;
                     db.SaveChanges();
                 }
@@ -177,6 +182,7 @@ namespace FS.Message.Controller
                                 select m;
                     var msTrack = query.FirstOrDefault();
                     msTrack.Entry504s.Add(entry);
+                    msTrack.LastUpdateTicks = DateTime.Now.Ticks;
                     msTrack.Schedule = 504;
                     db.SaveChanges();
                 }
@@ -203,6 +209,7 @@ namespace FS.Message.Controller
                                 select m;
                     var msTrack = query.FirstOrDefault();
                     msTrack.Entry601s.Add(entry);
+                    msTrack.LastUpdateTicks = DateTime.Now.Ticks;
                     msTrack.Schedule = 601;
                     db.SaveChanges();
                 }
@@ -229,6 +236,7 @@ namespace FS.Message.Controller
                                 select m;
                     var msTrack = query.FirstOrDefault();
                     msTrack.Entry602s.Add(entry);
+                    msTrack.LastUpdateTicks = DateTime.Now.Ticks;
                     msTrack.Schedule = 602;
                     if (status.Equals("899"))
                     {

@@ -33,8 +33,8 @@ namespace FS.Message.Receiption
         {
             try
             {
-                a_thread = new Thread(CheckCacheThread);
-                a_thread.Start();
+                //a_thread = new Thread(CheckCacheThread);
+                //a_thread.Start();
             }
             catch (Exception ex)
             {
@@ -63,15 +63,21 @@ namespace FS.Message.Receiption
                 Thread.Sleep(2000);
             }
         }
-        /// <summary>
-        /// Add Chace to Queue
-        /// </summary>      
         public static void AddQueueCache(string value)
         {
             lock (a_queueCache)
             {
                 a_queueCache.Enqueue(value);
             }
+        }
+        public static string DeQueueCache()
+        {
+            string result = null;
+            lock (a_queueCache)
+            {
+                result = a_queueCache.Dequeue();
+            }
+            return result;
         }
         public static int GetCacheLength()
         {

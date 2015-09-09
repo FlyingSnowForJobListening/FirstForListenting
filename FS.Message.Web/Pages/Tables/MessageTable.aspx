@@ -24,25 +24,25 @@
                     <ul class="sidebar-menu">
                         <li>
                             <a href="../../index.html">
-                                <i class="fa fa-dashboard"></i><span>Dashboard</span>
+                                <i class="fa fa-dashboard"></i><span>仪表盘</span>
                             </a>
                         </li>
                         <li class="treeview">
                             <a href="#">
-                                <i class="fa fa-th"></i><span>Widgets</span>
+                                <i class="fa fa-th"></i><span>工具</span>
                                 <i class="fa fa-angle-left pull-right"></i>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a href="../Widgets/CacheInfo.aspx"><i class="fa fa-angle-double-right"></i>Cache</a></li>
+                                <li><a href="../Widgets/CacheInfo.aspx"><i class="fa fa-angle-double-right"></i>缓存</a></li>
                             </ul>
                         </li>
                         <li class="treeview active">
                             <a href="#">
-                                <i class="fa fa-table"></i><span>Tables</span>
+                                <i class="fa fa-table"></i><span>表格</span>
                                 <i class="fa fa-angle-left pull-right"></i>
                             </a>
                             <ul class="treeview-menu">
-                                <li class="active"><a href="MessageTable.aspx"><i class="fa fa-angle-double-right"></i>Messages</a></li>
+                                <li class="active"><a href="MessageTable.aspx"><i class="fa fa-angle-double-right"></i>报文</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -50,13 +50,13 @@
             </aside>
             <aside class="right-side">
                 <section class="content-header">
-                    <h1>Messages
-                    <small>Messages Preview</small>
+                    <h1>报文
+                    <small>报文预览</small>
                     </h1>
                     <ol class="breadcrumb">
-                        <li><a href="/Default"><i class="fa fa-dashboard">Home</i></a></li>
-                        <li><a href="#">Tables</a></li>
-                        <li class="active">Messages</li>
+                        <li><a href="/Default"><i class="fa fa-dashboard">主页</i></a></li>
+                        <li><a href="#">表格</a></li>
+                        <li class="active">报文</li>
                     </ol>
                 </section>
                 <section class="content">
@@ -64,7 +64,7 @@
                         <div class="col-xs-12">
                             <div class="box">
                                 <div class="box-header">
-                                    <h3 class="box-title">Messages Table</h3>
+                                    <h3 class="box-title">报文表格</h3>
                                 </div>
                                 <div class="box-header">
                                     <div class="row">
@@ -73,7 +73,7 @@
                                                 <div class="input-group-addon">
                                                     <i class="fa fa-bullseye"></i>
                                                 </div>
-                                                <input id="ui_orderNoText" type="text" class="form-control input-sm" placeholder="OrderNo" />
+                                                <input id="ui_orderNoText" type="text" class="form-control input-sm" placeholder="定单号" />
                                             </div>
                                         </div>
                                         <div class="col-sm-2">
@@ -81,7 +81,7 @@
                                                 <div class="input-group-addon">
                                                     <i class="fa fa-truck"></i>
                                                 </div>
-                                                <input id="ui_logisticsNoText" type="text" class="form-control input-sm" placeholder="LogisticsNo" />
+                                                <input id="ui_logisticsNoText" type="text" class="form-control input-sm" placeholder="运单号" />
                                             </div>
                                         </div>
                                         <div class="col-sm-2">
@@ -89,7 +89,7 @@
                                                 <div class="input-group-addon">
                                                     <i class="fa fa-calendar"></i>
                                                 </div>
-                                                <input id="ui_startText" type="text" class="form-control input-sm" placeholder="Start" data-inputmask="'alias': 'yyyy/mm/dd'" data-mask />
+                                                <input id="ui_startText" type="text" class="form-control input-sm" placeholder="开始时间" data-inputmask="'alias': 'yyyy/mm/dd'" data-mask />
                                             </div>
                                         </div>
                                         <div class="col-sm-2">
@@ -97,14 +97,14 @@
                                                 <div class="input-group-addon">
                                                     <i class="fa fa-calendar"></i>
                                                 </div>
-                                                <input id="ui_endText" type="text" class="form-control input-sm" placeholder="End" data-inputmask="'alias': 'yyyy/mm/dd'" data-mask />
+                                                <input id="ui_endText" type="text" class="form-control input-sm" placeholder="截止时间" data-inputmask="'alias': 'yyyy/mm/dd'" data-mask />
                                             </div>
                                         </div>
                                         <div class="col-sm-2">
                                             <div class="input-group">
                                                 <select class="form-control input-sm" id="ui_isFinish">
-                                                    <option>All</option>
                                                     <option>False</option>
+                                                    <option>All</option>
                                                     <option>True</option>
                                                 </select>
                                                 <span class="input-group-addon"><a href="#" id="ui_searchBtn"><i class="fa fa-search"></i></a></span>
@@ -116,11 +116,11 @@
                                     <table class="table table-hover">
                                         <thead>
                                             <tr>
-                                                <th>OrderNo</th>
-                                                <th>LogisticsNo</th>
-                                                <th>Schedule</th>
-                                                <th>Finish</th>
-                                                <th>Opation</th>
+                                                <th>订单号</th>
+                                                <th>运单号</th>
+                                                <th>进度</th>
+                                                <th>完成</th>
+                                                <th>操作</th>
                                             </tr>
                                         </thead>
                                         <tbody data-bind="foreach: messages">
@@ -138,7 +138,7 @@
                                                     <span data-bind="text: $data.IsFinished"></span>
                                                 </td>
                                                 <td>
-                                                    <div class="btn btn-block btn-info" data-bind="click: $root.view">Info</div>
+                                                    <div class="btn btn-block btn-info" data-bind="click: $root.view">预览</div>
                                                 </td>
                                             </tr>
                                         </tbody>

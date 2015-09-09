@@ -22,25 +22,25 @@
                 <ul class="sidebar-menu">
                     <li class="active">
                         <a href="/default.aspx">
-                            <i class="fa fa-dashboard"></i><span>Dashboard</span>
+                            <i class="fa fa-dashboard"></i><span>仪表盘</span>
                         </a>
                     </li>
                     <li class="treeview active">
                         <a href="#">
-                            <i class="fa fa-th"></i><span>Widgets</span>
+                            <i class="fa fa-th"></i><span>工具</span>
                             <i class="fa fa-angle-left pull-right"></i>
                         </a>
                         <ul class="treeview-menu">
-                            <li class="active"><a href="CacheInfo.aspx"><i class="fa fa-angle-double-right"></i>Cache</a></li>
+                            <li class="active"><a href="CacheInfo.aspx"><i class="fa fa-angle-double-right"></i>缓存</a></li>
                         </ul>
                     </li>
                     <li class="treeview">
                         <a href="#">
-                            <i class="fa fa-table"></i><span>Tables</span>
+                            <i class="fa fa-table"></i><span>表格</span>
                             <i class="fa fa-angle-left pull-right"></i>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="/Pages/Tables/MessageTable.aspx"><i class="fa fa-angle-double-right"></i>Messages</a></li>
+                            <li><a href="/Pages/Tables/MessageTable.aspx"><i class="fa fa-angle-double-right"></i>报文</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -49,13 +49,13 @@
         </aside>
         <aside class="right-side">
             <section class="content-header">
-                <h1>Message Cache
-                    <small>Preview</small>
+                <h1>报文缓存
+                    <small>预览</small>
                 </h1>
                 <ol class="breadcrumb">
-                    <li><a href="/Default"><i class="fa fa-dashboard"></i>Home</a></li>
-                    <li><a href="#">Widgets</a></li>
-                    <li class="active">CacheInfo</li>
+                    <li><a href="/Default"><i class="fa fa-dashboard"></i>主页</a></li>
+                    <li><a href="#">工具</a></li>
+                    <li class="active">缓存</li>
                 </ol>
             </section>
             <section class="content">
@@ -63,7 +63,7 @@
                     <div class="col-xs-12">
                         <div class="box">
                             <div class="box-header">
-                                <h3 class="box-title">CacheInfo Table</h3>
+                                <h3 class="box-title">缓存表</h3>
                                 <%--<div class="box-tools">
                                     <div class="input-group" style="width: 150px;">
                                         <input type="text" name="table_search" class="form-control input-sm pull-right" placeholder="Search">
@@ -76,15 +76,15 @@
                             <div class="box-body table-responsive no-padding">
                                 <table class="table table-hover">
                                     <tr>
-                                        <th>Cache</th>
-                                        <th>Count</th>
+                                        <th>缓存</th>
+                                        <th>数量</th>
                                     </tr>
                                     <tr>
-                                        <td>601 Message</td>
+                                        <td>601报文缓存</td>
                                         <td><span data-bind="text: cache601"></span></td>
                                     </tr>
                                     <tr>
-                                        <td>file cache</td>
+                                        <td>文件缓存</td>
                                         <td><span data-bind="text: cacheQueue"></span></td>
                                     </tr>
                                 </table>

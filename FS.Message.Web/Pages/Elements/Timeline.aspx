@@ -22,25 +22,25 @@
                 <ul class="sidebar-menu">
                     <li class="active">
                         <a href="/default.aspx">
-                            <i class="fa fa-dashboard"></i><span>Dashboard</span>
+                            <i class="fa fa-dashboard"></i><span>仪表盘</span>
                         </a>
                     </li>
                     <li class="treeview">
                         <a href="#">
-                            <i class="fa fa-th"></i><span>Widgets</span>
+                            <i class="fa fa-th"></i><span>工具</span>
                             <i class="fa fa-angle-left pull-right"></i>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="../Widgets/CacheInfo.aspx"><i class="fa fa-angle-double-right"></i>Cache</a></li>
+                            <li><a href="../Widgets/CacheInfo.aspx"><i class="fa fa-angle-double-right"></i>缓存</a></li>
                         </ul>
                     </li>
                     <li class="treeview">
                         <a href="#">
-                            <i class="fa fa-table"></i><span>Tables</span>
+                            <i class="fa fa-table"></i><span>表格</span>
                             <i class="fa fa-angle-left pull-right"></i>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="/Pages/Tables/MessageTable.aspx"><i class="fa fa-angle-double-right"></i>Messages</a></li>
+                            <li><a href="/Pages/Tables/MessageTable.aspx"><i class="fa fa-angle-double-right"></i>报文</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -52,13 +52,13 @@
         <aside class="right-side">
             <!-- Content Header (Page header) -->
             <section class="content-header">
-                <h1>Order Timeline
-                    <small>Preview</small>
+                <h1>定单时间轴
+                    <small>预览</small>
                 </h1>
                 <ol class="breadcrumb">
-                    <li><a href="/Default"><i class="fa fa-dashboard"></i>Home</a></li>
-                    <li><a href="#">Priview</a></li>
-                    <li class="active">Timeline</li>
+                    <li><a href="/Default"><i class="fa fa-dashboard"></i>主页</a></li>
+                    <li><a href="#">预览</a></li>
+                    <li class="active">时间轴</li>
                 </ol>
             </section>
             <section class="content">
@@ -73,7 +73,7 @@
                                 <i class="fa fa-paperclip bg-blue"></i>
                                 <div class="timeline-item">
                                     <span class="time" data-bind="text: $data.CreateTime"><i class="fa fa-clock-o"></i></span>
-                                    <h3 class="timeline-header"><a href="#">OrderNo: </a><span data-bind="text: item.OrderNo"></span></h3>
+                                    <h3 class="timeline-header"><a href="#">订单号: </a><span data-bind="text: item.OrderNo"></span></h3>
                                     <div class="timeline-body" data-bind="text: $data.FilePath">
                                     </div>
                                 </div>
@@ -86,7 +86,7 @@
                                 <i class="fa fa-paperclip bg-blue"></i>
                                 <div class="timeline-item">
                                     <span class="time" data-bind="text: $data.ReturnTime"><i class="fa fa-clock-o"></i></span>
-                                    <h3 class="timeline-header"><a href="#">Status: </a><span data-bind="text: $data.Status"></span></h3>
+                                    <h3 class="timeline-header"><a href="#">状态: </a><span data-bind="text: $data.Status"></span></h3>
                                     <div class="timeline-body" data-bind="text: $data.FilePath">
                                     </div>
                                     <div class="timeline-body" data-bind="text: $data.ReturnInfo">
@@ -117,7 +117,7 @@
                                 <i class="fa fa-paperclip bg-blue"></i>
                                 <div class="timeline-item">
                                     <span class="time" data-bind="text: $data.ReturnTime"><i class="fa fa-clock-o"></i></span>
-                                    <h3 class="timeline-header"><a href="#">Status: </a><span data-bind="text: $data.Status"></span></h3>
+                                    <h3 class="timeline-header"><a href="#">状态: </a><span data-bind="text: $data.Status"></span></h3>
                                     <div class="timeline-body" data-bind="text: $data.FilePath">
                                     </div>
                                     <div class="timeline-body" data-bind="text: $data.ReturnInfo">
@@ -148,7 +148,7 @@
                                 <i class="fa fa-paperclip bg-blue"></i>
                                 <div class="timeline-item">
                                     <span class="time" data-bind="text: $data.ReturnTime"><i class="fa fa-clock-o"></i></span>
-                                    <h3 class="timeline-header"><a href="#">Status: </a><span data-bind="text: $data.Status"></span></h3>
+                                    <h3 class="timeline-header"><a href="#">状态: </a><span data-bind="text: $data.Status"></span></h3>
                                     <div class="timeline-body" data-bind="text: $data.FilePath">
                                     </div>
                                     <div class="timeline-body" data-bind="text: $data.ReturnInfo">

@@ -26,8 +26,8 @@ namespace FS.Platform.Server
         List<MessageTrack> GetAllMessageTracks();
 
         [OperationContract]
-        [WebInvoke(BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "GetByGuid", ResponseFormat = WebMessageFormat.Json)]
-        MessageTrack GetMessageTrackByGuid(Guid guid);
+        [WebInvoke(BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "GetByGuid", Method = "POST", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        MessageTrack GetMessageTrackByGuid(MessageFilter Filter);
 
         [OperationContract]
         [WebGet(BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "GetCache", ResponseFormat = WebMessageFormat.Json)]

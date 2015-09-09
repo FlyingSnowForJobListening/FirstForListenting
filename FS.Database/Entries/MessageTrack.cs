@@ -8,6 +8,7 @@ namespace FS.Database.Entries
         public string OrderNoFake { get; set; }
         public string LogisticsNo { get; set; }
         public int Schedule { get; set; }
+        public long LastUpdateTicks { get; set; }
         public bool IsFinished { get; set; }
         public virtual List<EntryCreate> Entry301s { get; set; }
         public virtual List<EntryReceive> Entry302s { get; set; }

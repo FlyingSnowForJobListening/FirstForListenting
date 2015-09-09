@@ -23,12 +23,12 @@ namespace FS.Message.Client
             this.a_restUrl = string.Format("{0}:{1}/{2}/", ConfigurationInfo.RestHost, ConfigurationInfo.RestPort, this.a_restService);
         }
 
-        public MessageTrack GetMessageTrackByGuid(string itemGuid)
+        public MessageTrack GetMessageTrackByGuid(MessageFilter filter)
         {
             MessageTrack result = null;
             try
             {
-                string resultStr = Execute(ExecuteAction.GetByGuid, itemGuid);
+                string resultStr = Execute(ExecuteAction.GetByGuid, Utilities.JsonSerialize(filter));
                 result = JsonConvert.DeserializeObject<MessageTrack>(resultStr);
             }
             catch (Exception ex)
