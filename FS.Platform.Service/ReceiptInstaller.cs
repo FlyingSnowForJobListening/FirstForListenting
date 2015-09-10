@@ -26,7 +26,6 @@ namespace FS.Platform.Service
 
             Installers.Add(process);
             Installers.Add(serviceAdmin);
-
         }
     }
 }
