@@ -19,7 +19,7 @@ namespace FS.Platform.Server
         bool CreateMessage601(string orderNo);
 
         [WebInvoke(BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "GetByFilter", Method = "POST", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
-        List<MessageTrack> GetMessageTracks(MessageFilter filter);
+        List<MessageTrack> GetMessageTracksByFilter(MessageFilter filter);
 
         [OperationContract]
         [WebGet(BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "Get", ResponseFormat = WebMessageFormat.Json)]

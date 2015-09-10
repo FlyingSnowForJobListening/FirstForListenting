@@ -53,11 +53,12 @@ namespace FS.Platform.Server
             }
             return result;
         }
-        public List<MessageTrack> GetMessageTracks(MessageFilter filter)
+        public List<MessageTrack> GetMessageTracksByFilter(MessageFilter filter)
         {
             List<MessageTrack> result = null;
             try
             {
+                Logs.Debug("GetMessageTracksByFilter Start! Filter:" + JsonConvert.SerializeObject(filter));
                 using (var db = new EntryContext())
                 {
                     var query = from m in db.MessageTracks
@@ -78,6 +79,7 @@ namespace FS.Platform.Server
                                 select m;
                     result = query.ToList();
                 }
+                Logs.Debug("GetMessageTracksByFilter End! Result Count:" + result.Count);
             }
             catch (Exception ex)
             {

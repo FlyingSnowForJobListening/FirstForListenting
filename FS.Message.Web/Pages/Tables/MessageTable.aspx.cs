@@ -1,4 +1,5 @@
 ﻿using FS.Database.Entries;
+using FS.Log;
 using FS.Message.Client;
 using Newtonsoft.Json;
 using System;
@@ -68,6 +69,7 @@ namespace FS.Message.Web.Pages.Tables
             MessageFilter filter = null;
             try
             {
+                Logs.Debug("GetMessagesByFilter Parameter:" + para);
                 GetMessageControl();
                 filter = JsonConvert.DeserializeObject<MessageFilter>(para);
                 a_messages = a_control.GetMessageTrackByFilter(filter);
@@ -75,6 +77,7 @@ namespace FS.Message.Web.Pages.Tables
             }
             catch (Exception ex)
             {
+                Logs.Error("GetMessagesByFilter Exception:" + ex.ToString());
             }
         }
     }

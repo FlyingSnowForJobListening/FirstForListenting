@@ -32,6 +32,7 @@
                         </a>
                         <ul class="treeview-menu">
                             <li class="active"><a href="CacheInfo.aspx"><i class="fa fa-angle-double-right"></i>缓存</a></li>
+                            <%--<li><a href="ErrorData.aspx"><i class="fa fa-angle-double-right"></i>错误数据</a></li>--%>
                         </ul>
                     </li>
                     <li class="treeview">

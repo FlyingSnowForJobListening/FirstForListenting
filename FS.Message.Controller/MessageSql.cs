@@ -151,6 +151,11 @@ namespace FS.Message.Controller
                         }
                         baseSubscribe = GetBaseSubscribe(dr);
                     }
+                    foreach (var list in inventoryLists)
+                    {
+                        var f = inventoryHead.netWeight / inventoryLists.Count;
+                        list.qty2 = ((float?)((int)(f * 100))) / 100;
+                    }
                     //a_sqlServer.ExePROCNonQuery("MessageReceipt", ConvertToSqlParameters("601", inventoryHead.orderNo, logisticsNo, "0", "", inventoryHead.copNo, "", ""));
                 }
             }

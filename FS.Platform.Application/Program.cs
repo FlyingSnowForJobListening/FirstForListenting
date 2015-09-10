@@ -4,9 +4,6 @@ using FS.Database.Entries;
 using FS.Message.Receiption;
 using FS.Platform.Server;
 using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
 using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +20,7 @@ namespace FS.Platform.Application
 
                 ServiceHost message = new ServiceHost(typeof(MessageService));
                 message.Open();
+                Console.WriteLine("Running....");
                 Console.ReadKey();
             }
             catch (Exception ex)

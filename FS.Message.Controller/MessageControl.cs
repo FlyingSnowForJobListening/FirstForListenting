@@ -30,23 +30,30 @@ namespace FS.Message.Controller
                 orderLists = new List<OrderList>();
                 mssql = new MessageSql();
                 mssql.QueryData301(orderNo, ref orderHead, ref orderLists, ref logisticsNo);
-                ns = "http://www.chinaport.gov.cn/ceb";
-                xele = new XElement(ns + "CEB301Message");
-                xele.SetAttributeValue(XNamespace.Xmlns + "ceb", ns);
-                xele = orderHead.ToXElememt(xele, ns);
-                foreach (var a in orderLists)
+                if (orderHead.guid != new Guid())
                 {
-                    xele = a.ToXElememt(xele, ns);
+                    ns = "http://www.chinaport.gov.cn/ceb";
+                    xele = new XElement(ns + "CEB301Message");
+                    xele.SetAttributeValue(XNamespace.Xmlns + "ceb", ns);
+                    xele = orderHead.ToXElememt(xele, ns);
+                    foreach (var a in orderLists)
+                    {
+                        xele = a.ToXElememt(xele, ns);
+                    }
+                    FileUtilities.CreateFolder(ConfigurationInfo.PathSend);
+                    xele.Save(ConfigurationInfo.PathSend + "\\" + FileUtilities.GetNewFileName(orderNo) + ".xml");
+
+                    string destPath = FileUtilities.GetNewFolderName(true, ConfigurationInfo.PathBackUp, "301") + "\\" + FileUtilities.GetNewFileName(orderNo) + ".xml";
+
+                    msService = new MessageService();
+                    msService.DealMessage301(orderNo, orderHead.orderNo, logisticsNo, false, true, orderHead.guid.ToString(), destPath);
+
+                    xele.Save(destPath);
                 }
-                FileUtilities.CreateFolder(ConfigurationInfo.PathSend);
-                xele.Save(ConfigurationInfo.PathSend + "\\" + FileUtilities.GetNewFileName(orderNo) + ".xml");
-
-                string destPath = FileUtilities.GetNewFolderName(true, ConfigurationInfo.PathBackUp, "301") + "\\" + FileUtilities.GetNewFileName(orderNo) + ".xml";
-
-                msService = new MessageService();
-                msService.DealMessage301(orderNo, orderHead.orderNo, logisticsNo, false, true, orderHead.guid.ToString(), destPath);
-
-                xele.Save(destPath);
+                else
+                {
+                    Logs.Info("Does not exist in database: " + orderNo);
+                }
             }
             catch (Exception ex)
             {
