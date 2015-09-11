@@ -20,7 +20,7 @@ namespace FS.Platform.Server
             return msControl.CreateMessage301(orderNo);
         }
 
-        public bool CreateMessage601(string orderNo)
+        public bool CreateMessage601(string logisticsNo)
         {
             return true;
         }

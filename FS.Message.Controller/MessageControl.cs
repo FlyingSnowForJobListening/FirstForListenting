@@ -41,13 +41,16 @@ namespace FS.Message.Controller
                         xele = a.ToXElememt(xele, ns);
                     }
                     FileUtilities.CreateFolder(ConfigurationInfo.PathSend);
-                    xele.Save(ConfigurationInfo.PathSend + "\\" + FileUtilities.GetNewFileName(orderNo) + ".xml");
 
                     string destPath = FileUtilities.GetNewFolderName(true, ConfigurationInfo.PathBackUp, "301") + "\\" + FileUtilities.GetNewFileName(orderNo) + ".xml";
 
                     msService = new MessageService();
-                    msService.DealMessage301(orderNo, orderHead.orderNo, logisticsNo, false, true, orderHead.guid.ToString(), destPath);
-
+                    success = msService.DealMessage301(orderNo, orderHead.orderNo, logisticsNo, false, true, orderHead.guid.ToString(), destPath);
+                    if (!success)
+                    {
+                        destPath = FileUtilities.GetNewFolderName(true, ConfigurationInfo.PathBackUpError, "301") + "\\" + FileUtilities.GetNewFileName(orderNo) + ".xml";
+                    }
+                    xele.Save(ConfigurationInfo.PathSend + "\\" + FileUtilities.GetNewFileName(orderNo) + ".xml");
                     xele.Save(destPath);
                 }
                 else
@@ -132,7 +135,6 @@ namespace FS.Message.Controller
             }
             return success;
         }
-
         public static void CreateMessage601(object param)
         {
             InventoryHead inventoryHead = null;

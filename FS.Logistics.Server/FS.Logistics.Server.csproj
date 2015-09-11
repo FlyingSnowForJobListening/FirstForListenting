@@ -4,18 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{DCC4FED0-48C5-49AC-A74E-F8F97EF3071F}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{4FC3043A-6F04-432E-BED7-3254CC933A43}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FS.TestWebRequest</RootNamespace>
-    <AssemblyName>FS.TestWebRequest</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <RootNamespace>FS.Logistics.Server</RootNamespace>
+    <AssemblyName>FS.Logistics.Server</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -25,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -35,8 +31,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -45,18 +42,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="Implement\LogisticsService.cs" />
+    <Compile Include="Interface\ILogisticsService.cs" />
+    <Compile Include="LogisticsControl.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <None Include="App.config">
-      <SubType>Designer</SubType>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\FS.Rest\FS.Rest.csproj">
-      <Project>{77ba8cd3-cf45-4108-bddf-a689823fd6b0}</Project>
-      <Name>FS.Rest</Name>
+    <ProjectReference Include="..\FS.Configuration\FS.Configuration.csproj">
+      <Project>{8b2505f2-5025-4c71-81fa-c90fdbafc41c}</Project>
+      <Name>FS.Configuration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FS.Log\FS.Log.csproj">
+      <Project>{40615913-c809-42ac-9efb-d989676040e9}</Project>
+      <Name>FS.Log</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FS.Message.Structure\FS.Message.Structure.csproj">
+      <Project>{7e15b82b-3e16-4563-8baf-04febebd9af0}</Project>
+      <Name>FS.Message.Structure</Name>
     </ProjectReference>
     <ProjectReference Include="..\FS.Utility\FS.Utility.csproj">
       <Project>{2e9994cb-704c-4019-8173-3510ab6d20a7}</Project>

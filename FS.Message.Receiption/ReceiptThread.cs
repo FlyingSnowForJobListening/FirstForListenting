@@ -53,7 +53,7 @@ namespace FS.Message.Receiption
                 switch (firstNodeName)
                 {
                     case "ceb301message":
-                        ReceiptHelper.DealWith301(path);
+                        ReceiptHelper.DealWith301(xele, path);
                         break;
                     case "ceb302message":
                         ReceiptHelper.DealWith302(xele, path);
@@ -76,6 +76,13 @@ namespace FS.Message.Receiption
                     default:
                         break;
                 }
+            }
+            catch (System.IO.IOException ioex)
+            {
+                Logs.Info("Error File path:" + path);
+                Logs.Debug("ProgressMethod Exception:" + ioex.ToString());
+                QueueCache.AddQueueCache(path);
+                AwakenThread();
             }
             catch (Exception ex)
             {

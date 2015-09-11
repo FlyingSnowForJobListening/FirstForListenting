@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Xml.Linq;
 
-namespace FS.Message.Controller
+namespace FS.Utility
 {
     public static class XmlHelpercs
     {

@@ -50,7 +50,6 @@
     <Compile Include="MessageControl.cs" />
     <Compile Include="MessageSql.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="XmlHelpercs.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FS.Configuration\FS.Configuration.csproj">

@@ -710,7 +710,6 @@
     <Content Include="Pages\Elements\Timeline.aspx" />
     <Content Include="Pages\Tables\MessageTable.aspx" />
     <Content Include="Pages\Widgets\CacheInfo.aspx" />
-    <Content Include="Pages\Widgets\ErrorData.aspx" />
     <Content Include="Site.Master" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config">
@@ -721,6 +720,7 @@
     <Content Include="js\Pages\Page.MessageTable.js" />
     <None Include="Project_Readme.html" />
     <Content Include="Site.Mobile.Master" />
+    <None Include="Properties\PublishProfiles\fs.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -875,13 +875,6 @@
     </Compile>
     <Compile Include="Pages\Widgets\CacheInfo.aspx.designer.cs">
       <DependentUpon>CacheInfo.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\Widgets\ErrorData.aspx.cs">
-      <DependentUpon>ErrorData.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Pages\Widgets\ErrorData.aspx.designer.cs">
-      <DependentUpon>ErrorData.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Site.Master.cs">

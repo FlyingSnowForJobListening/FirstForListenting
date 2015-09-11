@@ -12,11 +12,11 @@ namespace FS.Platform.Server
     [ServiceContract(Namespace = "FS.Platform.Server")]
     public interface IMessageService
     {
-        [WebInvoke(BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "Create301", Method = "POST", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        [WebInvoke(BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "Create301/{orderNo}", Method = "POST", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
         bool CreateMessage301(string orderNo);
 
-        [WebInvoke(BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "Create601", Method = "POST", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
-        bool CreateMessage601(string orderNo);
+        [WebInvoke(BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "Create601/{logisticsNo}", Method = "POST", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        bool CreateMessage601(string logisticsNo);
 
         [WebInvoke(BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "GetByFilter", Method = "POST", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
         List<MessageTrack> GetMessageTracksByFilter(MessageFilter filter);

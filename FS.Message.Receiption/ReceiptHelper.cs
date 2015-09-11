@@ -28,13 +28,20 @@ namespace FS.Message.Receiption
             }
         }
 
-        public static void DealWith301(string path)
+        public static void DealWith301(XElement xElement, string path)
         {
+            MessageService msService = null;
             try
             {
+                IEnumerable<XElement> eles = xElement.Elements().First().Elements();
+                string orderNoFake = eles.Where(e => e.Name.LocalName == "orderNo").First().Value;
+                string orderNo = orderNoFake.Substring(0, orderNoFake.IndexOf('_'));
+
                 string fileName = FileUtilities.GetNewFileName() + ".xml";
                 string fileDestFolder = FileUtilities.GetNewFolderName(true, ConfigurationInfo.PathBackUp, "301");
                 FileUtilities.FileMove(path, fileDestFolder + "\\" + fileName);
+
+                //msService.DealMessage301(orderNo, orderNoFake, )
             }
             catch (Exception ex)
             {
@@ -60,8 +67,11 @@ namespace FS.Message.Receiption
                 string destPath = FileUtilities.GetNewFolderName(true, ConfigurationInfo.PathBackUp, "302") + "\\" + FileUtilities.GetNewFileName(orderNoFake, status) + ".xml";
 
                 msService = new MessageService();
-                msService.DealMessage302(orderNoFake, guid, status, returnTime, returnInfo, destPath);
-
+                bool success = msService.DealMessage302(orderNoFake, guid, status, returnTime, returnInfo, destPath);
+                if (!success)
+                {
+                    destPath = FileUtilities.GetNewFolderName(true, ConfigurationInfo.PathBackUpError, "302") + "\\" + FileUtilities.GetNewFileName(orderNoFake, status) + ".xml";
+                }
                 FileUtilities.FileMove(path, destPath);
                 if (ConfigurationInfo.Need501 && status.Equals("120"))
                 {
@@ -97,7 +107,11 @@ namespace FS.Message.Receiption
                     string destPath = FileUtilities.GetNewFolderName(true, ConfigurationInfo.PathBackUp, "501") + "\\" + FileUtilities.GetNewFileName(orderNoFake) + ".xml";
 
                     msService = new MessageService();
-                    msService.DealMessage501(true, false, guid, orderNoFake, logisticsNo, destPath);
+                    bool success = msService.DealMessage501(true, false, guid, orderNoFake, logisticsNo, destPath);
+                    if (!success)
+                    {
+                        destPath = FileUtilities.GetNewFolderName(true, ConfigurationInfo.PathBackUpError, "501") + "\\" + FileUtilities.GetNewFileName(orderNoFake) + ".xml";
+                    }
 
                     MessageCache.AddCache(CacheInfo.SetCacheInfo(logisticsNo, null));
 
@@ -129,7 +143,11 @@ namespace FS.Message.Receiption
                 string destPath = FileUtilities.GetNewFolderName(true, ConfigurationInfo.PathBackUp, "502") + "\\" + FileUtilities.GetNewFileName(logisticsNo, status) + ".xml";
 
                 msService = new MessageService();
-                msService.DealMessage502(logisticsNo, guid, status, returnTime, returnInfo, destPath);
+                bool success = msService.DealMessage502(logisticsNo, guid, status, returnTime, returnInfo, destPath);
+                if (success)
+                {
+                    destPath = FileUtilities.GetNewFolderName(true, ConfigurationInfo.PathBackUpError, "502") + "\\" + FileUtilities.GetNewFileName(logisticsNo, status) + ".xml";
+                }
 
                 FileUtilities.FileMove(path, destPath);
                 if (ConfigurationInfo.Need501 && status.Equals("120"))

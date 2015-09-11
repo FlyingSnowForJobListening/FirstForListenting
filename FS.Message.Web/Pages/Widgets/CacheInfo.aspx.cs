@@ -8,7 +8,7 @@ using System.Web.UI.WebControls;
 
 namespace FS.Message.Web.Pages.Widgets
 {
-    public partial class CacheInfo : System.Web.UI.Page
+    public partial class CacheInfo : System.Web.UI.Page, ICallbackEventHandler
     {
         MessageControl a_control;
         public string a_result;
@@ -17,9 +17,22 @@ namespace FS.Message.Web.Pages.Widgets
         {
             if (!IsPostBack)
             {
-                GetMessageControl();
-                a_result = a_control.GetCacheCount();
+                LoadCacheInfoAjax();
             }
+            //if (!IsPostBack)
+            //{
+            //    GetMessageControl();
+            //    a_result = a_control.GetCacheCount();
+            //}
+        }
+
+        private void LoadCacheInfoAjax()
+        {
+            ClientScriptManager csm = Page.ClientScript;
+            string reference = csm.GetCallbackEventReference(this, "args", "LoadCacheInfoAjaxSuccess", "", "LoadCacheInfoAjaxError", false);
+            string callbackScript = "function CallLoadCacheInfoAjax(args, context) {\n" +
+               reference + ";\n }";
+            csm.RegisterClientScriptBlock(this.GetType(), "CallLoadCacheInfoAjax", callbackScript, true);
         }
 
         private void GetMessageControl()
@@ -28,6 +41,16 @@ namespace FS.Message.Web.Pages.Widgets
             {
                 a_control = new MessageControl();
             }
+        }
+
+        public void RaiseCallbackEvent(string eventArgument)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string GetCallbackResult()
+        {
+            throw new NotImplementedException();
         }
     }
 }

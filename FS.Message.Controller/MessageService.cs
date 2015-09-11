@@ -15,8 +15,9 @@ namespace FS.Message.Controller
 {
     public class MessageService
     {
-        public void DealMessage301(string orderNo, string orderNoFake, string logisticsNo, bool isReceived, bool isCreated, string guid, string destPath)
+        public bool DealMessage301(string orderNo, string orderNoFake, string logisticsNo, bool isReceived, bool isCreated, string guid, string destPath)
         {
+            bool success = true;
             try
             {
                 EntryCreate entry = new EntryCreate();
@@ -50,11 +51,14 @@ namespace FS.Message.Controller
             }
             catch (Exception ex)
             {
-                Logs.Error("DealMessage301 Exception : " + ex.ToString());
+                Logs.Error(string.Format("DealMessage301 OrderNo: {0} , Exception: {1}", orderNo, ex.ToString()));
+                success = false;
             }
+            return success;
         }
-        public void DealMessage302(string orderNoFake, string guid, string status, string returnTime, string returnInfo, string destPath)
+        public bool DealMessage302(string orderNoFake, string guid, string status, string returnTime, string returnInfo, string destPath)
         {
+            bool success = true;
             try
             {
                 EntryReceive entry = new EntryReceive();
@@ -80,11 +84,14 @@ namespace FS.Message.Controller
             }
             catch (Exception ex)
             {
-                Logs.Error("DealMessage302 Exception : " + ex.ToString());
+                Logs.Error(string.Format("DealMessage302 OrderNoFake: {0} , Exception: {1}", orderNoFake, ex.ToString()));
+                success = false;
             }
+            return success;
         }
-        public void DealMessage501(bool isReceived, bool isCreated, string guid, string orderNoFake, string logisticNo, string destPath)
+        public bool DealMessage501(bool isReceived, bool isCreated, string guid, string orderNoFake, string logisticNo, string destPath)
         {
+            bool success = true;
             try
             {
                 EntryCreate entry = new EntryCreate();
@@ -107,11 +114,14 @@ namespace FS.Message.Controller
             }
             catch (Exception ex)
             {
-                Logs.Error("DealMessage501 Exception : " + ex.ToString());
+                Logs.Error(string.Format("DealMessage501 OrderNoFake: {0} , Exception: {1}", orderNoFake, ex.ToString()));
+                success = false;
             }
+            return success;
         }
-        public void DealMessage502(string logisticsNo, string guid, string status, string returnTime, string returnInfo, string destPath)
+        public bool DealMessage502(string logisticsNo, string guid, string status, string returnTime, string returnInfo, string destPath)
         {
+            bool success = true;
             try
             {
                 EntryReceive entry = new EntryReceive();
@@ -134,11 +144,14 @@ namespace FS.Message.Controller
             }
             catch (Exception ex)
             {
-                Logs.Error("DealMessage502 Exception : " + ex.ToString());
+                Logs.Error(string.Format("DealMessage502 LogisticsNo: {0} , Exception: {1}", logisticsNo, ex.ToString()));
+                success = false;
             }
+            return success;
         }
-        public void DealMessage503(bool isReceived, bool isCreated, string guid, string logisticNo, string destPath)
+        public bool DealMessage503(bool isReceived, bool isCreated, string guid, string logisticNo, string destPath)
         {
+            bool success = true;
             try
             {
                 EntryCreate entry = new EntryCreate();
@@ -161,11 +174,14 @@ namespace FS.Message.Controller
             }
             catch (Exception ex)
             {
-                Logs.Error("DealMessage503 Exception : " + ex.ToString());
+                Logs.Error(string.Format("DealMessage503 LogisticsNo: {0} , Exception: {1}", logisticNo, ex.ToString()));
+                success = false;
             }
+            return success;
         }
-        public void DealMessage504(string logisticsNo, string guid, string status, string logisticsStatus, string returnTime, string returnInfo, string destPath)
+        public bool DealMessage504(string logisticsNo, string guid, string status, string logisticsStatus, string returnTime, string returnInfo, string destPath)
         {
+            bool success = true;
             try
             {
                 EntryReceive entry = new EntryReceive();
@@ -189,11 +205,14 @@ namespace FS.Message.Controller
             }
             catch (Exception ex)
             {
-                Logs.Error("DealMessage504 Exception: " + ex.ToString());
+                Logs.Error(string.Format("DealMessage504 LogisticsNo: {0} Exception: {1}", logisticsNo, ex.ToString()));
+                success = false;
             }
+            return success;
         }
-        public void DealMessage601(bool isReceived, bool isCreated, string guid, string copNo, string destPath)
+        public bool DealMessage601(bool isReceived, bool isCreated, string guid, string copNo, string destPath)
         {
+            bool success = true;
             try
             {
                 EntryCreate entry = new EntryCreate();
@@ -216,11 +235,14 @@ namespace FS.Message.Controller
             }
             catch (Exception ex)
             {
-                Logs.Error("DealMessage601 Exception : " + ex.ToString());
+                Logs.Error(string.Format("DealMessage601 OrderNoFake: {0} Exception : {1}", copNo, ex.ToString()));
+                success = false;
             }
+            return success;
         }
-        public void DealMessage602(string copNo, string guid, string status, string returnTime, string returnInfo, string destPath)
+        public bool DealMessage602(string copNo, string guid, string status, string returnTime, string returnInfo, string destPath)
         {
+            bool success = true;
             try
             {
                 EntryReceive entry = new EntryReceive();
@@ -247,8 +269,10 @@ namespace FS.Message.Controller
             }
             catch (Exception ex)
             {
-                Logs.Error("DealMessage602 Exception : " + ex.ToString());
+                Logs.Error(string.Format("DealMessage602 OrderNoFake: {0} , Exception: {1}", copNo, ex.ToString()));
+                success = false;
             }
+            return success;
         }
     }
 }
