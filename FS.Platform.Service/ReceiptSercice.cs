@@ -23,9 +23,14 @@ namespace FS.Platform.Service
 
         protected override void OnStart(string[] args)
         {
-            FileWatcher.WatcherStart(ConfigurationInfo.PathReceipt, 1, "*.xml");
+            FileWatcher.WatcherStart(ConfigurationInfo.PathReceipt, 8, "*.xml");
+
             ServiceHost message = new ServiceHost(typeof(MessageService));
+            ServiceHost tools = new ServiceHost(typeof(ToolService));
+
             message.Open();
+            tools.Open();
+
             base.OnStart(args);
         }
 

@@ -14,12 +14,18 @@ namespace FS.Message.Client
 {
     public class MessageControl
     {
-        private string a_restUrl;
-        private string a_restService;
+        public string a_restUrl;
+        public string a_restService;
 
-        public MessageControl()
+        public MessageControl(ExecuteMethod method)
         {
-            this.a_restService = "Messages";
+            this.a_restService = method.ToString();
+            this.a_restUrl = string.Format("{0}:{1}/{2}/", ConfigurationInfo.RestHost, ConfigurationInfo.RestPort, this.a_restService);
+        }
+
+        public MessageControl(string method = "Messages")
+        {
+            this.a_restService = method;
             this.a_restUrl = string.Format("{0}:{1}/{2}/", ConfigurationInfo.RestHost, ConfigurationInfo.RestPort, this.a_restService);
         }
 

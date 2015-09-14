@@ -22,7 +22,7 @@ namespace FS.Platform.Service
 
             serviceAdmin.StartType = ServiceStartMode.Automatic;
             serviceAdmin.ServiceName = "ReceiptPlatForm";
-            serviceAdmin.DisplayName = "Platform of Receipt";
+            serviceAdmin.DisplayName = "Receipt Platform";
 
             Installers.Add(process);
             Installers.Add(serviceAdmin);

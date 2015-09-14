@@ -41,7 +41,7 @@ namespace FS.Message.Receiption
             }
         }
 
-        private static void ProgressMethod(object param)
+        public static void ProgressMethod(object param)
         {
             string path = null;
             try

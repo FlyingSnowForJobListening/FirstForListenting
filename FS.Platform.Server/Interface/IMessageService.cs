@@ -29,8 +29,13 @@ namespace FS.Platform.Server
         [WebInvoke(BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "GetByGuid", Method = "POST", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
         MessageTrack GetMessageTrackByGuid(MessageFilter Filter);
 
+
         [OperationContract]
-        [WebGet(BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "GetCache", ResponseFormat = WebMessageFormat.Json)]
-        string GetCacheCount();
+        [WebInvoke(BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "DeleteByGuid", Method = "POST", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        bool DeleteMessageByGuid(MessageFilter filter);
+
+        [OperationContract]
+        [WebInvoke(BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "DeleteByFilter", Method = "POST", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        bool DeleteMessageByFilter(MessageFilter filter);
     }
 }

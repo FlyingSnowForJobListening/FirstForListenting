@@ -19,12 +19,16 @@ namespace FS.Platform.Application
                 FileWatcher.WatcherStart(ConfigurationInfo.PathReceipt, 1, "*.xml");
 
                 ServiceHost message = new ServiceHost(typeof(MessageService));
+                ServiceHost tools = new ServiceHost(typeof(ToolService));
                 message.Open();
+                tools.Open();
                 Console.WriteLine("Running....");
                 Console.ReadKey();
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex.ToString());
+                Console.ReadKey();
             }
         }
     }

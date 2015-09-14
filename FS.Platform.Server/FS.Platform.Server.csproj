@@ -54,9 +54,15 @@
   <ItemGroup>
     <Compile Include="Implement\MessageService.cs" />
     <Compile Include="Interface\IMessageService.cs" />
+    <Compile Include="Interface\IToolService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Implement\ToolService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\FS.Configuration\FS.Configuration.csproj">
+      <Project>{8b2505f2-5025-4c71-81fa-c90fdbafc41c}</Project>
+      <Name>FS.Configuration</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FS.Database\FS.Database.csproj">
       <Project>{25ba2f1e-fe0e-48e4-b04d-c013de1d52f8}</Project>
       <Name>FS.Database</Name>
@@ -72,6 +78,10 @@
     <ProjectReference Include="..\FS.Message.Receiption\FS.Message.Receiption.csproj">
       <Project>{e8acef0a-2a2d-426d-a595-29dcbb03d38d}</Project>
       <Name>FS.Message.Receiption</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FS.Utility\FS.Utility.csproj">
+      <Project>{2e9994cb-704c-4019-8173-3510ab6d20a7}</Project>
+      <Name>FS.Utility</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

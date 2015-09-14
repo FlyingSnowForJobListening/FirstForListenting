@@ -261,8 +261,8 @@ namespace FS.Message.Receiption
                         break;
                     case "800":
                         preNo = eles.Where(e => e.Name.LocalName == "preNo").First().Value;
-                        MessageControl msControl = new MessageControl();
-                        msControl.CreateMessage503(null, copNo);
+                        //MessageControl msControl = new MessageControl();
+                        //msControl.CreateMessage503(null, copNo);
                         break;
                     default:
                         preNo = eles.Where(e => e.Name.LocalName == "preNo").First().Value;

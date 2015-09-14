@@ -45,6 +45,26 @@ namespace FS.Utility
             }
             return result;
         }
+        public static List<string> GetFilesInFolder(string folderName, string filter = "*.*", bool topOnly = true)
+        {
+            List<string> list = null;
+            try
+            {
+                if (topOnly)
+                {
+                    list = Directory.GetFiles(folderName, filter, SearchOption.TopDirectoryOnly).ToList();
+                }
+                else
+                {
+                    list = Directory.GetFiles(folderName, filter, SearchOption.AllDirectories).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("GetFilesInFolder Exception: " + ex.ToString());
+            }
+            return list;
+        }
         public static string GetNewFolderName(bool needTimeFolder, params string[] args)
         {
             string result = null;
@@ -63,7 +83,6 @@ namespace FS.Utility
             }
             return result;
         }
-
         public static bool FileMove(string sourcePath, string destPath)
         {
             bool success = true;

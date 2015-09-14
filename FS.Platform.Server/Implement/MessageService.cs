@@ -19,7 +19,6 @@ namespace FS.Platform.Server
             MessageControl msControl = new MessageControl();
             return msControl.CreateMessage301(orderNo);
         }
-
         public bool CreateMessage601(string logisticsNo)
         {
             return true;
@@ -114,12 +113,67 @@ namespace FS.Platform.Server
             }
             return result;
         }
-        public string GetCacheCount()
+        public bool DeleteMessageByGuid(MessageFilter filter)
         {
-            int cache601 = MessageCache.GetCacheLength();
-            int cacheQueue = QueueCache.GetCacheLength();
-            //int cacheFile = Fil
-            return JsonConvert.SerializeObject(new { cache601 = cache601, cacheQueue = cacheQueue });
+            bool success = true;
+            try
+            {
+                using (var db = new EntryContext())
+                {
+                    var query = from m in db.MessageTracks
+                                .Include("Entry301s")
+                                .Include("Entry302s")
+                                .Include("Entry501s")
+                                .Include("Entry502s")
+                                .Include("Entry503s")
+                                .Include("Entry504s")
+                                .Include("Entry601s")
+                                .Include("Entry602s")
+                                where m.ItemGuid == filter.Guid
+                                select m;
+                    db.Entry(query.FirstOrDefault()).State = System.Data.Entity.EntityState.Deleted;
+                    db.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                Logs.Error("DeleteMessageByGuid Exception: " + ex.ToString());
+                success = false;
+            }
+            return success;
+        }
+        public bool DeleteMessageByFilter(MessageFilter filter)
+        {
+            bool success = true;
+            try
+            {
+                using (var db = new EntryContext())
+                {
+                    var query = from m in db.MessageTracks
+                                .Include("Entry301s")
+                                .Include("Entry302s")
+                                .Include("Entry501s")
+                                .Include("Entry502s")
+                                .Include("Entry503s")
+                                .Include("Entry504s")
+                                .Include("Entry601s")
+                                .Include("Entry602s")
+                                where (string.IsNullOrEmpty(filter.OrderNo) ? true : m.OrderNo.IndexOf(filter.OrderNo) >= 0)
+                                && (string.IsNullOrEmpty(filter.LogisticsNo) ? true : m.LogisticsNo.IndexOf(filter.LogisticsNo) >= 0)
+                                && (filter.Status.Equals("All") ? true : filter.Status.Equals("True") ? m.IsFinished : !m.IsFinished)
+                                && (filter.Start.Ticks == 0 ? true : m.LastUpdateTicks >= filter.Start.Ticks)
+                                && (filter.End.Ticks == 0 ? true : m.LastUpdateTicks <= filter.End.Ticks)
+                                select m;
+                    db.MessageTracks.RemoveRange(query);
+                    db.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                Logs.Error("DeleteMessageByFilter Exception: " + ex.ToString());
+                success = false;
+            }
+            return success;
         }
     }
 }

@@ -13,4 +13,10 @@ namespace FS.Message.Client
         GetByFilter,
         GetCache
     }
+
+    public enum ExecuteMethod
+    {
+        Messages,
+        Tools
+    }
 }

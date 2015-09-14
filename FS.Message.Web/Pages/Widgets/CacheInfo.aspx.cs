@@ -35,22 +35,32 @@ namespace FS.Message.Web.Pages.Widgets
             csm.RegisterClientScriptBlock(this.GetType(), "CallLoadCacheInfoAjax", callbackScript, true);
         }
 
-        private void GetMessageControl()
+        private void GetToolControl()
         {
             if (a_control == null)
             {
-                a_control = new MessageControl();
+                a_control = new MessageControl(ExecuteMethod.Tools);
             }
         }
 
         public void RaiseCallbackEvent(string eventArgument)
         {
-            throw new NotImplementedException();
+            string flag = eventArgument.Substring(0, 36);
+            string para = eventArgument.Substring(36);
+            GetToolControl();
+            switch (flag)
+            {
+                case "7322BBDD-FB89-4FAE-A699-834B085FF09E":
+                    a_result = "7322BBDD-FB89-4FAE-A699-834B085FF09E" + a_control.GetCacheCount();
+                    break;
+                default:
+                    break;
+            }
         }
 
         public string GetCallbackResult()
         {
-            throw new NotImplementedException();
+            return a_result;
         }
     }
 }
