@@ -21,7 +21,7 @@ namespace FS.Platform.Server
 
         [OperationContract]
         [WebGet(BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "Clear601", ResponseFormat = WebMessageFormat.Json)]
-        int ClearMessageCache601();
+        string ClearMessageCache601();
 
         [OperationContract]
         [WebGet(BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "ClearCacheFile", ResponseFormat = WebMessageFormat.Json)]

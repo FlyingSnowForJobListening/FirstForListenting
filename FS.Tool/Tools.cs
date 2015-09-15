@@ -1,13 +1,18 @@
-﻿using FS.Rest;
+﻿using FS.Database;
+using FS.Rest;
+using FS.Utility;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace FS.Tool
 {
@@ -17,10 +22,10 @@ namespace FS.Tool
         public Tools()
         {
             InitializeComponent();
-            Init();
+            InitMessage();
         }
 
-        private void Init()
+        private void InitMessage()
         {
             this.StartPosition = FormStartPosition.CenterScreen;
             a_requestObj = new RequestObj();
@@ -176,5 +181,45 @@ namespace FS.Tool
             }
         }
         #endregion
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            string folderPath = this.tboxFolder.Text;
+
+            List<string> strs = FileUtilities.GetFilesInFolder(folderPath);
+
+            foreach (string str in strs)
+            {
+                try
+                {
+                    Method1(str);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(str + "\n" + ex.ToString());
+                }
+            }
+            MessageBox.Show("Over");
+        }
+
+        private void Method1(string path)
+        {
+            XElement ele = XElement.Load(path);
+            IEnumerable<XElement> eles = ele.Elements().First().Elements();
+            string orderNoFake = eles.Where(e => e.Name.LocalName == "copNo").First().Value;
+            string preNo = eles.Where(e => e.Name.LocalName == "preNo").First().Value;
+
+            SqlServer sql = new SqlServer(ConfigurationManager.ConnectionStrings["DBConnection"].ConnectionString);
+            sql.ExePROCNonQuery("ToolPro", ConvertToSqlParameters(orderNoFake, preNo));
+            sql.CloseConnect();
+        }
+
+        private SqlParameter[] ConvertToSqlParameters(string orderNoFake, string preNo)
+        {
+            SqlParameter[] paras = new SqlParameter[2];
+            paras[0] = new SqlParameter("OrderNoFake", SqlDbType.VarChar, 30) { Value = orderNoFake };
+            paras[1] = new SqlParameter("PreNo", SqlDbType.VarChar, 30) { Value = preNo };
+            return paras;
+        }
     }
 }

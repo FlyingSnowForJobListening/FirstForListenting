@@ -11,7 +11,11 @@ namespace FS.Message.Client
         Get,
         GetByGuid,
         GetByFilter,
-        GetCache
+        GetCache,
+        Clear601,
+        ClearCacheFile,
+        ClearFileResidue,
+        AwakeThread
     }
 
     public enum ExecuteMethod

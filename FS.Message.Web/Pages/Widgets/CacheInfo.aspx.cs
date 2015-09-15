@@ -53,6 +53,9 @@ namespace FS.Message.Web.Pages.Widgets
                 case "7322BBDD-FB89-4FAE-A699-834B085FF09E":
                     a_result = "7322BBDD-FB89-4FAE-A699-834B085FF09E" + a_control.GetCacheCount();
                     break;
+                case "6179029E-D073-4354-8FBD-6725D089EC63":
+                    a_result = "6179029E-D073-4354-8FBD-6725D089EC63" + a_control.SendMessage601Now();
+                    break;
                 default:
                     break;
             }

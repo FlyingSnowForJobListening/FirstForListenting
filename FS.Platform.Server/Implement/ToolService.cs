@@ -50,10 +50,11 @@ namespace FS.Platform.Server
             return 0;
         }
 
-        public int ClearMessageCache601()
+        public string ClearMessageCache601()
         {
             MessageCache.ClearMessageCache();
-            return MessageCache.GetCacheLength();
+            int cache601 = MessageCache.GetCacheLength();
+            return JsonConvert.SerializeObject(new { cache601 = cache601 });
         }
 
         public string GetCacheCount()

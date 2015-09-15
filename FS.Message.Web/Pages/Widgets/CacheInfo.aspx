@@ -85,21 +85,21 @@
                                             <td>601报文缓存</td>
                                             <td><span data-bind="text: cache601"></span></td>
                                             <td>
-                                                <div class="btn btn-block btn-info">立刻发送</div>
+                                                <div id="ui_btnSend601" class="btn btn-block btn-info" style="width: 100px">立刻发送</div>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>文件缓存</td>
                                             <td><span data-bind="text: cacheQueue"></span></td>
                                             <td>
-                                                <div class="btn btn-block btn-info">线程唤醒</div>
+                                                <div id="ui_btnAwake" class="btn btn-block btn-info" style="width: 100px">线程唤醒</div>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>残留文件</td>
                                             <td><span></span></td>
                                             <td>
-                                                <div class="btn btn-block btn-info">立即处理</div>
+                                                <div id="ui_btnDealResidue" class="btn btn-block btn-info" style="width: 100px">立即处理</div>
                                             </td>
                                         </tr>
                                     </table>

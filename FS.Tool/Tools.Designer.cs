@@ -44,11 +44,18 @@
             this.gpRequestUrl = new System.Windows.Forms.GroupBox();
             this.tboxRequestUrl = new System.Windows.Forms.TextBox();
             this.labRequestUrl = new System.Windows.Forms.Label();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabImportFile = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.gpFolderPath = new System.Windows.Forms.GroupBox();
+            this.labFolder = new System.Windows.Forms.Label();
+            this.tboxFolder = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.tabMessageCreate.SuspendLayout();
             this.gpOperation.SuspendLayout();
             this.gpRequestUrl.SuspendLayout();
-            this.tabControl1.SuspendLayout();
+            this.tabImportFile.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.gpFolderPath.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabMessageCreate
@@ -212,21 +219,70 @@
             this.labRequestUrl.TabIndex = 0;
             this.labRequestUrl.Text = "Request Url :";
             // 
-            // tabControl1
+            // tabImportFile
             // 
-            this.tabControl1.Controls.Add(this.tabMessageCreate);
-            this.tabControl1.Location = new System.Drawing.Point(12, 12);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(498, 319);
-            this.tabControl1.TabIndex = 0;
+            this.tabImportFile.Controls.Add(this.tabMessageCreate);
+            this.tabImportFile.Controls.Add(this.tabPage1);
+            this.tabImportFile.Location = new System.Drawing.Point(12, 12);
+            this.tabImportFile.Name = "tabImportFile";
+            this.tabImportFile.SelectedIndex = 0;
+            this.tabImportFile.Size = new System.Drawing.Size(498, 319);
+            this.tabImportFile.TabIndex = 0;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.button1);
+            this.tabPage1.Controls.Add(this.gpFolderPath);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Size = new System.Drawing.Size(490, 293);
+            this.tabPage1.TabIndex = 1;
+            this.tabPage1.Text = "Import File";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // gpFolderPath
+            // 
+            this.gpFolderPath.Controls.Add(this.tboxFolder);
+            this.gpFolderPath.Controls.Add(this.labFolder);
+            this.gpFolderPath.Location = new System.Drawing.Point(12, 12);
+            this.gpFolderPath.Name = "gpFolderPath";
+            this.gpFolderPath.Size = new System.Drawing.Size(463, 67);
+            this.gpFolderPath.TabIndex = 0;
+            this.gpFolderPath.TabStop = false;
+            this.gpFolderPath.Text = "Folder Path";
+            // 
+            // labFolder
+            // 
+            this.labFolder.AutoSize = true;
+            this.labFolder.Location = new System.Drawing.Point(18, 28);
+            this.labFolder.Name = "labFolder";
+            this.labFolder.Size = new System.Drawing.Size(64, 13);
+            this.labFolder.TabIndex = 0;
+            this.labFolder.Text = "Folder Path:";
+            // 
+            // tboxFolder
+            // 
+            this.tboxFolder.Location = new System.Drawing.Point(100, 25);
+            this.tboxFolder.Name = "tboxFolder";
+            this.tboxFolder.Size = new System.Drawing.Size(215, 20);
+            this.tboxFolder.TabIndex = 2;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(129, 86);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // Tools
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(521, 343);
-            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.tabImportFile);
             this.Name = "Tools";
             this.Text = "Tools";
             this.tabMessageCreate.ResumeLayout(false);
@@ -234,7 +290,10 @@
             this.gpOperation.PerformLayout();
             this.gpRequestUrl.ResumeLayout(false);
             this.gpRequestUrl.PerformLayout();
-            this.tabControl1.ResumeLayout(false);
+            this.tabImportFile.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.gpFolderPath.ResumeLayout(false);
+            this.gpFolderPath.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -243,7 +302,7 @@
 
         private System.Windows.Forms.TabPage tabMessageCreate;
         private System.Windows.Forms.GroupBox gpRequestUrl;
-        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabControl tabImportFile;
         private System.Windows.Forms.Label labRequestUrl;
         private System.Windows.Forms.TextBox tboxRequestUrl;
         private System.Windows.Forms.GroupBox gpOperation;
@@ -258,6 +317,11 @@
         private System.Windows.Forms.Button btnCreate501;
         private System.Windows.Forms.Button btnCreate503R;
         private System.Windows.Forms.Button btnCreate503L;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.GroupBox gpFolderPath;
+        private System.Windows.Forms.Label labFolder;
+        private System.Windows.Forms.TextBox tboxFolder;
+        private System.Windows.Forms.Button button1;
     }
 }
 
