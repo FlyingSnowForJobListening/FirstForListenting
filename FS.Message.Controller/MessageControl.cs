@@ -70,68 +70,149 @@ namespace FS.Message.Controller
             bool success = true;
             LogisticsHead logisticsHead = null;
             MessageSql mssql = null;
+            MessageService msService = null;
+            XElement xele = null;
+            XNamespace ns = null;
             try
             {
                 mssql = new MessageSql();
                 logisticsHead = new LogisticsHead();
                 mssql.QueryData501(orderNoFake, ref logisticsHead);
-                RestRequest restRequest = new RestRequest(string.Format("{0}:{1}/Logistics/Create501", ConfigurationInfo.RestHost, ConfigurationInfo.RestPort), Utilities.JsonSerialize(logisticsHead));
-                success = Convert.ToBoolean(restRequest.Execute());
+
+                if (logisticsHead.guid != new Guid())
+                {
+                    RestRequest restRequest = new RestRequest(string.Format("{0}:{1}/Logistics/Create501", ConfigurationInfo.RestHost, ConfigurationInfo.RestPort), Utilities.JsonSerialize(logisticsHead));
+                    success = Convert.ToBoolean(restRequest.Execute());
+                }
+                else
+                {
+                    success = false;
+                }
                 if (success)
                 {
                     mssql.UpdateSchedule501(orderNoFake, logisticsHead.billNo);
+
+                    ns = "http://www.chinaport.gov.cn/ceb";
+                    xele = new XElement(ns + "CEB501Message");
+                    xele.SetAttributeValue(XNamespace.Xmlns + "ceb", ns);
+                    xele = logisticsHead.ToXElememt(xele, ns);
+
+                    string destPath = FileUtilities.GetNewFolderName(true, ConfigurationInfo.PathBackUp, "501") + "\\" + FileUtilities.GetNewFileName(orderNoFake, "Create") + ".xml";
+
+                    xele.Save(destPath);
+
+                    msService = new MessageService();
+                    msService.DealMessage501(false, true, logisticsHead.guid.ToString(), orderNoFake, logisticsHead.logisticsNo, destPath);
                 }
                 else
                 {
                     Logs.Info("Create501Message Response Error! Date:" + Utilities.JsonSerialize(logisticsHead));
                 }
-
             }
             catch (Exception ex)
             {
                 success = false;
-                Logs.Error("Create501Message Exception : " + ex.ToString());
+                Logs.Error("Create501Message Exception: " + ex.ToString());
             }
             return success;
         }
-        public bool CreateMessage503(string logisticsNo, string orderNoFake)
+        public bool CreateMessage503R(string logisticsNo)
         {
             bool success = true;
             LogisticsStatus logisticsStatus = null;
             MessageSql mssql = null;
             MessageService msService = null;
+            XElement xele = null;
+            XNamespace ns = null;
             try
             {
-                logisticsStatus = new LogisticsStatus();
                 mssql = new MessageSql();
-                if (string.IsNullOrEmpty(orderNoFake))
+                logisticsStatus = new LogisticsStatus();
+                mssql.QueryData503ByLogisticsNo(logisticsNo, ref logisticsStatus);
+                if (logisticsStatus.guid != new Guid())
                 {
-                    mssql.QueryData503ByLogisticsNo(logisticsNo, ref logisticsStatus);
+                    RestRequest restRequest = new RestRequest(string.Format("{0}:{1}/Logistics/Create503", ConfigurationInfo.RestHost, ConfigurationInfo.RestPort), Utilities.JsonSerialize(logisticsStatus));
+                    success = Convert.ToBoolean(restRequest.Execute());
                 }
                 else
                 {
-                    mssql.QueryDate503ByOrderNo(orderNoFake, ref logisticsStatus);
+                    success = false;
                 }
-                RestRequest restRequest = new RestRequest(string.Format("{0}:{1}/Logistics/Create503", ConfigurationInfo.RestHost, ConfigurationInfo.RestPort), Utilities.JsonSerialize(logisticsStatus));
-                success = Convert.ToBoolean(restRequest.Execute());
                 if (success)
                 {
-                    mssql.UpdateSchedule503(logisticsNo, orderNoFake);
+                    mssql.UpdateSchedule503(null, logisticsNo);
 
-                    //string destPath = FileUtilities.GetNewFolderName(true, ConfigurationInfo.PathBackUp, "503") + "\\" + FileUtilities.GetNewFileName(logisticsStatus.logisticsNo) + ".xml";
+                    ns = "http://www.chinaport.gov.cn/ceb";
+                    xele = new XElement(ns + "CEB503Message");
+                    xele.SetAttributeValue(XNamespace.Xmlns + "ceb", ns);
+                    xele = logisticsStatus.ToXElememt(xele, ns);
 
-                    //msService = new MessageService();
-                    //msService.DealMessage503(false, true, logisticsStatus.guid.ToString(), logisticsStatus.logisticsNo, "");
+                    string destPath = FileUtilities.GetNewFolderName(true, ConfigurationInfo.PathBackUp, "503") + "\\" + FileUtilities.GetNewFileName(logisticsNo, "Create", "R") + ".xml";
+
+                    xele.Save(destPath);
+
+                    msService = new MessageService();
+                    msService.DealMessage503(false, true, logisticsStatus.guid.ToString(), logisticsNo, destPath, "R");
                 }
                 else
                 {
-                    Logs.Info("Create503Message Response Error! Date:" + Utilities.JsonSerialize(logisticsStatus));
+                    success = false;
+                    Logs.Info("CreateMessage503R Response Error! Date:" + Utilities.JsonSerialize(logisticsStatus));
                 }
             }
             catch (Exception ex)
             {
                 success = false;
-                Logs.Error("CreateMessage503 Exception : " + ex.ToString());
+                Logs.Error("CreateMessage503R Exception: " + ex.ToString());
+            }
+            return success;
+        }
+        public bool CreateMessage503L(string orderNoFake)
+        {
+            bool success = true;
+            LogisticsStatus logisticsStatus = null;
+            MessageSql mssql = null;
+            MessageService msService = null;
+            XElement xele = null;
+            XNamespace ns = null;
+            try
+            {
+                mssql = new MessageSql();
+                logisticsStatus = new LogisticsStatus();
+                mssql.QueryDate503ByOrderNo(orderNoFake, ref logisticsStatus);
+                if (logisticsStatus.guid != new Guid())
+                {
+                    RestRequest restRequest = new RestRequest(string.Format("{0}:{1}/Logistics/Create503", ConfigurationInfo.RestHost, ConfigurationInfo.RestPort), Utilities.JsonSerialize(logisticsStatus));
+                    success = Convert.ToBoolean(restRequest.Execute());
+                }
+                else
+                {
+                    success = false;
+                }
+                if (success)
+                {
+                    mssql.UpdateSchedule503(orderNoFake, null);
+
+                    ns = "http://www.chinaport.gov.cn/ceb";
+                    xele = new XElement(ns + "CEB503Message");
+                    xele.SetAttributeValue(XNamespace.Xmlns + "ceb", ns);
+                    xele = logisticsStatus.ToXElememt(xele, ns);
+
+                    string destPath = FileUtilities.GetNewFolderName(true, ConfigurationInfo.PathBackUp, "503") + "\\" + FileUtilities.GetNewFileName(logisticsStatus.logisticsNo, "Create", "L") + ".xml";
+
+                    msService = new MessageService();
+                    msService.DealMessage503(false, true, logisticsStatus.guid.ToString(), logisticsStatus.logisticsNo, destPath, "L");
+                }
+                else
+                {
+                    success = false;
+                    Logs.Info("CreateMessage503L Response Error! Date:" + Utilities.JsonSerialize(logisticsStatus));
+                }
+            }
+            catch (Exception ex)
+            {
+                success = false;
+                Logs.Error("CreateMessage503L Exception: " + ex.ToString());
             }
             return success;
         }

@@ -52,14 +52,14 @@ namespace FS.Platform.Server
 
         public string ClearMessageCache601()
         {
-            MessageCache.ClearMessageCache();
-            int cache601 = MessageCache.GetCacheLength();
+            MessageCache601.ClearMessageCache();
+            int cache601 = MessageCache601.GetCacheLength();
             return JsonConvert.SerializeObject(new { cache601 = cache601 });
         }
 
         public string GetCacheCount()
         {
-            int cache601 = MessageCache.GetCacheLength();
+            int cache601 = MessageCache601.GetCacheLength();
             int cacheQueue = QueueCache.GetCacheLength();
             //int cacheFile = Fil
             return JsonConvert.SerializeObject(new { cache601 = cache601, cacheQueue = cacheQueue });

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace FS.Logistics.Server
 {
-    [ServiceContract(Namespace = "OrderCenter.Logistics")]
+    [ServiceContract(Namespace = "FS.Logistics.Server")]
     interface ILogisticsService
     {
         [OperationContract]

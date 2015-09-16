@@ -112,8 +112,8 @@ namespace FS.Tool
             {
                 if (CheckValue(501))
                 {
-                    url = string.Format("{0}/Messages/Create501", a_requestObj.RequestUrl);
-                    rest = new RestRequest(url, a_requestObj.OrderNoFake);
+                    url = string.Format("{0}/Messages/Create501/{1}", a_requestObj.RequestUrl, a_requestObj.OrderNoFake);
+                    rest = new RestRequest(url);
                     rest.Execute();
                     MessageBox.Show("Success!");
                 }
@@ -150,8 +150,8 @@ namespace FS.Tool
             {
                 if (CheckValue(5031))
                 {
-                    url = string.Format("{0}/Messages/Create503R", a_requestObj.RequestUrl);
-                    rest = new RestRequest(url, a_requestObj.LogisticsNo);
+                    url = string.Format("{0}/Messages/Create503R/{1}", a_requestObj.RequestUrl, a_requestObj.LogisticsNo);
+                    rest = new RestRequest(url);
                     rest.Execute();
                     MessageBox.Show("Success!");
                 }
@@ -169,8 +169,8 @@ namespace FS.Tool
             {
                 if (CheckValue(5032))
                 {
-                    url = string.Format("{0}/Messages/Create503L", a_requestObj.RequestUrl);
-                    rest = new RestRequest(url, a_requestObj.OrderNoFake);
+                    url = string.Format("{0}/Messages/Create503L/{1}", a_requestObj.RequestUrl, a_requestObj.OrderNoFake);
+                    rest = new RestRequest(url);
                     rest.Execute();
                     MessageBox.Show("Success!");
                 }

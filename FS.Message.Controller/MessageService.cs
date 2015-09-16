@@ -149,7 +149,7 @@ namespace FS.Message.Controller
             }
             return success;
         }
-        public bool DealMessage503(bool isReceived, bool isCreated, string guid, string logisticNo, string destPath)
+        public bool DealMessage503(bool isReceived, bool isCreated, string guid, string logisticNo, string destPath, string commnet1)
         {
             bool success = true;
             try

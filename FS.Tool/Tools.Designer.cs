@@ -46,10 +46,10 @@
             this.labRequestUrl = new System.Windows.Forms.Label();
             this.tabImportFile = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.gpFolderPath = new System.Windows.Forms.GroupBox();
-            this.labFolder = new System.Windows.Forms.Label();
-            this.tboxFolder = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.gpFolderPath = new System.Windows.Forms.GroupBox();
+            this.tboxFolder = new System.Windows.Forms.TextBox();
+            this.labFolder = new System.Windows.Forms.Label();
             this.tabMessageCreate.SuspendLayout();
             this.gpOperation.SuspendLayout();
             this.gpRequestUrl.SuspendLayout();
@@ -92,7 +92,6 @@
             // 
             // btnCreate503L
             // 
-            this.btnCreate503L.Enabled = false;
             this.btnCreate503L.Location = new System.Drawing.Point(359, 137);
             this.btnCreate503L.Name = "btnCreate503L";
             this.btnCreate503L.Size = new System.Drawing.Size(75, 20);
@@ -103,7 +102,6 @@
             // 
             // btnCreate503R
             // 
-            this.btnCreate503R.Enabled = false;
             this.btnCreate503R.Location = new System.Drawing.Point(250, 137);
             this.btnCreate503R.Name = "btnCreate503R";
             this.btnCreate503R.Size = new System.Drawing.Size(75, 20);
@@ -114,7 +112,6 @@
             // 
             // btnCreate501
             // 
-            this.btnCreate501.Enabled = false;
             this.btnCreate501.Location = new System.Drawing.Point(359, 67);
             this.btnCreate501.Name = "btnCreate501";
             this.btnCreate501.Size = new System.Drawing.Size(75, 20);
@@ -240,6 +237,16 @@
             this.tabPage1.Text = "Import File";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(129, 86);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // gpFolderPath
             // 
             this.gpFolderPath.Controls.Add(this.tboxFolder);
@@ -251,6 +258,13 @@
             this.gpFolderPath.TabStop = false;
             this.gpFolderPath.Text = "Folder Path";
             // 
+            // tboxFolder
+            // 
+            this.tboxFolder.Location = new System.Drawing.Point(100, 25);
+            this.tboxFolder.Name = "tboxFolder";
+            this.tboxFolder.Size = new System.Drawing.Size(215, 20);
+            this.tboxFolder.TabIndex = 2;
+            // 
             // labFolder
             // 
             this.labFolder.AutoSize = true;
@@ -259,23 +273,6 @@
             this.labFolder.Size = new System.Drawing.Size(64, 13);
             this.labFolder.TabIndex = 0;
             this.labFolder.Text = "Folder Path:";
-            // 
-            // tboxFolder
-            // 
-            this.tboxFolder.Location = new System.Drawing.Point(100, 25);
-            this.tboxFolder.Name = "tboxFolder";
-            this.tboxFolder.Size = new System.Drawing.Size(215, 20);
-            this.tboxFolder.TabIndex = 2;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(129, 86);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // Tools
             // 

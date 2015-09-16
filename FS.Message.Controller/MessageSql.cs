@@ -65,9 +65,10 @@ namespace FS.Message.Controller
         }
         public void QueryData501(string orderNoFake, ref LogisticsHead logisticsHead)
         {
+            SqlDataReader dr = null;
             try
             {
-                SqlDataReader dr = a_sqlServer.ExePROC("MessageCenterQuery", ConvertToSqlParameters(501, orderNoFake, ""));
+                dr = a_sqlServer.ExePROC("MessageCenterQuery", ConvertToSqlParameters(501, orderNoFake, ""));
                 if (dr.HasRows)
                 {
                     while (dr.Read())
@@ -79,6 +80,10 @@ namespace FS.Message.Controller
             catch (Exception ex)
             {
                 Logs.Error("Query501DataByOrderNo Exception : " + ex.ToString());
+            }
+            finally
+            {
+                dr.Close();
             }
         }
         public void QueryDate503ByOrderNo(string orderNo, ref LogisticsStatus logisticsStatus)

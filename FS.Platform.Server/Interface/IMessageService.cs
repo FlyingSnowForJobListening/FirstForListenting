@@ -15,6 +15,15 @@ namespace FS.Platform.Server
         [WebInvoke(BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "Create301/{orderNo}", Method = "POST", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
         bool CreateMessage301(string orderNo);
 
+        [WebInvoke(BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "Create501/{orderNoFake}", Method = "POST", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        bool CreateMessage501(string orderNoFake);
+
+        [WebInvoke(BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "Create503R/{logisticsNo}", Method = "POST", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        bool CreateMessage503R(string logisticsNo);
+
+        [WebInvoke(BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "Create503L/{orderNoFake}", Method = "POST", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        bool CreateMessage503L(string orderNoFake);
+
         [WebInvoke(BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "Create601/{logisticsNo}", Method = "POST", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
         bool CreateMessage601(string logisticsNo);
 

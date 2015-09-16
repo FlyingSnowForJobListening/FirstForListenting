@@ -113,7 +113,7 @@ namespace FS.Message.Receiption
                         destPath = FileUtilities.GetNewFolderName(true, ConfigurationInfo.PathBackUpError, "501") + "\\" + FileUtilities.GetNewFileName(orderNoFake) + ".xml";
                     }
 
-                    MessageCache.AddCache(CacheInfo.SetCacheInfo(logisticsNo, null));
+                    MessageCache601.AddCache(CacheInfo.SetCacheInfo(logisticsNo, null));
 
                     FileUtilities.FileMove(path, destPath);
                 }
@@ -152,11 +152,11 @@ namespace FS.Message.Receiption
                 FileUtilities.FileMove(path, destPath);
                 if (ConfigurationInfo.Need501 && status.Equals("120"))
                 {
-                    MessageControl mscontrol = new MessageControl();
-                    if (mscontrol.CreateMessage503(logisticsNo, null))
-                    {
-                        MessageCache.AddCache(CacheInfo.SetCacheInfo(logisticsNo, null));
-                    }
+                    //MessageControl mscontrol = new MessageControl();
+                    //if (mscontrol.CreateMessage503(logisticsNo, null))
+                    //{
+                    //    MessageCache.AddCache(CacheInfo.SetCacheInfo(logisticsNo, null));
+                    //}
                     //deal for webservice
                 }
             }
@@ -173,11 +173,12 @@ namespace FS.Message.Receiption
                 IEnumerable<XElement> eles = xElement.Elements().First().Elements();
                 string guid = eles.Where(e => e.Name.LocalName == "guid").First().Value;
                 string logisticsNo = eles.Where(e => e.Name.LocalName == "logisticsNo").First().Value;
+                string logisticsStatus = eles.Where(e => e.Name.LocalName == "logisticsStatus").First().Value;
 
                 string destPath = FileUtilities.GetNewFolderName(true, ConfigurationInfo.PathBackUp, "503") + "\\" + FileUtilities.GetNewFileName(logisticsNo) + ".xml";
 
                 msService = new MessageService();
-                msService.DealMessage503(true, false, guid, logisticsNo, destPath);
+                msService.DealMessage503(true, false, guid, logisticsNo, destPath, logisticsStatus);
 
                 FileUtilities.FileMove(path, destPath);
             }
@@ -202,7 +203,7 @@ namespace FS.Message.Receiption
                 {
                     if (status.Equals("120"))
                     {
-                        MessageCache.RemoveCache(logisticsNo);
+                        MessageCache601.RemoveCache(logisticsNo);
                         MessageControl.CreateMessage601(logisticsNo);
                     }
                 }
