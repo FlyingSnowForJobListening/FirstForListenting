@@ -44,7 +44,8 @@ function InitDataFirstLoad(dataStr) {
 }
 
 function RefreshMessage601(dataStr) {
-    self.cache601 = 1;
+    PageInfo = JSON.parse(dataStr);
+    self.cache601(PageInfo.cache601);
 }
 
 function SendMessage601Now() {

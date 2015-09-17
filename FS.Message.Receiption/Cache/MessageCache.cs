@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace FS.Message.Receiption.Cache
+namespace FS.Message.Receiption
 {
     public class MessageCache
     {

@@ -75,6 +75,7 @@ namespace FS.Message.Receiption
                 FileUtilities.FileMove(path, destPath);
                 if (ConfigurationInfo.Need501 && status.Equals("120"))
                 {
+                    //MessageCache.AddMessageCache(orderNoFake, CacheInfo.SetCacheInfo("501", orderNoFake));
                     MessageControl msControl = new MessageControl();
                     msControl.CreateMessage501(orderNoFake);
                 }
@@ -152,12 +153,7 @@ namespace FS.Message.Receiption
                 FileUtilities.FileMove(path, destPath);
                 if (ConfigurationInfo.Need501 && status.Equals("120"))
                 {
-                    //MessageControl mscontrol = new MessageControl();
-                    //if (mscontrol.CreateMessage503(logisticsNo, null))
-                    //{
-                    //    MessageCache.AddCache(CacheInfo.SetCacheInfo(logisticsNo, null));
-                    //}
-                    //deal for webservice
+                    MessageCache.AddMessageCache(logisticsNo, CacheInfo.SetCacheInfo("503R", logisticsNo));
                 }
             }
             catch (Exception ex)
