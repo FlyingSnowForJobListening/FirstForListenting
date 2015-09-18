@@ -23,7 +23,7 @@ namespace FS.Message.Controller
         #endregion
 
         #region Public Method
-        public void QueryData301(string orderNo, ref OrderHead orderHead, ref List<OrderList> orderLists, ref string logisticsNo)
+        public void QueryData301(string orderNo, ref OrderHead orderHead, ref List<OrderList> orderLists, ref string logisticsNo, ref string logisticsCode)
         {
             OrderList orderList = null;
             SqlDataReader dr = null;
@@ -288,10 +288,10 @@ namespace FS.Message.Controller
                 result.logisticsName = Convert.ToString(dr["logisticsName"]);
                 result.logisticsNo = Convert.ToString(dr["logisticsNo"]);
                 result.ieFlag = OrderType.E;
-                result.trafMode = Convert.ToString(dr["trafMode"]);
+                result.trafMode = "9";
                 result.trafName = Convert.ToString(dr["trafName"]);
                 result.voyageNo = Convert.ToString(dr["voyageNo"]);
-                result.billNo = DateTime.Now.ToString("yyyyMMdd") + "_" + result.orderNo;
+                result.billNo = DateTime.Now.ToString("yyyyMMdd") + "_" + result.logisticsNo;
                 result.freight = Convert.ToSingle(dr["loginticsFreight"]);
                 result.insuredFee = Convert.ToSingle(dr["insuredFee"]);
                 result.currency = "142";
@@ -334,7 +334,7 @@ namespace FS.Message.Controller
                 result.logisticsNo = Convert.ToString(dr["logisticsNo"]);
                 result.logisticsStatus = Convert.ToString(dr["logisticsRL"]); //L
                 result.ieFlag = OrderType.E;
-                result.trafMode = Convert.ToString(dr["trafMode"]);
+                result.trafMode = "9";
                 result.trafName = Convert.ToString(dr["trafName"]);
                 result.voyageNo = Convert.ToString(dr["voyageNo"]);
                 result.billNo = Convert.ToString(dr["billNo"]);

@@ -1,4 +1,5 @@
-﻿using FS.Configuration;
+﻿using FS.Cache;
+using FS.Configuration;
 using FS.Log;
 using FS.Message.Structure;
 using FS.Rest;
@@ -23,13 +24,14 @@ namespace FS.Message.Controller
             XNamespace ns = null;
             MessageSql mssql = null;
             string logisticsNo = null;
+            string logisticsCode = null;
             MessageService msService = null;
             try
             {
                 orderHead = new OrderHead();
                 orderLists = new List<OrderList>();
                 mssql = new MessageSql();
-                mssql.QueryData301(orderNo, ref orderHead, ref orderLists, ref logisticsNo);
+                mssql.QueryData301(orderNo, ref orderHead, ref orderLists, ref logisticsNo, ref logisticsCode);
                 if (orderHead.guid != new Guid())
                 {
                     ns = "http://www.chinaport.gov.cn/ceb";
@@ -52,10 +54,21 @@ namespace FS.Message.Controller
                     }
                     xele.Save(ConfigurationInfo.PathSend + "\\" + FileUtilities.GetNewFileName(orderNo) + ".xml");
                     xele.Save(destPath);
+                    if (ConfigurationInfo.Need501)
+                    {
+                        MessageCache.AddMessageCache("501_" + orderHead.orderNo, CacheInfo.SetCacheInfo("501", new { OrderNoFake = orderHead.orderNo, LogisticsCode = logisticsCode }));
+                        CacheInfo cache503R = CacheInfo.SetCacheInfo("503R", new { logisticsNo = logisticsNo, logisticsCode = logisticsCode });
+                        cache503R.createTime = DateTime.Now.AddMinutes(5);
+                        MessageCache.AddMessageCache("503R_" + logisticsNo, cache503R);
+                        CacheInfo cache601 = CacheInfo.SetCacheInfo("601", new { LogisticsNo = logisticsNo, LogisticsCode = logisticsCode });
+                        cache601.createTime = DateTime.Now.AddMinutes(10);
+                        MessageCache.AddMessageCache("601_" + logisticsNo, cache601);
+                    }
                 }
                 else
                 {
                     Logs.Info("Does not exist in database: " + orderNo);
+                    success = false;
                 }
             }
             catch (Exception ex)
@@ -65,7 +78,7 @@ namespace FS.Message.Controller
             }
             return success;
         }
-        public bool CreateMessage501(string orderNoFake)
+        public bool CreateMessage501(string orderNoFake, string logisticsCode)
         {
             bool success = true;
             LogisticsHead logisticsHead = null;
@@ -114,9 +127,17 @@ namespace FS.Message.Controller
                 success = false;
                 Logs.Error("Create501Message Exception: " + ex.ToString());
             }
+            finally
+            {
+                if (!success)
+                {
+                    MessageCache.DeleteMessageCache("503R" + logisticsHead.logisticsNo);
+                    MessageCache.DeleteMessageCache("601" + logisticsHead.logisticsNo);
+                }
+            }
             return success;
         }
-        public bool CreateMessage503R(string logisticsNo)
+        public bool CreateMessage503R(string logisticsNo, string logisticsCode)
         {
             bool success = true;
             LogisticsStatus logisticsStatus = null;
@@ -167,7 +188,7 @@ namespace FS.Message.Controller
             }
             return success;
         }
-        public bool CreateMessage503L(string orderNoFake)
+        public bool CreateMessage503L(string orderNoFake, string logisticsCode)
         {
             bool success = true;
             LogisticsStatus logisticsStatus = null;
@@ -216,8 +237,9 @@ namespace FS.Message.Controller
             }
             return success;
         }
-        public static void CreateMessage601(object param)
+        public bool CreateMessage601(string logisticsNo)
         {
+            bool success = true;
             InventoryHead inventoryHead = null;
             List<InventoryList> inventoryLists = null;
             BaseSubscribe baseSubscribe = null;
@@ -227,7 +249,6 @@ namespace FS.Message.Controller
             MessageService msService = null;
             try
             {
-                string logisticsNo = param.ToString();
                 inventoryHead = new InventoryHead();
                 inventoryLists = new List<InventoryList>();
                 baseSubscribe = new BaseSubscribe();
@@ -257,12 +278,15 @@ namespace FS.Message.Controller
                 else
                 {
                     Logs.Info("Does not exist in database:" + logisticsNo);
+                    success = false;
                 }
             }
             catch (Exception ex)
             {
                 Logs.Error("Create301Message Exception:" + ex.ToString());
+                success = false;
             }
+            return success;
         }
     }
 }

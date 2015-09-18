@@ -75,6 +75,7 @@ namespace FS.Message.Receiption
                 FileUtilities.FileMove(path, destPath);
                 if (ConfigurationInfo.Need501 && status.Equals("120"))
                 {
+                    MessageCache.DeleteMessageCache(orderNoFake);
                     //MessageCache.AddMessageCache(orderNoFake, CacheInfo.SetCacheInfo("501", orderNoFake));
                     MessageControl msControl = new MessageControl();
                     msControl.CreateMessage501(orderNoFake);
@@ -200,7 +201,8 @@ namespace FS.Message.Receiption
                     if (status.Equals("120"))
                     {
                         MessageCache601.RemoveCache(logisticsNo);
-                        MessageControl.CreateMessage601(logisticsNo);
+                        MessageControl control = new MessageControl();
+                        control.CreateMessage601(logisticsNo);
                     }
                 }
 

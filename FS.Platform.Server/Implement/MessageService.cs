@@ -40,7 +40,8 @@ namespace FS.Platform.Server
 
         public bool CreateMessage601(string logisticsNo)
         {
-            return true;
+            MessageControl msControl = new MessageControl();
+            return msControl.CreateMessage601(logisticsNo);
         }
         public List<MessageTrack> GetAllMessageTracks()
         {

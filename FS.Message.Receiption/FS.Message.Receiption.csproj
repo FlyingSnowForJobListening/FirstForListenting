@@ -40,10 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cache\MessageCache.cs" />
     <Compile Include="FileWatcher.cs" />
     <Compile Include="Cache\MessageCache601.cs" />
-    <Compile Include="MessageThread.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Cache\QueueCache.cs" />
     <Compile Include="ReceiptSql.cs" />

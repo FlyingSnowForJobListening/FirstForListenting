@@ -68,11 +68,19 @@ namespace FS.Configuration
                 }
             }
         }
-        public static string RestHost
+        public static string HostEMS
         {
             get
             {
-                return ConfigurationManager.AppSettings["RestHost"];
+                return ConfigurationManager.AppSettings["HostEMS"];
+            }
+        }
+
+        public static string HostCPAM
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["HostCPAM"];
             }
         }
         public static string RestPort

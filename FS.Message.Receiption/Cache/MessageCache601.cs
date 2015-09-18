@@ -51,7 +51,7 @@ namespace FS.Message.Receiption
                         CacheInfo info = de.Value as CacheInfo;
                         if ((DateTime.Now - info.createTime).TotalMinutes > 30)
                         {
-                            Thread send601 = new Thread(new ParameterizedThreadStart(MessageControl.CreateMessage601));
+                            Thread send601 = new Thread(new ParameterizedThreadStart(MessageThread.CreateMessage601));
                             send601.Start(de.Key.ToString());
                             keys.Add(de.Key.ToString());
                         }
@@ -112,7 +112,7 @@ namespace FS.Message.Receiption
                 foreach (DictionaryEntry de in a_hashCache)
                 {
                     CacheInfo info = de.Value as CacheInfo;
-                    Thread send601 = new Thread(new ParameterizedThreadStart(MessageControl.CreateMessage601));
+                    Thread send601 = new Thread(new ParameterizedThreadStart(MessageThread.CreateMessage601));
                     send601.Start(de.Key.ToString());
                     keys.Add(de.Key.ToString());
                 }

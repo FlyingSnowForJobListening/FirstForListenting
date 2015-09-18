@@ -1,5 +1,5 @@
 ﻿using FS.Cache;
-using FS.Message.Controller;
+using FS.Log;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace FS.Message.Receiption
+namespace FS.Message.Controller
 {
     public class MessageThread
     {
@@ -21,7 +21,7 @@ namespace FS.Message.Receiption
                     foreach (var p in MessageCache.a_dic)
                     {
                         CacheInfo info = p.Value;
-                        if ((DateTime.Now - info.createTime).TotalMinutes > 60)
+                        if ((DateTime.Now - info.createTime).TotalMinutes > 1)
                         {
                             switch (info.key)
                             {
@@ -55,33 +55,60 @@ namespace FS.Message.Receiption
                         MessageCache.a_dic.Remove(s);
                     }
                 }
-                Thread.Sleep(2000);
+                Thread.Sleep(5000);
             }
         }
 
         static void CreateMessage501(object para)
         {
-            string orderNoFake = para.ToString();
-            MessageControl control = new MessageControl();
-            control.CreateMessage501(orderNoFake);
+            try
+            {
+                string orderNoFake = ((dynamic)para).OrderNoFake;
+                string logisticsCode = ((dynamic)para).LogisticsCode;
+                MessageControl control = new MessageControl();
+                control.CreateMessage501(orderNoFake, logisticsCode);
+            }
+            catch (Exception ex)
+            {
+                Logs.Error("CreateMessage501 static Exception:" + ex.ToString());
+            }
         }
 
         static void CreateMessage503R(object para)
         {
-            string logisticsNo = para.ToString();
-            MessageControl control = new MessageControl();
-            control.CreateMessage503R(logisticsNo);
+            try
+            {
+                string logisticsNo = ((dynamic)para).LogisticsNo;
+                string logisticsCode = ((dynamic)para).LogisticsCode;
+                MessageControl control = new MessageControl();
+                control.CreateMessage503R(logisticsNo, logisticsCode);
+            }
+            catch (Exception ex)
+            {
+                Logs.Error("CreateMessage503R static Exception:" + ex.ToString());
+            }
         }
 
         static void CreateMessage503L(object para)
         {
-            string orderNoFake = para.ToString();
-            MessageControl control = new MessageControl();
-            control.CreateMessage503L(orderNoFake);
+            try
+            {
+                string orderNoFake = ((dynamic)para).OrderNoFake;
+                string logisticsCode = ((dynamic)para).LogisticsCode;
+                MessageControl control = new MessageControl();
+                control.CreateMessage503L(orderNoFake, logisticsCode);
+            }
+            catch (Exception ex)
+            {
+                Logs.Error("CreateMessage503L static Exception:" + ex.ToString());
+            }
         }
 
-        static void CreateMessage601(object para)
+        public static void CreateMessage601(object para)
         {
+            string logisticsNo = para.ToString();
+            MessageControl control = new MessageControl();
+            control.CreateMessage601(logisticsNo);
         }
     }
 }
