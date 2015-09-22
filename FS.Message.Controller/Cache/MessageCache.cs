@@ -60,6 +60,17 @@ namespace FS.Message.Controller
             }
         }
 
+        public static CacheInfo GetCacheByKey(string key)
+        {
+            lock (a_dic)
+            {
+                if (a_dic.ContainsKey(key))
+                    return a_dic[key];
+                else
+                    return null;
+            }
+        }
+
         public static int GetCacheCount()
         {
             return a_dic.Count;

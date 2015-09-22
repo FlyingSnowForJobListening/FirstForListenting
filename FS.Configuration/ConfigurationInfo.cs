@@ -54,6 +54,7 @@ namespace FS.Configuration
                 return ConfigurationManager.AppSettings["ErrorBackUpPath"];
             }
         }
+
         public static bool Need501
         {
             get
@@ -68,6 +69,22 @@ namespace FS.Configuration
                 }
             }
         }
+
+        public static bool EnableEMS
+        {
+            get
+            {
+                try
+                {
+                    return Convert.ToBoolean(ConfigurationManager.AppSettings["EnableEMS"]);
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
+        }
+
         public static string HostEMS
         {
             get
@@ -75,7 +92,20 @@ namespace FS.Configuration
                 return ConfigurationManager.AppSettings["HostEMS"];
             }
         }
-
+        public static bool EnableCPAM
+        {
+            get
+            {
+                try
+                {
+                    return Convert.ToBoolean(ConfigurationManager.AppSettings["EnableCPAM"]);
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
+        }
         public static string HostCPAM
         {
             get
@@ -83,6 +113,23 @@ namespace FS.Configuration
                 return ConfigurationManager.AppSettings["HostCPAM"];
             }
         }
+
+        public static string HostTest
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["HostTest"];
+            }
+        }
+
+        public static string RestHost
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["RestHost"];
+            }
+        }
+
         public static string RestPort
         {
             get

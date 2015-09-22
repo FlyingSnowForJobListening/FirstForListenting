@@ -21,7 +21,7 @@ namespace FS.Message.Controller
                     foreach (var p in MessageCache.a_dic)
                     {
                         CacheInfo info = p.Value;
-                        if ((DateTime.Now - info.createTime).TotalMinutes > 1)
+                        if ((DateTime.Now - info.createTime).TotalMinutes > 5)
                         {
                             switch (info.key)
                             {
@@ -41,7 +41,7 @@ namespace FS.Message.Controller
                                     keys.Add(p.Key);
                                     break;
                                 case "601":
-                                    WaitCallback wait601 = new WaitCallback(CreateMessage503L);
+                                    WaitCallback wait601 = new WaitCallback(CreateMessage601);
                                     ThreadPool.QueueUserWorkItem(wait601, info.value);
                                     keys.Add(p.Key);
                                     break;
@@ -66,7 +66,7 @@ namespace FS.Message.Controller
                 string orderNoFake = ((dynamic)para).OrderNoFake;
                 string logisticsCode = ((dynamic)para).LogisticsCode;
                 MessageControl control = new MessageControl();
-                control.CreateMessage501(orderNoFake, logisticsCode);
+                control.CreateMessage501(orderNoFake);
             }
             catch (Exception ex)
             {
@@ -81,7 +81,7 @@ namespace FS.Message.Controller
                 string logisticsNo = ((dynamic)para).LogisticsNo;
                 string logisticsCode = ((dynamic)para).LogisticsCode;
                 MessageControl control = new MessageControl();
-                control.CreateMessage503R(logisticsNo, logisticsCode);
+                control.CreateMessage503R(logisticsNo);
             }
             catch (Exception ex)
             {
@@ -96,7 +96,7 @@ namespace FS.Message.Controller
                 string orderNoFake = ((dynamic)para).OrderNoFake;
                 string logisticsCode = ((dynamic)para).LogisticsCode;
                 MessageControl control = new MessageControl();
-                control.CreateMessage503L(orderNoFake, logisticsCode);
+                control.CreateMessage503L(orderNoFake);
             }
             catch (Exception ex)
             {
@@ -106,7 +106,7 @@ namespace FS.Message.Controller
 
         public static void CreateMessage601(object para)
         {
-            string logisticsNo = para.ToString();
+            string logisticsNo = ((dynamic)para).LogisticsNo;
             MessageControl control = new MessageControl();
             control.CreateMessage601(logisticsNo);
         }

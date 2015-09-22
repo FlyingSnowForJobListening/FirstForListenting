@@ -47,17 +47,17 @@ namespace FS.Message.Controller
                     string destPath = FileUtilities.GetNewFolderName(true, ConfigurationInfo.PathBackUp, "301") + "\\" + FileUtilities.GetNewFileName(orderNo) + ".xml";
 
                     msService = new MessageService();
-                    success = msService.DealMessage301(orderNo, orderHead.orderNo, logisticsNo, false, true, orderHead.guid.ToString(), destPath);
+                    success = msService.DealMessage301(orderNo, orderHead.orderNo, logisticsNo, false, true, orderHead.guid.ToString(), destPath, logisticsCode);
                     if (!success)
                     {
                         destPath = FileUtilities.GetNewFolderName(true, ConfigurationInfo.PathBackUpError, "301") + "\\" + FileUtilities.GetNewFileName(orderNo) + ".xml";
                     }
                     xele.Save(ConfigurationInfo.PathSend + "\\" + FileUtilities.GetNewFileName(orderNo) + ".xml");
                     xele.Save(destPath);
-                    if (ConfigurationInfo.Need501)
+                    if (CheckNeedSendLogistics(logisticsCode))
                     {
                         MessageCache.AddMessageCache("501_" + orderHead.orderNo, CacheInfo.SetCacheInfo("501", new { OrderNoFake = orderHead.orderNo, LogisticsCode = logisticsCode }));
-                        CacheInfo cache503R = CacheInfo.SetCacheInfo("503R", new { logisticsNo = logisticsNo, logisticsCode = logisticsCode });
+                        CacheInfo cache503R = CacheInfo.SetCacheInfo("503R", new { LogisticsNo = logisticsNo, LogisticsCode = logisticsCode });
                         cache503R.createTime = DateTime.Now.AddMinutes(5);
                         MessageCache.AddMessageCache("503R_" + logisticsNo, cache503R);
                         CacheInfo cache601 = CacheInfo.SetCacheInfo("601", new { LogisticsNo = logisticsNo, LogisticsCode = logisticsCode });
@@ -78,7 +78,7 @@ namespace FS.Message.Controller
             }
             return success;
         }
-        public bool CreateMessage501(string orderNoFake, string logisticsCode)
+        public bool CreateMessage501(string orderNoFake)
         {
             bool success = true;
             LogisticsHead logisticsHead = null;
@@ -94,7 +94,8 @@ namespace FS.Message.Controller
 
                 if (logisticsHead.guid != new Guid())
                 {
-                    RestRequest restRequest = new RestRequest(string.Format("{0}:{1}/Logistics/Create501", ConfigurationInfo.RestHost, ConfigurationInfo.RestPort), Utilities.JsonSerialize(logisticsHead));
+                    string url = GetRequestHostByCode(logisticsHead.logisticsCode);
+                    RestRequest restRequest = new RestRequest(string.Format("{0}:{1}/Logistics/Create501", url, ConfigurationInfo.RestPort), Utilities.JsonSerialize(logisticsHead));
                     success = Convert.ToBoolean(restRequest.Execute());
                 }
                 else
@@ -103,7 +104,7 @@ namespace FS.Message.Controller
                 }
                 if (success)
                 {
-                    mssql.UpdateSchedule501(orderNoFake, logisticsHead.billNo);
+                    mssql.UpdateSchedule501(orderNoFake, logisticsHead.billNo, logisticsHead.weight.ToString(), logisticsHead.freight.ToString());
 
                     ns = "http://www.chinaport.gov.cn/ceb";
                     xele = new XElement(ns + "CEB501Message");
@@ -137,7 +138,7 @@ namespace FS.Message.Controller
             }
             return success;
         }
-        public bool CreateMessage503R(string logisticsNo, string logisticsCode)
+        public bool CreateMessage503R(string logisticsNo)
         {
             bool success = true;
             LogisticsStatus logisticsStatus = null;
@@ -152,7 +153,8 @@ namespace FS.Message.Controller
                 mssql.QueryData503ByLogisticsNo(logisticsNo, ref logisticsStatus);
                 if (logisticsStatus.guid != new Guid())
                 {
-                    RestRequest restRequest = new RestRequest(string.Format("{0}:{1}/Logistics/Create503", ConfigurationInfo.RestHost, ConfigurationInfo.RestPort), Utilities.JsonSerialize(logisticsStatus));
+                    string url = GetRequestHostByCode(logisticsStatus.logisticsCode);
+                    RestRequest restRequest = new RestRequest(string.Format("{0}:{1}/Logistics/Create503", url, ConfigurationInfo.RestPort), Utilities.JsonSerialize(logisticsStatus));
                     success = Convert.ToBoolean(restRequest.Execute());
                 }
                 else
@@ -188,7 +190,7 @@ namespace FS.Message.Controller
             }
             return success;
         }
-        public bool CreateMessage503L(string orderNoFake, string logisticsCode)
+        public bool CreateMessage503L(string orderNoFake)
         {
             bool success = true;
             LogisticsStatus logisticsStatus = null;
@@ -201,9 +203,10 @@ namespace FS.Message.Controller
                 mssql = new MessageSql();
                 logisticsStatus = new LogisticsStatus();
                 mssql.QueryDate503ByOrderNo(orderNoFake, ref logisticsStatus);
-                if (logisticsStatus.guid != new Guid())
+                if (logisticsStatus.guid != new Guid() && CheckNeedSendLogistics(logisticsStatus.logisticsCode))
                 {
-                    RestRequest restRequest = new RestRequest(string.Format("{0}:{1}/Logistics/Create503", ConfigurationInfo.RestHost, ConfigurationInfo.RestPort), Utilities.JsonSerialize(logisticsStatus));
+                    string url = GetRequestHostByCode(logisticsStatus.logisticsCode);
+                    RestRequest restRequest = new RestRequest(string.Format("{0}:{1}/Logistics/Create503", url, ConfigurationInfo.RestPort), Utilities.JsonSerialize(logisticsStatus));
                     success = Convert.ToBoolean(restRequest.Execute());
                 }
                 else
@@ -220,6 +223,8 @@ namespace FS.Message.Controller
                     xele = logisticsStatus.ToXElememt(xele, ns);
 
                     string destPath = FileUtilities.GetNewFolderName(true, ConfigurationInfo.PathBackUp, "503") + "\\" + FileUtilities.GetNewFileName(logisticsStatus.logisticsNo, "Create", "L") + ".xml";
+
+                    xele.Save(destPath);
 
                     msService = new MessageService();
                     msService.DealMessage503(false, true, logisticsStatus.guid.ToString(), logisticsStatus.logisticsNo, destPath, "L");
@@ -287,6 +292,41 @@ namespace FS.Message.Controller
                 success = false;
             }
             return success;
+        }
+
+        public static bool CheckNeedSendLogistics(string logisticsCode)
+        {
+            bool needed;
+            switch (logisticsCode)
+            {
+                case "2101980101":
+                    needed = ConfigurationInfo.EnableCPAM;
+                    break;
+                case "2101980084":
+                    needed = ConfigurationInfo.EnableEMS;
+                    break;
+                default:
+                    needed = false;
+                    break;
+            }
+            return needed;
+        }
+        private string GetRequestHostByCode(string logisticsCode)
+        {
+            string url = null;
+            switch (logisticsCode)
+            {
+                case "2101980101":
+                    url = ConfigurationInfo.HostCPAM;
+                    break;
+                case "2101980084":
+                    url = ConfigurationInfo.HostEMS;
+                    break;
+                default:
+                    url = ConfigurationInfo.HostTest;
+                    break;
+            }
+            return url;
         }
     }
 }

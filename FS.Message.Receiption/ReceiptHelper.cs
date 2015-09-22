@@ -75,10 +75,23 @@ namespace FS.Message.Receiption
                 FileUtilities.FileMove(path, destPath);
                 if (ConfigurationInfo.Need501 && status.Equals("120"))
                 {
-                    MessageCache.DeleteMessageCache(orderNoFake);
-                    //MessageCache.AddMessageCache(orderNoFake, CacheInfo.SetCacheInfo("501", orderNoFake));
-                    MessageControl msControl = new MessageControl();
-                    msControl.CreateMessage501(orderNoFake);
+
+                    CacheInfo info = MessageCache.GetCacheByKey("501" + orderNoFake);
+                    MessageCache.DeleteMessageCache("501" + orderNoFake);
+                    string logisticCode = null;
+                    if (info != null)
+                    {
+                        logisticCode = ((dynamic)info.value).LogisticCode;
+                    }
+                    else
+                    {
+                        logisticCode = msService.GetLogisticCodeByOrderNoFake(orderNoFake);
+                    }
+                    if (MessageControl.CheckNeedSendLogistics(logisticCode))
+                    {
+                        MessageControl msControl = new MessageControl();
+                        msControl.CreateMessage501(orderNoFake);
+                    }
                 }
             }
             catch (Exception ex)
@@ -100,8 +113,9 @@ namespace FS.Message.Receiption
                 string logisticsNo = eles.Where(e => e.Name.LocalName == "logisticsNo").First().Value;
                 string weigth = eles.Where(e => e.Name.LocalName == "weight").First().Value;
                 string freight = eles.Where(e => e.Name.LocalName == "freight").First().Value;
+                string logisticsCode = eles.Where(e => e.Name.LocalName == "logisticsCode").First().Value;
 
-                if (!ConfigurationInfo.Need501)
+                if (!MessageControl.CheckNeedSendLogistics(logisticsCode))
                 {
                     sqlserver = new ReceiptSql();
                     sqlserver.Operate501(orderNoFake, billNo, weigth, freight);
@@ -138,6 +152,7 @@ namespace FS.Message.Receiption
                 string status = eles.Where(e => e.Name.LocalName == "returnStatus").First().Value;
                 string returnTime = eles.Where(e => e.Name.LocalName == "returnTime").First().Value;
                 string returnInfo = eles.Where(e => e.Name.LocalName == "returnInfo").First().Value;
+                string logisticsCode = eles.Where(e => e.Name.LocalName == "logisticsCode").First().Value;
 
                 sqlserver = new ReceiptSql();
                 sqlserver.Operate502(logisticsNo, status, returnInfo);
@@ -152,9 +167,11 @@ namespace FS.Message.Receiption
                 }
 
                 FileUtilities.FileMove(path, destPath);
-                if (ConfigurationInfo.Need501 && status.Equals("120"))
+                if (MessageControl.CheckNeedSendLogistics(logisticsCode) && status.Equals("120"))
                 {
-                    MessageCache.AddMessageCache(logisticsNo, CacheInfo.SetCacheInfo("503R", logisticsNo));
+                    MessageCache.DeleteMessageCache("503R" + logisticsNo);
+                    MessageControl msControl = new MessageControl();
+                    msControl.CreateMessage503R(logisticsNo);
                 }
             }
             catch (Exception ex)
@@ -196,14 +213,11 @@ namespace FS.Message.Receiption
                 string returnTime = eles.Where(e => e.Name.LocalName == "returnTime").First().Value;
                 string returnInfo = eles.Where(e => e.Name.LocalName == "returnInfo").First().Value;
                 string logisticsStatus = eles.Where(e => e.Name.LocalName == "logisticsStatus").First().Value;
-                if (logisticsStatus.Equals("R", StringComparison.CurrentCultureIgnoreCase))
+                if (logisticsStatus.Equals("R", StringComparison.CurrentCultureIgnoreCase) && status.Equals("120"))
                 {
-                    if (status.Equals("120"))
-                    {
-                        MessageCache601.RemoveCache(logisticsNo);
-                        MessageControl control = new MessageControl();
-                        control.CreateMessage601(logisticsNo);
-                    }
+                    MessageCache601.RemoveCache(logisticsNo);
+                    MessageControl control = new MessageControl();
+                    control.CreateMessage601(logisticsNo);
                 }
 
                 string destPath = FileUtilities.GetNewFolderName(true, ConfigurationInfo.PathBackUp, "504") + "\\" + FileUtilities.GetNewFileName(logisticsNo, status, logisticsStatus) + ".xml";
@@ -260,8 +274,11 @@ namespace FS.Message.Receiption
                         break;
                     case "800":
                         preNo = eles.Where(e => e.Name.LocalName == "preNo").First().Value;
-                        //MessageControl msControl = new MessageControl();
-                        //msControl.CreateMessage503(null, copNo);
+                        if (ConfigurationInfo.Need501)
+                        {
+                            MessageControl msControl = new MessageControl();
+                            msControl.CreateMessage503L(copNo);
+                        }
                         break;
                     default:
                         preNo = eles.Where(e => e.Name.LocalName == "preNo").First().Value;

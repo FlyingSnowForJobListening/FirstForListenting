@@ -15,7 +15,7 @@ namespace FS.Message.Controller
 {
     public class MessageService
     {
-        public bool DealMessage301(string orderNo, string orderNoFake, string logisticsNo, bool isReceived, bool isCreated, string guid, string destPath)
+        public bool DealMessage301(string orderNo, string orderNoFake, string logisticsNo, bool isReceived, bool isCreated, string guid, string destPath, string logisticCode)
         {
             bool success = true;
             try
@@ -34,6 +34,7 @@ namespace FS.Message.Controller
                 msTrack.LogisticsNo = logisticsNo;
                 msTrack.Schedule = 301;
                 msTrack.LastUpdateTicks = DateTime.Now.Ticks;
+                msTrack.Commnet1 = logisticCode;
                 msTrack.Entry301s = new List<EntryCreate>();
                 msTrack.Entry302s = new List<EntryReceive>();
                 msTrack.Entry501s = new List<EntryCreate>();
@@ -273,6 +274,44 @@ namespace FS.Message.Controller
                 success = false;
             }
             return success;
+        }
+        public string GetLogisticCodeByOrderNoFake(string orderNoFake)
+        {
+            string result = null;
+            try
+            {
+                using (var db = new EntryContext())
+                {
+                    var query = from m in db.MessageTracks
+                                where m.OrderNoFake.Equals(orderNoFake)
+                                select m.Commnet1;
+                    result = query.FirstOrDefault().ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                Logs.Error(string.Format("GetLogisticCodeByOrderNoFake OrderNoFake: {0} , Exception: {1}", orderNoFake, ex.ToString()));
+            }
+            return result;
+        }
+        public string GetLogisticCodeByLogisticsNo(string logisticsNo)
+        {
+            string result = null;
+            try
+            {
+                using (var db = new EntryContext())
+                {
+                    var query = from m in db.MessageTracks
+                                where m.LogisticsNo.Equals(logisticsNo)
+                                select m.Commnet1;
+                    result = query.FirstOrDefault().ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                Logs.Error(string.Format("GetLogisticCodeByLogisticsNo OrderNoFake: {0} , Exception: {1}", logisticsNo, ex.ToString()));
+            }
+            return result;
         }
     }
 }

@@ -39,6 +39,7 @@ namespace FS.Message.Controller
                         {
                             orderHead = GetOrderHead(dr);
                             logisticsNo = Convert.ToString(dr["logisticsNo"]);
+                            logisticsCode = Convert.ToString(dr["logisticsCode"]);
                         }
                         orderList = GetOrderList(dr, i++);
                         OrderList exist = orderLists.Find(o => o.gno.Equals(orderList.gno));
@@ -173,11 +174,11 @@ namespace FS.Message.Controller
                 dr.Close();
             }
         }
-        public void UpdateSchedule501(string orderNo, string billNo)
+        public void UpdateSchedule501(string orderNo, string billNo, string weigth, string freight)
         {
             try
             {
-                a_sqlServer.ExePROCNonQuery("MessageReceipt", ConvertToSqlParameters("501", orderNo, "", "0", "", "", "", billNo));
+                a_sqlServer.ExePROCNonQuery("MessageReceipt", ConvertToSqlParameters("501", orderNo, "", "0", weigth, freight, "", billNo));
             }
             catch (Exception ex)
             {
