@@ -56,12 +56,12 @@ namespace FS.Message.Controller
                     xele.Save(destPath);
                     if (CheckNeedSendLogistics(logisticsCode))
                     {
-                        MessageCache.AddMessageCache("501_" + orderHead.orderNo, CacheInfo.SetCacheInfo("501", new { OrderNoFake = orderHead.orderNo, LogisticsCode = logisticsCode }));
-                        CacheInfo cache503R = CacheInfo.SetCacheInfo("503R", new { LogisticsNo = logisticsNo, LogisticsCode = logisticsCode });
-                        cache503R.createTime = DateTime.Now.AddMinutes(5);
+                        MessageCache.AddMessageCache("501_" + orderHead.orderNo, CacheInfo.SetCacheInfo("501", Utilities.SetArrayList(orderHead.orderNo, logisticsCode)));
+                        CacheInfo cache503R = CacheInfo.SetCacheInfo("503R", Utilities.SetArrayList(logisticsNo, logisticsCode));
+                        cache503R.createTime = DateTime.Now.AddMinutes(1);
                         MessageCache.AddMessageCache("503R_" + logisticsNo, cache503R);
-                        CacheInfo cache601 = CacheInfo.SetCacheInfo("601", new { LogisticsNo = logisticsNo, LogisticsCode = logisticsCode });
-                        cache601.createTime = DateTime.Now.AddMinutes(10);
+                        CacheInfo cache601 = CacheInfo.SetCacheInfo("601", Utilities.SetArrayList(logisticsNo, logisticsCode));
+                        cache601.createTime = DateTime.Now.AddMinutes(2);
                         MessageCache.AddMessageCache("601_" + logisticsNo, cache601);
                     }
                 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -34,6 +35,15 @@ namespace FS.Utility
             JavaScriptSerializer jsonSerializer = new JavaScriptSerializer();
             jsonSerializer.MaxJsonLength = Int32.MaxValue;
             return jsonSerializer.Serialize(obj);
+        }
+        public static ArrayList SetArrayList(params object[] args)
+        {
+            ArrayList parms = new ArrayList();
+            foreach (var arg in args)
+            {
+                parms.Add(arg);
+            }
+            return parms;
         }
     }
 }

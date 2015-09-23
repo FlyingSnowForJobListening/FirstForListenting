@@ -80,5 +80,10 @@ namespace FS.Message.Controller
         {
             return a_dic;
         }
+
+        public static void ClearMessageCache()
+        {
+            MessageThread.ClearCache();
+        }
     }
 }

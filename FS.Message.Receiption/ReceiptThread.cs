@@ -65,7 +65,7 @@ namespace FS.Message.Receiption
                         ReceiptHelper.DealWith502(xele, path);
                         break;
                     case "ceb504message":
-                        //ReceiptHelper.DealWith504(xele, path);
+                        ReceiptHelper.DealWith504(xele, path);
                         break;
                     case "ceb601message":
                         ReceiptHelper.DealWith601(xele, path);

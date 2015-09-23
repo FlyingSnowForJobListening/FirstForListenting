@@ -1,4 +1,5 @@
 ﻿using FS.Configuration;
+using FS.Message.Controller;
 using FS.Message.Receiption;
 using FS.Utility;
 using Newtonsoft.Json;
@@ -52,14 +53,14 @@ namespace FS.Platform.Server
 
         public string ClearMessageCache601()
         {
-            MessageCache601.ClearMessageCache();
+            MessageCache.ClearMessageCache();
             int cache601 = MessageCache601.GetCacheLength();
             return JsonConvert.SerializeObject(new { cache601 = cache601 });
         }
 
         public string GetCacheCount()
         {
-            int cache601 = MessageCache601.GetCacheLength();
+            int cache601 = MessageCache.GetCacheCount();
             int cacheQueue = QueueCache.GetCacheLength();
             //int cacheFile = Fil
             return JsonConvert.SerializeObject(new { cache601 = cache601, cacheQueue = cacheQueue });

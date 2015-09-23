@@ -40,7 +40,7 @@ namespace FS.Message.Receiption
         }
         private static void CheckCacheThread()
         {
-            int _sleepTime = 60000 * 20;
+            int _sleepTime = 600;// 00 * 20;
             while (true)
             {
                 lock (a_hashCache)
@@ -49,10 +49,10 @@ namespace FS.Message.Receiption
                     foreach (DictionaryEntry de in a_hashCache)
                     {
                         CacheInfo info = de.Value as CacheInfo;
-                        if ((DateTime.Now - info.createTime).TotalMinutes > 30)
+                        if ((DateTime.Now - info.createTime).TotalMinutes > 0)
                         {
-                            Thread send601 = new Thread(new ParameterizedThreadStart(MessageThread.CreateMessage601));
-                            send601.Start(de.Key.ToString());
+                            //Thread send601 = new Thread(new ParameterizedThreadStart(MessageThread.CreateMessage601));
+                            //send601.Start(new { LogisticsNo = de.Key });
                             keys.Add(de.Key.ToString());
                         }
                     }
@@ -111,10 +111,10 @@ namespace FS.Message.Receiption
                 List<string> keys = new List<string>();
                 foreach (DictionaryEntry de in a_hashCache)
                 {
-                    CacheInfo info = de.Value as CacheInfo;
-                    Thread send601 = new Thread(new ParameterizedThreadStart(MessageThread.CreateMessage601));
-                    send601.Start(de.Key.ToString());
-                    keys.Add(de.Key.ToString());
+                    //CacheInfo info = de.Value as CacheInfo;
+                    //Thread send601 = new Thread(new ParameterizedThreadStart(MessageThread.CreateMessage601));
+                    //send601.Start(de.Key.ToString());
+                    //keys.Add(de.Key.ToString());
                 }
                 foreach (string k in keys)
                 {

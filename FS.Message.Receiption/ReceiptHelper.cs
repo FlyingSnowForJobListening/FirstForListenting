@@ -129,7 +129,9 @@ namespace FS.Message.Receiption
                         destPath = FileUtilities.GetNewFolderName(true, ConfigurationInfo.PathBackUpError, "501") + "\\" + FileUtilities.GetNewFileName(orderNoFake) + ".xml";
                     }
 
-                    MessageCache601.AddCache(CacheInfo.SetCacheInfo(logisticsNo, null));
+                    CacheInfo cache601 = CacheInfo.SetCacheInfo("601", Utilities.SetArrayList(logisticsNo, logisticsCode));
+                    cache601.createTime = DateTime.Now.AddMinutes(1);
+                    MessageCache.AddMessageCache("601_" + logisticsNo, cache601);
 
                     FileUtilities.FileMove(path, destPath);
                 }
