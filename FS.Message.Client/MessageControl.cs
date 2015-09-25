@@ -89,12 +89,12 @@ namespace FS.Message.Client
             return result;
         }
 
-        public string SendMessage601Now()
+        public string SendMessageNow(string flag)
         {
             string result = null;
             try
             {
-                string resultStr = Execute(ExecuteAction.Clear601);
+                string resultStr = Execute(ExecuteAction.Clear, flag);
                 result = JsonConvert.DeserializeObject(resultStr).ToString();
             }
             catch (Exception ex)
@@ -111,9 +111,9 @@ namespace FS.Message.Client
             {
                 case ExecuteAction.Get:
                 case ExecuteAction.GetCache:
-                case ExecuteAction.Clear601:
                     restRequest = new RestRequest(this.a_restUrl + action.ToString(), param, "GET");
                     break;
+                case ExecuteAction.Clear:
                 case ExecuteAction.GetByGuid:
                 case ExecuteAction.GetByFilter:
                     restRequest = new RestRequest(this.a_restUrl + action.ToString(), param, "POST");

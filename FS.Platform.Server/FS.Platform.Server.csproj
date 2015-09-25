@@ -59,6 +59,10 @@
     <Compile Include="Implement\ToolService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\FS.Cache\FS.Cache.csproj">
+      <Project>{c60489cf-a0fe-4f8e-8d7a-4a28c094e476}</Project>
+      <Name>FS.Cache</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FS.Configuration\FS.Configuration.csproj">
       <Project>{8b2505f2-5025-4c71-81fa-c90fdbafc41c}</Project>
       <Name>FS.Configuration</Name>

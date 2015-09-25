@@ -5,8 +5,14 @@ $(function () {
 });
 
 function InitEvent() {
+    $("#ui_btnSend501").bind("click", function () {
+        SendMessageNow("501");
+    });
+    $("#ui_btnSend503R").bind("click", function () {
+        SendMessageNow("503R");
+    });
     $("#ui_btnSend601").bind("click", function () {
-        SendMessage601Now();
+        SendMessageNow("601");
     });
     $("#ui_btnAwake").bind("click", function () {
         AwakeFileThread();
@@ -16,6 +22,8 @@ function InitEvent() {
 }
 
 function CacheViewModel() {
+    self.cache501 = ko.observable(PageInfo.cache501);
+    self.cache503R = ko.observable(PageInfo.cache503R);
     self.cache601 = ko.observable(PageInfo.cache601);
     self.cacheQueue = ko.observable(PageInfo.cacheQueue);
 }
@@ -48,8 +56,8 @@ function RefreshMessage601(dataStr) {
     self.cache601(PageInfo.cache601);
 }
 
-function SendMessage601Now() {
-    CallLoadCacheInfoAjax("6179029E-D073-4354-8FBD-6725D089EC63");
+function SendMessageNow(flag) {
+    CallLoadCacheInfoAjax("6179029E-D073-4354-8FBD-6725D089EC63" + flag);
 }
 
 function AwakeFileThread() {

@@ -163,7 +163,7 @@ namespace FS.Message.Receiption
 
                 msService = new MessageService();
                 bool success = msService.DealMessage502(logisticsNo, guid, status, returnTime, returnInfo, destPath);
-                if (success)
+                if (!success)
                 {
                     destPath = FileUtilities.GetNewFolderName(true, ConfigurationInfo.PathBackUpError, "502") + "\\" + FileUtilities.GetNewFileName(logisticsNo, status) + ".xml";
                 }

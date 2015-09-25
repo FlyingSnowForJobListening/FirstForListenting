@@ -19,25 +19,21 @@ namespace FS.Platform.Server
             MessageControl msControl = new MessageControl();
             return msControl.CreateMessage301(orderNo);
         }
-
         public bool CreateMessage501(string orderNoFake)
         {
             MessageControl msControl = new MessageControl();
             return msControl.CreateMessage501(orderNoFake);
         }
-
         public bool CreateMessage503R(string logisticsNo)
         {
             MessageControl msControl = new MessageControl();
             return msControl.CreateMessage503R(logisticsNo);
         }
-
         public bool CreateMessage503L(string orderNoFake)
         {
             MessageControl msControl = new MessageControl();
             return msControl.CreateMessage503L(orderNoFake);
         }
-
         public bool CreateMessage601(string logisticsNo)
         {
             MessageControl msControl = new MessageControl();

@@ -1,4 +1,5 @@
-﻿using FS.Configuration;
+﻿using FS.Cache;
+using FS.Configuration;
 using FS.Message.Controller;
 using FS.Message.Receiption;
 using FS.Utility;
@@ -51,7 +52,7 @@ namespace FS.Platform.Server
             return 0;
         }
 
-        public string ClearMessageCache601()
+        public string ClearMessageCache(string flag)
         {
             MessageCache.ClearMessageCache();
             int cache601 = MessageCache601.GetCacheLength();
@@ -60,10 +61,13 @@ namespace FS.Platform.Server
 
         public string GetCacheCount()
         {
-            int cache601 = MessageCache.GetCacheCount();
+            Dictionary<string, CacheInfo> dic = MessageCache.GetAllMessageCaches();
+            int cache501 = dic.Select(e => e.Key.IndexOf("501") > -1).Count();
+            int cache503R = dic.Select(e => e.Key.IndexOf("503R") > -1).Count();
+            int cache601 = dic.Select(e => e.Key.IndexOf("601") > -1).Count();
             int cacheQueue = QueueCache.GetCacheLength();
             //int cacheFile = Fil
-            return JsonConvert.SerializeObject(new { cache601 = cache601, cacheQueue = cacheQueue });
+            return JsonConvert.SerializeObject(new { cache501 = cache501, cache503R = cache503R, cache601 = cache601, cacheQueue = cacheQueue });
         }
     }
 }

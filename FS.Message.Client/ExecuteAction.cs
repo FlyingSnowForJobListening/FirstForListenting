@@ -12,7 +12,7 @@ namespace FS.Message.Client
         GetByGuid,
         GetByFilter,
         GetCache,
-        Clear601,
+        Clear,
         ClearCacheFile,
         ClearFileResidue,
         AwakeThread

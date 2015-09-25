@@ -82,6 +82,20 @@
                                             <th>操作</th>
                                         </tr>
                                         <tr>
+                                            <td>501报文缓存</td>
+                                            <td><span data-bind="text: cache501"></span></td>
+                                            <td>
+                                                <div id="ui_btnSend501" class="btn btn-block btn-info" style="width: 100px">立刻发送</div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>503R报文缓存</td>
+                                            <td><span data-bind="text: cache503R"></span></td>
+                                            <td>
+                                                <div id="ui_btnSend503R" class="btn btn-block btn-info" style="width: 100px">立刻发送</div>
+                                            </td>
+                                        </tr>
+                                        <tr>
                                             <td>601报文缓存</td>
                                             <td><span data-bind="text: cache601"></span></td>
                                             <td>

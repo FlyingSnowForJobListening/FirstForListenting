@@ -61,7 +61,7 @@ namespace FS.Message.Receiption
             }
             catch (Exception ex)
             {
-                Logs.Error("Operate602 Exception:" + ex.ToString());
+                Logs.Error(string.Format("Operate602 OrderNoFake: {0}  Exception: {1}", copNo, ex.ToString()));
             }
         }
         #endregion

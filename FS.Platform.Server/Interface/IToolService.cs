@@ -20,8 +20,8 @@ namespace FS.Platform.Server
         bool AwakeThread();
 
         [OperationContract]
-        [WebGet(BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "Clear601", ResponseFormat = WebMessageFormat.Json)]
-        string ClearMessageCache601();
+        [WebInvoke(BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "Clear", Method = "POST", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        string ClearMessageCache(string flag);
 
         [OperationContract]
         [WebGet(BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "ClearCacheFile", ResponseFormat = WebMessageFormat.Json)]
