@@ -22,7 +22,7 @@ namespace FS.Message.Controller
                     foreach (var p in MessageCache.a_dic)
                     {
                         CacheInfo info = p.Value;
-                        if ((DateTime.Now - info.createTime).TotalMinutes > 1)
+                        if ((DateTime.Now - info.createTime).TotalMinutes > 30)
                         {
                             switch (info.key)
                             {

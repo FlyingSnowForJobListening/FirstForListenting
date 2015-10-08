@@ -17,7 +17,7 @@ namespace FS.Platform.Server
 
         [OperationContract]
         [WebInvoke(BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "AwakeThread", Method = "POST", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
-        bool AwakeThread();
+        string AwakeThread();
 
         [OperationContract]
         [WebInvoke(BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "Clear", Method = "POST", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]

@@ -56,6 +56,9 @@ namespace FS.Message.Web.Pages.Widgets
                 case "6179029E-D073-4354-8FBD-6725D089EC63":
                     a_result = "6179029E-D073-4354-8FBD-6725D089EC63" + a_control.SendMessageNow(para);
                     break;
+                case "D5C79A03-2936-47EF-8BD1-432EE77C303A":
+                    a_result = "D5C79A03-2936-47EF-8BD1-432EE77C303A" + a_control.AwakeFileThread();
+                    break;
                 default:
                     break;
             }

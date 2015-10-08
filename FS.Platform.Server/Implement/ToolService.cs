@@ -15,17 +15,14 @@ namespace FS.Platform.Server
 {
     public class ToolService : IToolService
     {
-        public bool AwakeThread()
+        public string AwakeThread()
         {
-            try
+            ReceiptThread.AwakenThread();
+            int cacheQueue = QueueCache.GetCacheLength();
+            return JsonConvert.SerializeObject(new
             {
-                ReceiptThread.AwakenThread();
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
+                cacheQueue = cacheQueue
+            });
         }
 
         public int ClearFileCache()
@@ -55,16 +52,15 @@ namespace FS.Platform.Server
         public string ClearMessageCache(string flag)
         {
             MessageCache.ClearMessageCache();
-            int cache601 = MessageCache601.GetCacheLength();
-            return JsonConvert.SerializeObject(new { cache601 = cache601 });
+            return GetCacheCount();
         }
 
         public string GetCacheCount()
         {
             Dictionary<string, CacheInfo> dic = MessageCache.GetAllMessageCaches();
-            int cache501 = dic.Select(e => e.Key.IndexOf("501") > -1).Count();
-            int cache503R = dic.Select(e => e.Key.IndexOf("503R") > -1).Count();
-            int cache601 = dic.Select(e => e.Key.IndexOf("601") > -1).Count();
+            int cache501 = dic.Where(e => e.Key.IndexOf("501") > -1).Count();
+            int cache503R = dic.Where(e => e.Key.IndexOf("503R") > -1).Count();
+            int cache601 = dic.Where(e => e.Key.IndexOf("601") > -1).Count();
             int cacheQueue = QueueCache.GetCacheLength();
             //int cacheFile = Fil
             return JsonConvert.SerializeObject(new { cache501 = cache501, cache503R = cache503R, cache601 = cache601, cacheQueue = cacheQueue });

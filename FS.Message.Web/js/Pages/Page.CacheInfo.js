@@ -5,12 +5,12 @@ $(function () {
 });
 
 function InitEvent() {
-    $("#ui_btnSend501").bind("click", function () {
-        SendMessageNow("501");
-    });
-    $("#ui_btnSend503R").bind("click", function () {
-        SendMessageNow("503R");
-    });
+    //$("#ui_btnSend501").bind("click", function () {
+    //    SendMessageNow("501");
+    //});
+    //$("#ui_btnSend503R").bind("click", function () {
+    //    SendMessageNow("503R");
+    //});
     $("#ui_btnSend601").bind("click", function () {
         SendMessageNow("601");
     });
@@ -36,7 +36,10 @@ function LoadCacheInfoAjaxSuccess(result) {
             InitDataFirstLoad(dataStr);
             break;
         case "6179029E-D073-4354-8FBD-6725D089EC63":
-            RefreshMessage601(dataStr);
+            RefreshMessageView(dataStr);
+            break;
+        case "D5C79A03-2936-47EF-8BD1-432EE77C303A":
+            RefreshFileView(dataStr);
             break;
         default:
             break;
@@ -51,9 +54,16 @@ function InitDataFirstLoad(dataStr) {
     ko.applyBindings(new CacheViewModel());
 }
 
-function RefreshMessage601(dataStr) {
+function RefreshMessageView(dataStr) {
     PageInfo = JSON.parse(dataStr);
+    self.cache501(PageInfo.cache501);
+    self.cache503R(PageInfo.cache503R);
     self.cache601(PageInfo.cache601);
+}
+
+function RefreshFileView(dataStr) {
+    PageInfo = JSON.parse(dataStr);
+    self.cacheQueue(PageInfo.cacheQueue);
 }
 
 function SendMessageNow(flag) {

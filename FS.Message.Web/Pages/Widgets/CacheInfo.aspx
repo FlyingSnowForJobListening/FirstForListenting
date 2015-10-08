@@ -65,14 +65,14 @@
                             <div class="box">
                                 <div class="box-header">
                                     <h3 class="box-title">缓存表</h3>
-                                    <%--<div class="box-tools">
-                                    <div class="input-group" style="width: 150px;">
-                                        <input type="text" name="table_search" class="form-control input-sm pull-right" placeholder="Search">
-                                        <div class="input-group-btn">
-                                            <button class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
+                                    <div class="box-tools">
+                                        <div class="input-group" style="width: 150px;">
+                                            <input type="text" name="table_search" class="form-control input-sm pull-right" placeholder="Search">
+                                            <div class="input-group-btn">
+                                                <button class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>--%>
                                 </div>
                                 <div class="box-body table-responsive no-padding">
                                     <table class="table table-hover">
@@ -85,14 +85,18 @@
                                             <td>501报文缓存</td>
                                             <td><span data-bind="text: cache501"></span></td>
                                             <td>
-                                                <div id="ui_btnSend501" class="btn btn-block btn-info" style="width: 100px">立刻发送</div>
+                                                <div id="ui_btnSend501" class="btn btn-block btn-block disabled" style="width: 100px">
+                                                    <p></p>
+                                                </div>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>503R报文缓存</td>
                                             <td><span data-bind="text: cache503R"></span></td>
                                             <td>
-                                                <div id="ui_btnSend503R" class="btn btn-block btn-info" style="width: 100px">立刻发送</div>
+                                                <div id="ui_btnSend503R" class="btn btn-block btn-block disabled" style="width: 100px">
+                                                    <p></p>
+                                                </div>
                                             </td>
                                         </tr>
                                         <tr>

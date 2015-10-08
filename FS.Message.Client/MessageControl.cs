@@ -104,6 +104,21 @@ namespace FS.Message.Client
             return result;
         }
 
+        public string AwakeFileThread()
+        {
+            string result = null;
+            try
+            {
+                string resultStr = Execute(ExecuteAction.AwakeThread);
+                result = JsonConvert.DeserializeObject(resultStr).ToString();
+            }
+            catch (Exception ex)
+            {
+                Logs.Error("AwakeFileThread Exception: " + ex.ToString());
+            }
+            return result;
+        }
+
         public string Execute(ExecuteAction action, string param = "")
         {
             RestRequest restRequest = null;
@@ -113,6 +128,7 @@ namespace FS.Message.Client
                 case ExecuteAction.GetCache:
                     restRequest = new RestRequest(this.a_restUrl + action.ToString(), param, "GET");
                     break;
+                case ExecuteAction.AwakeThread:
                 case ExecuteAction.Clear:
                 case ExecuteAction.GetByGuid:
                 case ExecuteAction.GetByFilter:
